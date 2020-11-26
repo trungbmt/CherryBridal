@@ -1,6 +1,39 @@
 @extends('admin.admin_layout')
 @section('admin_content')
-
+<script type="text/javascript">
+    $(document).ready(function() {
+    });
+    function btn_remove(category_id) {
+        Swal.fire({
+          title: 'Bạn có chắc chắn muốn xoá?',
+          text: "Sau khi xoá sẽ không thể khôi phục!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Đồng ý!',
+          cancelButtonText: 'Huỷ bỏ!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+                $.ajax({
+                    url:"{{ url('delete-category') }}",
+                    method:"GET",
+                    data:{category_id:category_id},
+                    success:function(data){ 
+                        if(data) {
+                            $('#category_'+category_id).remove();
+                            Swal.fire(
+                              'Đã xoá!',
+                              '',
+                              'success'
+                            )
+                        }
+                    }
+                });
+          }
+        })
+    };
+</script>
 <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -46,26 +79,27 @@
         </thead>
         <tbody>
             @foreach($all_category as $key => $category)
-          <tr>
+          <tr id="category_{{$category->category_id}}">
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td>{{ $category->category_name }}</td>
             <td><a class="text-ellipsis" href="storage/app/<?php echo $category->category_img; ?>">{{ $category->category_img }}</a></td>
             <td><span class="text-ellipsis">
                 <?php
                     if($category->category_status==1) {
-                        echo "Hiển thị";
+                        echo '<a href="'.URL::to('/unactive-category/'.$category->category_id).'" class="fa fa-eye fa-2x text-success"></a>';
+                       
                     } else {
-                        echo "Ẩn";
+                        echo '<a href="'.URL::to('/active-category/'.$category->category_id).'" class="fa fa-eye-slash fa-2x text-danger"></a>';
                     }
                 ?>
             </span></td>
             <td><span class="text-ellipsis">{{ $category->created_at }}</span></td>
             <td><span class="text-ellipsis">{{ $category->updated_at }}</span></td>
             <td>
-              <a href=""><i class="fa fa-edit text-success text-active"></i></a>
+              <a href="{{URL::to('/edit-category/'.$category->category_id)}}"><i class="fa fa-edit fa-2x text-success text-active"></i></a>
             </td>
             <td>
-              <a href=""><i class="fa fa-remove text-danger text"></i></a>
+              <a onclick="btn_remove(<?php echo $category->category_id;?>)" href="#"><i class="fa fa-2x fa-remove text-danger text"></i></a>
             </td>
           </tr>
             @endforeach
@@ -89,8 +123,14 @@
           </ul>
         </div>
       </div>
+        <?php 
+            $update_category_message = Session::get('update_category_message');
+            if($update_category_message) {
+                echo "<div class='alert alert-success mt-5'>".$update_category_message."</div>";
+                Session::put('update_category_message', null);
+            }
+        ?>
     </footer>
   </div>
 </div>
-
 @endsection
