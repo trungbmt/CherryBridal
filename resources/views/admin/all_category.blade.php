@@ -37,6 +37,7 @@
               </label>
             </th>
             <th>Tên danh mục</th>
+            <th>Ảnh</th>
             <th>Hiển thị</th>
             <th>Ngày tạo</th>
             <th>Lần thay đổi cuối</th>
@@ -48,6 +49,7 @@
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td>{{ $category->category_name }}</td>
+            <td><a class="text-ellipsis" href="storage/app/<?php echo $category->category_img; ?>">{{ $category->category_img }}</a></td>
             <td><span class="text-ellipsis">
                 <?php
                     if($category->category_status==1) {

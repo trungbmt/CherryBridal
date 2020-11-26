@@ -28,7 +28,7 @@ class CategoryProduct extends Controller
 		if($request->hasFile('category_img')) {
 			$path = $request->file('category_img')->store('category_image');
 		} else {
-			$path = 'category_img/default.jpg';
+			$path = 'category_img/default.png';
 		}
 
 		$data['category_img'] = $path;

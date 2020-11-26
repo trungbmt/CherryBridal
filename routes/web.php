@@ -33,3 +33,5 @@ Route::post('/login-check', 'AdminController@login_check');
 Route::get('add-category', 'CategoryProduct@add_category');
 Route::get('all-category', 'CategoryProduct@all_category');
 Route::post('save-category', 'CategoryProduct@save_category');
+
+//imageView
