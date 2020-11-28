@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Category;
+use App\Tag;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -11,8 +13,8 @@ use Storage;
 class ProductController extends Controller
 {
     public function add_product() {
-    	$all_category = DB::table('tbl_category')->select('category_id', 'category_name')->get();
-    	$all_tag = DB::table('tbl_tag')->get();
+        $all_category = Category::all();
+        $all_tag = Tag::all();
     	return view('admin.add_product')->with('all_category', $all_category)->with('all_tag', $all_tag);
     }
 
@@ -25,20 +27,19 @@ class ProductController extends Controller
 
     public function save_product(Request $request) {
 
-    	$data = array();
-
-    	$data['product_name'] = $request->category_name;
-    	$data['product_desc'] = $request->category_desc;
-    	$data['product_status'] = $request->category_status;
+        $product = new Product();
+        $product->product_name = $request->product_name;
+        $product->product_desc = $request->product_desc;
+        $product->product_status = $request->product_status;
 		if($request->hasFile('product_img')) {
 			$path = $request->file('product_img')->store('product_image');
 		} else {
 			$path = 'product_img/default.png';
 		}
 
-		$data['product_img'] = $path;
+		$product->product_img = $path;
 
-    	DB::table('tbl_product')->insert($data);
+    	$product->save();
     	Session::put('add_product_message', 'Thêm sản phẩm thành công!');
     	return Redirect::to('add-product');
     }
