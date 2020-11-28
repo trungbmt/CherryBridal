@@ -15,7 +15,11 @@ class CreateTblProduct extends Migration
     {
         Schema::create('tbl_product', function (Blueprint $table) {
             $table->Increments('product_id');
-            $table->integer('product_category');
+            $table->integer('product_category')->unsigned();
+            $table->foreign('product_category')
+                  ->references('category_id')
+                  ->on('tbl_category')
+                  ->onDelete('cascade');
             $table->string('product_name');
             $table->text('product_desc');
             $table->integer('product_tag');

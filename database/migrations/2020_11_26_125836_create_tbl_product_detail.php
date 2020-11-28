@@ -16,7 +16,11 @@ class CreateTblProductDetail extends Migration
         Schema::create('tbl_product_detail', function (Blueprint $table) {
             
             $table->Increments('detail_id');
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned();
+            $table->foreign('product_id')
+                  ->references('product_id')
+                  ->on('tbl_product')
+                  ->onDelete('cascade');
             $table->text('product_size');
             $table->integer('product_amount');
             $table->integer('product_price');
