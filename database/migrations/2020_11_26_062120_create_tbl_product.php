@@ -15,13 +15,12 @@ class CreateTblProduct extends Migration
     {
         Schema::create('tbl_product', function (Blueprint $table) {
             $table->Increments('product_id');
+            $table->integer('product_category');
             $table->string('product_name');
             $table->text('product_desc');
-            $table->text('product_tag');
-            $table->text('product_size');
+            $table->integer('product_tag');
             $table->text('product_img');
-            $table->integer('product_amount');
-            $table->integer('product_price');
+            $table->integer('product_status');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

@@ -272,7 +272,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="#">
                         <i class="fa fa-book"></i>
                         <span>DANH MỤC SẢN PHẨM</span>
                     </a>
@@ -281,20 +281,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a href="{{URL::to('all-category')}}">Liệt kê danh mục</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-bullhorn"></i>
-                        <span>Font awesome </span>
-                    </a>
-                </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-th"></i>
-                        <span>Data Tables</span>
+                    <a href="#">
+                        <i class="fa fa-shopping-bag"></i>
+                        <span>SẢN PHẨM</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="basic_table.html">Basic Table</a></li>
-                        <li><a href="responsive_table.html">Responsive Table</a></li>
+                        <li><a href="{{URL::to('add-product')}}">Thêm sản phẩm</a></li>
+                        <li><a href="{{URL::to('all-product')}}">Liệt kê sản phẩm</a></li>
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="#">
+                        <i class="fa fa-th"></i>
+                        <span>TAG</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('add-tag')}}">Thêm tag</a></li>
+                        <li><a href="{{URL::to('all-tag')}}">Liệt kê các tag</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">

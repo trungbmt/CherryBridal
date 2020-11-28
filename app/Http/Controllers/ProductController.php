@@ -8,37 +8,39 @@ use DB;
 use Session;
 use Storage;
 
-class CategoryProduct extends Controller
+class ProductController extends Controller
 {
-    public function add_category() {
-    	return view('admin.add_category');
+    public function add_product() {
+    	$all_category = DB::table('tbl_category')->select('category_id', 'category_name')->get();
+    	$all_tag = DB::table('tbl_tag')->get();
+    	return view('admin.add_product')->with('all_category', $all_category)->with('all_tag', $all_tag);
     }
 
 
-    public function all_category() {
+    public function all_product() {
     	$all_category = DB::table('tbl_category')->get();
     	return view('admin.all_category')->with('all_category', $all_category);
     }
 
 
-    public function save_category(Request $request) {
+    public function save_product(Request $request) {
 
     	$data = array();
 
-    	$data['category_name'] = $request->category_name;
-    	$data['category_desc'] = $request->category_desc;
-    	$data['category_status'] = $request->category_status;
-		if($request->hasFile('category_img')) {
-			$path = $request->file('category_img')->store('category_image');
+    	$data['product_name'] = $request->category_name;
+    	$data['product_desc'] = $request->category_desc;
+    	$data['product_status'] = $request->category_status;
+		if($request->hasFile('product_img')) {
+			$path = $request->file('product_img')->store('product_image');
 		} else {
-			$path = 'category_img/default.png';
+			$path = 'product_img/default.png';
 		}
 
-		$data['category_img'] = $path;
+		$data['product_img'] = $path;
 
-    	DB::table('tbl_category')->insert($data);
-    	Session::put('add_category_message', 'Thêm danh mục thành công!');
-    	return Redirect::to('add-category');
+    	DB::table('tbl_product')->insert($data);
+    	Session::put('add_product_message', 'Thêm sản phẩm thành công!');
+    	return Redirect::to('add-product');
     }
 
     public function update_category(Request $request, $category_id) {
