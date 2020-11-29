@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Tag;
 use App\Product;
+use App\Product_Detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use DB;
@@ -29,8 +30,12 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->product_name = $request->product_name;
+        $product->product_category = $request->product_category;
         $product->product_desc = $request->product_desc;
         $product->product_status = $request->product_status;
+        $product->product_tag = $request->product_tag;
+
+        if(!$product->product_tag) $product->product_tag="0";
 		if($request->hasFile('product_img')) {
 			$path = $request->file('product_img')->store('product_image');
 		} else {
@@ -38,10 +43,20 @@ class ProductController extends Controller
 		}
 
 		$product->product_img = $path;
-
     	$product->save();
-    	Session::put('add_product_message', 'Thêm sản phẩm thành công!');
-    	return Redirect::to('add-product');
+
+        $numbers= $request->size;
+        foreach ($numbers as $number => $size) {
+            $product_detail = new Product_Detail();
+            $product_detail->product_id = $product->product_id;
+            $product_detail->product_price = $request->price[$number]; 
+            $product_detail->product_amount = $request->amount[$number]; 
+            $product_detail->product_size = $size; 
+            $product_detail->save();
+        }
+
+
+    	return Redirect::to('add-product')->with('add_product_message', 'Thêm sản phẩm thành công!');
     }
 
     public function update_category(Request $request, $category_id) {

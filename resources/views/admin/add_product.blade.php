@@ -46,20 +46,18 @@
                         </div>
                         <div id="size-price-number">
                             <div id="size-price-number-append">
-                                <div class="row border-success" style="border: 1px solid; margin-bottom: 5px; padding: 5px; ">
+                                <div class="row border-success rounded mb-3" style="border: 1px solid; margin:0px;">
                                     <div class="form-group col-sm-4">
                                         <label for="size[]">Size</label>
-                                        <div class="" id="size-div">
-                                            <input class="form-control" type="text" placeholder="Size">
-                                        </div>
+                                        <input name="size[]" class="form-control" type="text" placeholder="Size">
                                     </div>
                                     <div class="form-group col-sm-4" id="price-div">
                                         <label for="price[]">Giá</label>
-                                        <input type="number`" class="form-control">
+                                        <input name="price[]" type="number" class="form-control">
                                     </div>
                                     <div class="form-group col-sm-4" id="price-div">
                                         <label for="amount[]">Số lượng</label>
-                                        <input type="number`" class="form-control">
+                                        <input name="amount[]" type="number" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -94,9 +92,6 @@
         $(document).ready(function(){
             $("#btnAddSize").click(function(){
                 $("#size-price-number").append($("#size-price-number-append").html());
-                // $("#size-div").append(' <br> <input class="form-control" name="size[]" type="text">');
-                // $("#price-div").append(' <br> <input class="form-control" name="price[]" type="text">');
-                // $("#amount-div").append(' <br> <input class="form-control" name="price[]" type="text">');
             });
         });
     </script>

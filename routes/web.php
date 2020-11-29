@@ -46,6 +46,7 @@ Route::get('/active-category/{category_id}', 'CategoryProduct@active_category');
 //product
 
 Route::get('/add-product', 'ProductController@add_product');
+Route::post('/save-product', 'ProductController@save_product');
 
 //tag
 Route::get('/add-tag', 'TagController@add_tag');
