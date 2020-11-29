@@ -44,13 +44,34 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div id="size-price-number">
+                            <div id="size-price-number-append" class="row border-success" style="border: 1px solid; margin-bottom: 5px; padding: 5px; ">
+                                <div class="form-group col-sm-4">
+                                    <label for="size[]">Size</label>
+                                    <div class="" id="size-div">
+                                        <input class="form-control" type="text" placeholder="Size">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4" id="price-div">
+                                    <label for="price[]">Giá</label>
+                                    <input type="number`" class="form-control">
+                                </div>
+                                <div class="form-group col-sm-4" id="price-div">
+                                    <label for="amount[]">Số lượng</label>
+                                    <input type="number`" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-outline-secondary" id="btnAddSize" type="button">Thêm size</button>
+                        <br><br>
                         <div class="form-group">
                             <label for="product_img">Ảnh sản phẩm</label>
                             <input type="file" name="product_img" id="product_img">
                             <p class="help-block">Chọn ảnh có kích thước phù hợp.</p>
+                            <img src="#" alt="" id="preview_img" style="width: 100%">
                         </div>
                         <button type="submit" name="add_porduct" class="btn btn-info">THÊM SẢN PHẨM</button>
-
                         <?php 
                             $add_product_message = Session::get('add_product_message');
                             if($add_product_message) {
@@ -66,4 +87,40 @@
 
     </div>
 </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#btnAddSize").click(function(){
+                $("#size-price-number").append($("#size-price-number").html());
+                // $("#size-div").append(' <br> <input class="form-control" name="size[]" type="text">');
+                // $("#price-div").append(' <br> <input class="form-control" name="price[]" type="text">');
+                // $("#amount-div").append(' <br> <input class="form-control" name="price[]" type="text">');
+            });
+        });
+    </script>
+
+    <script src="{{('public/backend/js/ckeditor/ckeditor.js')}}"></script>
+    <script type="text/javascript">
+          CKEDITOR.replace('product_desc');
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#preview_img').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#product_img").change(function() {
+          readURL(this);
+        });
+    </script>       
 @endsection
