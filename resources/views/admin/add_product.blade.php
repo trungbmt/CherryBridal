@@ -45,20 +45,22 @@
                             </select>
                         </div>
                         <div id="size-price-number">
-                            <div id="size-price-number-append" class="row border-success" style="border: 1px solid; margin-bottom: 5px; padding: 5px; ">
-                                <div class="form-group col-sm-4">
-                                    <label for="size[]">Size</label>
-                                    <div class="" id="size-div">
-                                        <input class="form-control" type="text" placeholder="Size">
+                            <div id="size-price-number-append">
+                                <div class="row border-success" style="border: 1px solid; margin-bottom: 5px; padding: 5px; ">
+                                    <div class="form-group col-sm-4">
+                                        <label for="size[]">Size</label>
+                                        <div class="" id="size-div">
+                                            <input class="form-control" type="text" placeholder="Size">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group col-sm-4" id="price-div">
-                                    <label for="price[]">Giá</label>
-                                    <input type="number`" class="form-control">
-                                </div>
-                                <div class="form-group col-sm-4" id="price-div">
-                                    <label for="amount[]">Số lượng</label>
-                                    <input type="number`" class="form-control">
+                                    <div class="form-group col-sm-4" id="price-div">
+                                        <label for="price[]">Giá</label>
+                                        <input type="number`" class="form-control">
+                                    </div>
+                                    <div class="form-group col-sm-4" id="price-div">
+                                        <label for="amount[]">Số lượng</label>
+                                        <input type="number`" class="form-control">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +120,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
         $("#product_img").change(function() {
           readURL(this);
         });
