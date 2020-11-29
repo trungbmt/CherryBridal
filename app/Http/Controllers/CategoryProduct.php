@@ -18,7 +18,7 @@ class CategoryProduct extends Controller
 
     public function all_category() {
 
-        $all_category = Category::all();
+        $all_category = Category::paginate(15);
     	return view('admin.all_category')->with('all_category', $all_category);
     }
 

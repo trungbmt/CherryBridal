@@ -25,7 +25,7 @@ class TagController extends Controller
     }
 
     public function all_tag() {
-    	$all_tag = Tag::all();
+    	$all_tag = Tag::paginate(15);
     	return view('admin.all_tag')->with('all_tag', $all_tag);
     }
 
