@@ -20,8 +20,7 @@ class TagController extends Controller
         $tag->tag_status = $request->tag_status;
 
         $tag->save();
-    	Session::put('add_tag_message', 'Thêm tag thành công!');
-    	return Redirect::to('add-tag');
+    	return Redirect::to('add-tag')->with('add_tag_message', 'Thêm tag thành công!');
     }
 
     public function all_tag() {
@@ -38,8 +37,7 @@ class TagController extends Controller
         $tag = Tag::find($tag_id);
         $tag->tag_text = $request->tag_text;
         $tag->save();
-		Session::put('update_tag_message', 'Cập nhật tag thành công!');
-    	return Redirect::to('all-tag');
+    	return Redirect::to('all-tag')->with('update_tag_message', 'Cập nhật tag thành công!');
     }
 
     public function delete_tag(Request $request) {

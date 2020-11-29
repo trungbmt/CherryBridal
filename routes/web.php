@@ -18,16 +18,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/trang-chu', function () {
-    return view('trangchu');
-});
+Route::get('/login', ['as'=>'login', 'uses'=>'AuthController@login']);
+Route::post('/login-check', 'AuthController@login_check');
+Route::get('/logout', 'AuthController@logout');
 
 
 //BackEnd
 Route::get('/admin', 'AdminController@index');
 Route::get('/dashboard', 'AdminController@show_dashBoard');
-Route::get('/logout', 'AdminController@logout');
-Route::post('/login-check', 'AdminController@login_check');
 
 
 //category product

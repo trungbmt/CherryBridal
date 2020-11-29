@@ -33,12 +33,10 @@
                             <p class="help-block">Chọn ảnh có kích thước phù hợp.</p>
                         </div>
                         <button type="submit" name="add_category" class="btn btn-info">THÊM DANH MỤC</button>
-
                         <?php 
                             $add_category_message = Session::get('add_category_message');
                             if($add_category_message) {
                                 echo "<div class='alert alert-success mt-5'>".$add_category_message."</div>";
-                                Session::put('add_category_message', null);
                             }
                         ?>
                     </form>

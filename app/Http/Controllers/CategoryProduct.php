@@ -41,8 +41,7 @@ class CategoryProduct extends Controller
 		$category->category_img = $path;
         $category->save();
 
-    	Session::put('add_category_message', 'Thêm danh mục thành công!');
-    	return Redirect::to('add-category');
+    	return Redirect::to('add-category')->with('add_category_message','Thêm danh mục thành công!');
     }
 
     public function update_category(Request $request, $category_id) {
@@ -55,8 +54,7 @@ class CategoryProduct extends Controller
 			$category->category_img = $request->file('category_img')->store('category_image');
 		}
 		$category->save();
-		Session::put('update_category_message', 'Cập nhật danh mục thành công!');
-    	return Redirect::to('all-category');
+    	return Redirect::to('all-category')->with('update_category_message', 'Cập nhật danh mục thành công!');
     }
 
     public function edit_category($category_id) {

@@ -114,7 +114,6 @@
             $update_category_message = Session::get('update_category_message');
             if($update_category_message) {
                 echo "<div class='alert alert-success mt-5'>".$update_category_message."</div>";
-                Session::put('update_category_message', null);
             }
         ?>
     </footer>

@@ -29,7 +29,6 @@
                             $add_tag_message = Session::get('add_tag_message');
                             if($add_tag_message) {
                                 echo "<div class='alert alert-success mt-5'>".$add_tag_message."</div>";
-                                Session::put('add_tag_message', null);
                             }
                         ?>
                     </form>
