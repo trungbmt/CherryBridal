@@ -93,7 +93,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#btnAddSize").click(function(){
-                $("#size-price-number").append($("#size-price-number").html());
+                $("#size-price-number").append($("#size-price-number-append").html());
                 // $("#size-div").append(' <br> <input class="form-control" name="size[]" type="text">');
                 // $("#price-div").append(' <br> <input class="form-control" name="price[]" type="text">');
                 // $("#amount-div").append(' <br> <input class="form-control" name="price[]" type="text">');
