@@ -15,4 +15,8 @@ class Product_Detail extends Model
     ];
     protected $primaryKey = 'detail_id';
     protected $table = 'tbl_product_detail';
+
+    public function product(){
+	    return $this->belongsTo('App\Product', 'product_id');
+	}
 }

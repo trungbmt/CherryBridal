@@ -10,28 +10,25 @@
                 </header>
                 <div class="panel-body">
                     <div class="position-center">
-                        <form role="form" action="{{URL::to('/save-product')}}" method="post" enctype="multipart/form-data">
+                        <form role="form" action="{{URL::to('/update-product/'.$product->product_id)}}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
                         <div class="form-group">
                             <label for="product_name">Tên sản phẩm</label>
-                            <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Tên sản phẩm">
+                            <input type="text" name="product_name" class="form-control" id="product_name" placeholder="Tên sản phẩm" value="{{$product->product_name}}">
                         </div>
                         <div class="form-group">
                             <label for="product_desc">Mô tả</label>
-                            <textarea style="resize: none" name="product_desc" class="form-control" id="product_desc" placeholder="Mô tả"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="product_status">Trạng thái</label>
-                            <select name="product_status" id="product_status" class="form-control">
-                                <option value="1">Hiện</option>
-                                <option value="0">Ẩn</option>
-                            </select>
+                            <textarea style="resize: none" name="product_desc" class="form-control" id="product_desc" placeholder="Mô tả">{{$product->product_desc}}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="product_category">Danh mục</label>
                             <select name="product_category" id="product_category" class="form-control">
                                 @foreach($all_category as $category)
-                                <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+                                    <option 
+                                        @if($category->category_id==$product->product_category)
+                                            selected
+                                        @endif
+                                    value="{{$category->category_id}}">{{$category->category_name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -40,27 +37,36 @@
                             <select name="product_tag" id="product_tag" class="form-control">
                                 <option value="0">Không</option>
                                 @foreach($all_tag as $tag)
-                                <option value="{{$tag->tag_id}}">{{$tag->tag_text}}</option>
+                                    <option 
+                                        @if($tag->tag_id==$product->product_tag)
+                                            selected
+                                        @endif 
+                                    value="{{$tag->tag_id}}">{{$tag->tag_text}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div id="size-price-number">
-                            <div id="size-price-number-append">
-                                <div class="row border-success rounded mt-4" style="border: 1px solid; margin:0px;">
-                                    <div class="form-group col-sm-4">
-                                        <label for="size[]">Size</label>
-                                        <input name="size[]" class="form-control" type="text" placeholder="Size">
-                                    </div>
-                                    <div class="form-group col-sm-4" id="price-div">
-                                        <label for="price[]">Giá</label>
-                                        <input name="price[]" type="number" class="form-control">
-                                    </div>
-                                    <div class="form-group col-sm-4" id="price-div">
-                                        <label for="amount[]">Số lượng</label>
-                                        <input name="amount[]" type="number" class="form-control">
+                            @foreach($details as $key => $detail)
+                                <div id="size-price-number-append">
+                                    @if($key>0)
+                                    <a onclick="removeSize(this)" id="btnRemoveSize" class="position-absolute bg-white text-danger"style="margin-top: -1rem; margin-left: -1rem"><i class="fa fa-minus-square fa-2x"></i></a>
+                                    @endif
+                                    <div class="row border-success rounded mt-4" style="border: 1px solid; margin:0px;">
+                                        <div class="form-group col-sm-4">
+                                            <label for="size[]">Size</label>
+                                            <input name="size[]" class="form-control" type="text" placeholder="Size" value="{{$detail->product_size}}">
+                                        </div>
+                                        <div class="form-group col-sm-4" id="price-div">
+                                            <label for="price[]">Giá</label>
+                                            <input name="price[]" type="number" class="form-control" value="{{$detail->product_price}}">
+                                        </div>
+                                        <div class="form-group col-sm-4" id="price-div">
+                                            <label for="amount[]">Số lượng</label>
+                                            <input name="amount[]" type="number" class="form-control" value="{{$detail->product_amount}}">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                         
                         <div class="d-flex justify-content-center">
@@ -93,6 +99,7 @@
         function removeSize(tag) {
             tag.parentElement.remove();
         }
+
         function readURL(input) {
 
             if (input.files && input.files[0]) {
@@ -106,10 +113,10 @@
             }
         }
         $(document).ready(function(){
+            CKEDITOR.replace('product_desc');
             $("#product_img").change(function() {
               readURL(this);
             });
-            CKEDITOR.replace('product_desc');
             $("#btnAddSize").click(function(){
                 $append = '<div id="size-price-number-append">'+
                                 '<a onclick="removeSize(this)" id="btnRemoveSize" class="position-absolute bg-white text-danger"'+ 
@@ -133,5 +140,5 @@
 
             });
         });
-    </script>    
+    </script>       
 @endsection

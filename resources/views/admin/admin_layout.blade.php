@@ -132,7 +132,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 <li>
                     <a href="#">
-                        <span class="photo"><img alt="avatar" src="{{('public/backend/images/3.png')}}"></span>
+                        <span class="photo"><img alt="avatar" src="{{asset('public/backend/images/3.png')}}"></span>
                                 <span class="subject">
                                 <span class="from">Jonathan Smith</span>
                                 <span class="time">Just now</span>
@@ -144,7 +144,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 <li>
                     <a href="#">
-                        <span class="photo"><img alt="avatar" src="{{('public/backend/images/1.png')}}"></span>
+                        <span class="photo"><img alt="avatar" src="{{asset('public/backend/images/1.png')}}"></span>
                                 <span class="subject">
                                 <span class="from">Jane Doe</span>
                                 <span class="time">2 min ago</span>
@@ -156,7 +156,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 <li>
                     <a href="#">
-                        <span class="photo"><img alt="avatar" src="{{('public/backend/images/3.png')}}"></span>
+                        <span class="photo"><img alt="avatar" src="{{asset('public/backend/images/3.png')}}"></span>
                                 <span class="subject">
                                 <span class="from">Tasi sam</span>
                                 <span class="time">2 days ago</span>
@@ -168,7 +168,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 <li>
                     <a href="#">
-                        <span class="photo"><img alt="avatar" src="{{('public/backend/images/2.png')}}"></span>
+                        <span class="photo"><img alt="avatar" src="{{asset('public/backend/images/2.png')}}"></span>
                                 <span class="subject">
                                 <span class="from">Mr. Perfect</span>
                                 <span class="time">2 hour ago</span>
@@ -232,7 +232,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="{{('public/backend/images/2.png')}}">
+                <img alt="" src="{{asset('public/backend/images/2.png')}}">
                 <span class="username">
                     {{Auth::user()->username}}
                 </span>
@@ -369,12 +369,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </section>
 <!--main content end-->
 </section>
+<script src="{{asset('public/backend/js/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('public/backend/js/bootstrap.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{asset('public/backend/js/scripts.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.slimscroll.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
 <!-- morris JavaScript -->	
 <script>
