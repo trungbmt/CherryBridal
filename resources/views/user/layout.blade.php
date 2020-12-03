@@ -12,7 +12,7 @@
     <title>Cherry Bridal - Wedding Store | Home</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="{{asset('public/frontend/images/core-img/favicon.ico')}}">
+    <link rel="icon" href="{{asset('public/frontend/images/icon.png')}}">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="{{asset('public/frontend/css/core-style.css')}}">
@@ -189,7 +189,7 @@
                             </div>
                             <!-- Help Line -->
                             <div class="help-line">
-                                <a href="tel:+346573556778"><i class="ti-headphone-alt"></i> +34 657 3556 778</a>
+                                <a href="tel:+84946416465"><i class="ti-headphone-alt"></i> +84 94641645</a>
                             </div>
                         </div>
                     </div>
