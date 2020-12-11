@@ -15,8 +15,8 @@
     <link rel="icon" href="{{asset('public/frontend/images/icon.png')}}">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="{{asset('public/frontend/css/core-style.css')}}">
     <link rel="stylesheet" href="{{asset('public/frontend/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('public/frontend/css/core-style.css')}}">
 
     <!-- Responsive CSS -->
     <link href="{{asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
@@ -294,8 +294,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </div>
     <!-- /.wrapper end -->
 
+
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    <script src="{{asset('public/frontend/js/jquery/jquery-2.2.4.min.js')}}"></script>
+    <script src="{{asset('public/frontend/js/jquery/jquery.min.js')}}"></script>
     <!-- Popper js -->
     <script src="{{asset('public/frontend/js/popper.min.js')}}"></script>
     <!-- Bootstrap js -->
@@ -304,7 +305,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{asset('public/frontend/js/plugins.js')}}"></script>
     <!-- Active js -->
     <script src="{{asset('public/frontend/js/active.js')}}"></script>
-
 </body>
 
 </html>

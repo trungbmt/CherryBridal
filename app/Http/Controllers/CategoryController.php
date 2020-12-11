@@ -8,9 +8,15 @@ use DB;
 use Session;
 use Storage;
 use App\Category;
+use App\Product;
 
-class CategoryProduct extends Controller
+class CategoryController extends Controller
 {
+    //USER SIDE
+
+
+
+    //ADMIN SIDE
     public function add_category() {
     	return view('admin.add_category');
     }

@@ -21,6 +21,10 @@ Route::get('/login', ['as'=>'login', 'uses'=>'AuthController@login']);
 Route::post('/login-check', 'AuthController@login_check');
 Route::get('/logout', 'AuthController@logout');
 
+Route::get('/shop', 'HomeController@shop');
+Route::get('/shop/{category_id}', 'HomeController@shop_with_category');
+
+
 
 //BackEnd
 Route::get('/admin', 'AdminController@index');
@@ -28,16 +32,16 @@ Route::get('/dashboard', 'AdminController@show_dashBoard');
 
 
 //category product
-Route::get('/all-category', 'CategoryProduct@all_category');
-Route::get('/add-category', 'CategoryProduct@add_category');
-Route::get('/edit-category/{category_id}', 'CategoryProduct@edit_category');
-Route::get('/delete-category', 'CategoryProduct@delete_category');
+Route::get('/all-category', 'CategoryController@all_category');
+Route::get('/add-category', 'CategoryController@add_category');
+Route::get('/edit-category/{category_id}', 'CategoryController@edit_category');
+Route::get('/delete-category', 'CategoryController@delete_category');
 
 
-Route::post('/save-category', 'CategoryProduct@save_category');
-Route::post('/update-category/{category_id}', 'CategoryProduct@update_category');
-Route::get('/unactive-category/{category_id}', 'CategoryProduct@unactive_category');
-Route::get('/active-category/{category_id}', 'CategoryProduct@active_category');
+Route::post('/save-category', 'CategoryController@save_category');
+Route::post('/update-category/{category_id}', 'CategoryController@update_category');
+Route::get('/unactive-category/{category_id}', 'CategoryController@unactive_category');
+Route::get('/active-category/{category_id}', 'CategoryController@active_category');
 
 
 

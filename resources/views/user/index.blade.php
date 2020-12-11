@@ -113,7 +113,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <a href="#">View Full Product Details</a>
+                                            <a href="#">Xem chi tiết sản phẩm</a>
                                         </div>
                                         <!-- Add to Cart Form -->
                                         <form class="cart" method="post">
@@ -124,7 +124,7 @@
 
                                                 <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                             </div>
-                                            <button type="submit" name="addtocart" value="5" class="cart-submit">Add to cart</button>
+                                            <button type="submit" name="addtocart" value="5" class="btn btn-danger">Thêm vào giỏ hàng</button>
                                             <!-- Wishlist -->
                                             <div class="modal_pro_wishlist">
                                                 <a href="wishlist.html" target="_blank"><i class="ti-heart"></i></a>
@@ -136,7 +136,7 @@
                                         </form>
 
                                         <div class="share_wf mt-30">
-                                            <p>Share With Friend</p>
+                                            <p>Share</p>
                                             <div class="_icon">
                                                 <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                                 <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>

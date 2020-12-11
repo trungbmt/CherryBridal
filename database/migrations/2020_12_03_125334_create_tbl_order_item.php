@@ -18,10 +18,6 @@ class CreateTblOrderItem extends Migration
             $table->integer('product_id');
             $table->integer('quantity');
             $table->integer('order_id')->unsigned();
-            $table->foreign('order_id')
-                  ->references('order_id')
-                  ->on('tbl_order')
-                  ->onDelete('cascade');
         });
     }
 
