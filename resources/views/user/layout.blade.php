@@ -106,7 +106,7 @@
                             <div class="top_single_area d-flex align-items-center">
                                 <!-- Logo Area -->
                                 <div class="top_logo">
-                                    <a href="#"><img src="{{asset('public/frontend/images/core-img/logo.png')}}" alt=""></a>
+                                    <a href="{{URL::to('/')}}"><img src="{{asset('public/frontend/images/core-img/logo.png')}}" alt=""></a>
                                 </div>
                                 <!-- Cart & Menu Area -->
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
@@ -169,15 +169,14 @@
 
                                     <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
                                         <ul class="navbar-nav animated" id="nav">
-                                            <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
+                                            <li class="nav-item active"><a class="nav-link" href="{{URL::to('/')}}">Home</a></li>
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+                                                <a class="nav-link dropdown-toggle" href="{{URL::to('/shop')}}" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                                                 <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                                                    <a class="dropdown-item" href="index.html">Home</a>
-                                                    <a class="dropdown-item" href="shop.html">Shop</a>
-                                                    <a class="dropdown-item" href="product-details.html">Product Details</a>
-                                                    <a class="dropdown-item" href="cart.html">Cart</a>
-                                                    <a class="dropdown-item" href="checkout.html">Checkout</a>
+                                                    <a class="dropdown-item" href="{{URL::to('/shop')}}">TẤT CẢ</a>
+                                                    @foreach($all_category as $category)
+                                                        <a class="dropdown-item" href="{{URL::to('/shop/'.$category->category_id)}}">{{$category->category_name}}</a>
+                                                    @endforeach
                                                 </div>
                                             </li>
                                             <li class="nav-item"><a class="nav-link" href="#">Dresses</a></li>

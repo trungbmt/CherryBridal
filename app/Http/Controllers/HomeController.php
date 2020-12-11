@@ -22,11 +22,13 @@ class HomeController extends Controller
         $category = $product->category()->first();
         $related_products = $category->products()->where('product_id', '!=', $product->product_id)->inRandomOrder()->take(4)->get();
 
+        $all_category = Category::get();
         
         return view('user.product-details')
         ->with('product', $product)
         ->with('category', $category)
-        ->with('related_products', $related_products);
+        ->with('related_products', $related_products)
+        ->with('all_category', $all_category);
     }
 
     public function shop(Request $request) {
