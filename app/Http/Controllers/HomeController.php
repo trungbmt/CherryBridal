@@ -13,6 +13,22 @@ class HomeController extends Controller
     	return view('user.index')->with('all_category', $all_category);
     }
 
+
+
+
+
+    public function product_detail($product_id) {
+        $product = Product::find($product_id);
+        $category = $product->category()->first();
+        $related_products = $category->products()->where('product_id', '!=', $product->product_id)->inRandomOrder()->take(4)->get();
+
+        
+        return view('user.product-details')
+        ->with('product', $product)
+        ->with('category', $category)
+        ->with('related_products', $related_products);
+    }
+
     public function shop(Request $request) {
         $all_category = Category::get();
         $item_per_page = 12;

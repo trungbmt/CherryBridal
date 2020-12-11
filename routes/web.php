@@ -21,6 +21,9 @@ Route::get('/login', ['as'=>'login', 'uses'=>'AuthController@login']);
 Route::post('/login-check', 'AuthController@login_check');
 Route::get('/logout', 'AuthController@logout');
 
+
+
+Route::get('/item/{product_id}', 'HomeController@product_detail');
 Route::get('/shop', 'HomeController@shop');
 Route::get('/shop/{category_id}', 'HomeController@shop_with_category');
 
