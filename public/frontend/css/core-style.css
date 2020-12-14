@@ -1491,10 +1491,10 @@ img {
 }
 
 .widget.size .widget-desc a:hover,
-.widget.size .widget-desc a:focus {
-    background-color: #ff084e;
-    color: #fff;
-}
+//.widget.size .widget-desc a:focus {
+//    background-color: #ff084e;
+//    color: #fff;
+//}
 
 .widget.price .ui-slider-handle {
     background-color: #3a3a3a;

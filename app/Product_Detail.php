@@ -19,4 +19,7 @@ class Product_Detail extends Model
     public function product(){
 	    return $this->belongsTo('App\Product', 'product_id');
 	}
+    public function get_price_formated() {
+        return number_format($this->product_price, 0, ',', '.').'đ';
+    }
 }

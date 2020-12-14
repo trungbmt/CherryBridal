@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use App\Category;
 use App\Product;
+use App\Cart;
+use Illuminate\Support\Facades\Auth; 
 
 class HomeController extends Controller
 {
@@ -15,7 +18,33 @@ class HomeController extends Controller
 
 
 
+    public function add_to_cart(Request $request) {
+        if(!Auth::check()) {
+            return Redirect::to('login');
+        } else {
+            $user_id= Auth::User()->id;
+            $exist_cart = Cart::where([
+                'user_id'=> $user_id, 
+                'product_id' => $request->product_id, 
+                'detail_id' => $request->detail_id,
+            ])->first();
+            if(!empty($exist_cart)) {
+                $exist_cart->amount += $request->amount;
+                $exist_cart->save();
+            } else {
 
+                $cart = new Cart();
+                $cart->user_id = Auth::User()->id;
+                $cart->product_id = $request->product_id;
+                $cart->detail_id = $request->detail_id;
+                $cart->amount = $request->amount;
+                $cart->save();
+            }
+            return true;
+        }
+        return false;
+
+    }
 
     public function product_detail($product_id) {
         $product = Product::find($product_id);

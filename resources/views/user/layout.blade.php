@@ -112,7 +112,7 @@
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
                                     <!-- Cart Area -->
                                     <div class="cart">
-                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">2</span> <i class="ti-bag"></i> Your Bag $20</a>
+                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">2</span> <i class="ti-bag"></i> Giỏ hàng: $20</a>
                                         <!-- Cart List Area Start -->
                                         <ul class="cart-list">
                                             <li>
@@ -304,6 +304,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="{{asset('public/frontend/js/plugins.js')}}"></script>
     <!-- Active js -->
     <script src="{{asset('public/frontend/js/active.js')}}"></script>
+    <script src="{{asset('public/backend/js/sweetalert2.all.min.js')}}"></script>
 </body>
 
 </html>

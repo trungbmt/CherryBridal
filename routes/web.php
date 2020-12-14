@@ -27,6 +27,8 @@ Route::get('/item/{product_id}', 'HomeController@product_detail');
 Route::get('/shop', 'HomeController@shop');
 Route::get('/shop/{category_id}', 'HomeController@shop_with_category');
 
+Route::get('/add-to-cart', 'HomeController@add_to_cart');
+
 
 
 //BackEnd

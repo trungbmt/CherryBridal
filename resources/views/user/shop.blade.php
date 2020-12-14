@@ -1,5 +1,49 @@
 @extends('user.layout')
 @section('content')
+
+<script src="{{asset('public/frontend/js/jquery/jquery.min.js')}}"></script>
+<script type="text/javascript">
+
+    $( document ).ready(function() {
+
+        $('.slider-range-price').each(function () {
+            var min = jQuery(this).data('min');
+            var max = jQuery(this).data('max');
+            var unit = jQuery(this).data('unit');
+            var value_min = jQuery(this).data('value-min');
+            var value_max = jQuery(this).data('value-max');
+            var label_result = jQuery(this).data('label-result');
+            var t = $(this);
+            $(this).slider({
+                range: true,
+                min: min,
+                max: max,
+                values: [value_min, value_max],
+                slide: function (event, ui) {
+                    var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
+                    t.closest('.slider-range').find('.range-price').html(result);
+                }
+            });
+        });
+    });
+
+    function add_to_cart(product_id, detail_id, amount) {
+        $.ajax({
+            url:"{{ url('add-to-cart') }}",
+            method:"GET",
+            data:{product_id:product_id, detail_id:detail_id, amount:amount},
+            success:function(data){ 
+                if(data) {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Thêm thành công!',
+                      timer: 1000
+                    })
+                }
+            }
+        });
+    };
+</script>
 <!-- ****** Quick View Modal Area Start ****** -->
 @foreach($all_product as $product)
     <div class="modal fade" id="quickview_{{$product->product_id}}" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
@@ -39,7 +83,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <a href="#">Xem chi tiết sản phẩm</a>
+                                        <a href="{{URL::to('/item/'.$product->product_id)}}">Xem chi tiết sản phẩm</a>
                                     </div>
                                     <!-- Add to Cart Form -->
                                     <form class="cart" method="post">
@@ -210,8 +254,8 @@
                                 <div class="product-description">
                                     <h4 class="product-price">{{$product->get_lowest_price()}}</h4>
                                     <p>{{$product->product_name}}</p>
-                                    <!-- Add to Cart -->
-                                    <a href="#" class="add-to-cart-btn">THÊM VÀO GIỎ</a>
+                                    <!-- Add to Cart -->{{-- 
+                                    <a onclick="add_to_cart({{$product->product_id}})" class="add-to-cart-btn btn btn-outline-danger">THÊM VÀO GIỎ</a> --}}
                                 </div>
                             </div>
                         @endforeach
@@ -230,32 +274,6 @@
         </div>
     </div>
 </section>
-<script src="{{asset('public/frontend/js/jquery/jquery.min.js')}}"></script>
-<script type="text/javascript">
-
-    $( document ).ready(function() {
-
-        $('.slider-range-price').each(function () {
-            var min = jQuery(this).data('min');
-            var max = jQuery(this).data('max');
-            var unit = jQuery(this).data('unit');
-            var value_min = jQuery(this).data('value-min');
-            var value_max = jQuery(this).data('value-max');
-            var label_result = jQuery(this).data('label-result');
-            var t = $(this);
-            $(this).slider({
-                range: true,
-                min: min,
-                max: max,
-                values: [value_min, value_max],
-                slide: function (event, ui) {
-                    var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
-                    t.closest('.slider-range').find('.range-price').html(result);
-                }
-            });
-        });
-    });
-</script>
 @endsection
 
       

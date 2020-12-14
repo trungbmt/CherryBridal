@@ -113,7 +113,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <a href="#">Xem chi tiết sản phẩm</a>
+                                            <a href="{{URL::to('/item/'.$product->product_id)}}">Xem chi tiết sản phẩm</a>
                                         </div>
                                         <!-- Add to Cart Form -->
                                         <form class="cart" method="post">
@@ -197,22 +197,6 @@
                             <a href="#" class="add-to-cart-btn">ADD TO CART</a>
                         </div>
                     </div>
-{{--                     <div class="col-12 col-sm-6 col-md-4 single_gallery_item filter_{{$category->category_id}} wow fadeInUpBig" data-wow-delay="0.2s">
-                        <!-- Product Image -->
-                        <div class="product-img">
-                            <img src="{{asset('public/frontend/images/product-img/product-1.jpg')}}" alt="">
-                            <div class="product-quicview">
-                                <a href="#" data-toggle="modal" data-target="#quickview"><i class="ti-plus"></i></a>
-                            </div>
-                        </div>
-                        <!-- Product Description -->
-                        <div class="product-description">
-                            <h4 class="product-price">$39.90</h4>
-                            <p>Jeans midi cocktail dress</p>
-                            <!-- Add to Cart -->
-                            <a href="#" class="add-to-cart-btn">ADD TO CART</a>
-                        </div>
-                    </div> --}}
                 @endforeach
             @endforeach
         </div>

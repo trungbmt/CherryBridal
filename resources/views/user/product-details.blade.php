@@ -1,5 +1,47 @@
 @extends('user.layout')
 @section('content')
+<script type="text/javascript">
+    var selected_detail;
+    function click_size(price, amount, source, detail_id) {
+        $('.price').text(price);
+        $('.available_number').text(amount);
+        $('#'+source.id).parent().parent().find('*').css("background-color","white");
+        $('#'+source.id).parent().parent().find('*').css("color","black");
+        $("#"+source.id).css("background-color","#ff084e");
+        $("#"+source.id).css("color","#fff");
+
+        
+        selected_detail = detail_id;
+    }
+    function add_to_cart() {
+        if(!selected_detail) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Vui lòng chọn size trước!',
+            })
+        } else {
+            let product_id = {{$product->product_id}};
+            let detail_id = selected_detail;
+            let amount = document.getElementById('qty').value;
+            $.ajax({
+                url:"{{ url('add-to-cart') }}",
+                method:"GET",
+                data:{product_id:product_id, detail_id:detail_id, amount:amount},
+                success:function(data){ 
+                    if(data) {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Thêm vào giỏ thành công!',
+                          timer: 1500
+                        })
+                    } else {
+                        location.href = "{{URL::to('/login')}}";
+                    }
+                }
+            });
+        }
+    }
+</script>
 <!-- <<<<<<<<<<<<<<<<<<<< Breadcumb Area Start <<<<<<<<<<<<<<<<<<<< -->
 <div class="breadcumb_area">
     <div class="container">
@@ -71,7 +113,7 @@
 
                     <h4 class="price">{{$product->get_lowest_price()}}</h4>
 
-                    <p class="available">Available: <span class="text-muted">In Stock</span></p>
+                    <p class="available">Có sẵn: <span class="text-muted available_number"></span><span class="text-muted"> In Stock</span></p>
 
                     <div class="single_product_ratings mb-15">
                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -83,24 +125,24 @@
 
                     <div class="widget size mb-50">
                         <h6 class="widget-title">Size</h6>
-                        <div class="widget-desc">
+                        <div id="size_list" class="widget-desc">
                             <ul>
                                 @foreach($product->details as $detail)
-                                    <li><a href="#">{{$detail->product_size}}</a></li>
+                                    <li><a id="detail_{{$detail->detail_id}}" href="#" onclick="click_size('{{$detail->get_price_formated()}}', {{$detail->product_amount}}, this, {{$detail->detail_id}})">{{$detail->product_size}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
 
                     <!-- Add to Cart Form -->
-                    <form class="cart clearfix mb-50 d-flex" method="post">
+                    <div class="cart clearfix mb-50 d-flex">
                         <div class="quantity">
                             <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
                             <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
                             <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                         </div>
-                        <button type="submit" name="addtocart" value="5" class="btn cart-submit d-block">Add to cart</button>
-                    </form>
+                        <button onclick="add_to_cart()" value="5" class="btn cart-submit d-block">Add to cart</button>
+                    </div>
 
                     <div id="accordion" role="tablist">
                         <div class="card">

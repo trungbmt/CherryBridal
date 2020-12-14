@@ -111,6 +111,18 @@ class DatabaseSeeder extends Seeder
                 'product_price' => '2000000',
             ],
             [
+                'product_id' => '1',
+                'product_size' => 'L',
+                'product_amount' => '812',
+                'product_price' => '6000000',
+            ],
+            [
+                'product_id' => '1',
+                'product_size' => 'X',
+                'product_amount' => '12',
+                'product_price' => '5000000',
+            ],
+            [
                 'product_id' => '2',
                 'product_size' => 'L',
                 'product_amount' => '5',
