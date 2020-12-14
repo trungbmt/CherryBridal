@@ -1,60 +1,88 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Login :: w3layouts</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- bootstrap-css -->
-<link rel="stylesheet" href="{{asset('public/backend/css/bootstrap.min.css')}}" >
-<!-- //bootstrap-css -->
-<!-- Custom CSS -->
-<link href="{{asset('public/backend/css/style.css')}}" rel='stylesheet' type='text/css' />
-<link href="{{asset('public/backend/css/style-responsive.css')}}" rel="stylesheet"/>
-<!-- font CSS -->
-<link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-<!-- font-awesome icons -->
-<link rel="stylesheet" href="{{asset('public/backend/css/font.css')}}" type="text/css"/>
-<link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
-<!-- //font-awesome icons -->
-<script src="{{asset('public/backend/js/jquery2.0.3.min.js')}}"></script>
+  <title>Login V5</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}" >
+  <link rel="stylesheet" href="{{asset('public/frontend/css/login/main.css')}}" >
+  <link rel="stylesheet" href="{{asset('public/frontend/css/login/util.css')}}" >
+  <link href="{{asset('public/backend/css/font-awesome.css')}}" rel="stylesheet"> 
+<!--===============================================================================================-->
 </head>
 <body>
-<div class="log-w3">
-<div class="w3layouts-main">
-	<h2>Sign In Now</h2>
-	<?php 
-		$failed_login_message = Session::get('failed_login_message');
-		if($failed_login_message) {
-			echo "<div class='alert alert-danger'>".$failed_login_message."</div>";
-			Session::put('failed_login_message', null);
-		}
-	?>
-	<form action="{{URL::to('/login-check')}}" method="post">
-		{{ csrf_field() }}
-		<input type="text" class="ggg" name="username" placeholder="Username" required="">
-		<input type="password" class="ggg" name="password" placeholder="Password" required="">
-		<span><input type="checkbox" />Remember Me</span>
-		<h6><a href="#">Forgot Password?</a></h6>
-			<div class="clearfix"></div>
-			<input type="submit" value="Sign In" name="login">
-	</form>
-	<p>Don't Have an Account ?<a href="registration.html">Create an account</a></p>
-</div>
-</div>
-<script src="{{asset('public/backend/js/bootstrap.js')}}"></script>
-<script src="{{asset('public/backend/js/jquery.dcjqaccordion.2.7.js')}}"></script>
-<script src="{{asset('public/backend/js/scripts.js')}}"></script>
-<script src="{{asset('public/backend/js/jquery.slimscroll.js')}}"></script>
-<script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-<script src="{{asset('public/backend/js/jquery.scrollTo.js')}}"></script>
+  <div class="limiter">
+    <div class="container-login100" style="background-image: url('https://i.pinimg.com/originals/c3/2e/1d/c32e1d90990d799eb1037f29db3c0e7f.jpg');">
+      <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
+        <form class="login100-form validate-form flex-sb flex-w" action="{{URL::to('/login-check')}}" method="post">
+          {{ csrf_field() }}
+          <span class="login100-form-title p-b-53">
+            Sign In With
+          </span>
+          <?php 
+              $failed_login_message = Session::get('failed_login_message');
+              if($failed_login_message) {
+                echo "<div class='alert alert-danger'>".$failed_login_message."</div>";
+                Session::put('failed_login_message', null);
+              }
+          ?>
+          <a href="#" class="btn-face m-b-20">
+            <i class="fa fa-facebook-official"></i>
+            Facebook
+          </a>
+
+          <a href="#" class="btn-google m-b-20">
+            <img src="{{asset('public/frontend/images/icon-google.png')}}" alt="GOOGLE">
+            Google
+          </a>
+          
+          <div class="p-t-31 p-b-9">
+            <span class="txt1">
+              Username
+            </span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate = "Username is required">
+            <input class="input100" type="text" name="username" >
+            <span class="focus-input100"></span>
+          </div>
+          
+          <div class="p-t-13 p-b-9">
+            <span class="txt1">
+              Password
+            </span>
+
+            <a href="#" class="txt2 bo1 m-l-5">
+              Forgot?
+            </a>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate = "Password is required">
+            <input class="input100" type="password" name="password" >
+            <span class="focus-input100"></span>
+          </div>
+
+          <div class="container-login100-form-btn m-t-17">
+            <button class="login100-form-btn">
+              Sign In
+            </button>
+          </div>
+
+          <div class="w-full text-center p-t-55">
+            <span class="txt2">
+              Not a member?
+            </span>
+
+            <a href="#" class="txt2 bo1">
+              Sign up now
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+  <div id="dropDownSelect1"></div>
+  
+
 </body>
 </html>
