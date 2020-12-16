@@ -15,6 +15,7 @@
     <link rel="icon" href="{{asset('public/frontend/images/icon.png')}}">
 
     <!-- Core Style CSS -->
+    <link rel="stylesheet" href="{{asset('public/frontend/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('public/frontend/css/core-style.css')}}">
 

@@ -17,33 +17,60 @@ class HomeController extends Controller
     }
 
 
-
-    public function add_to_cart(Request $request) {
-        if(!Auth::check()) {
+    public function cart() {
+        if(!Auth::check()) 
+        {
             return Redirect::to('login');
-        } else {
-            $user_id= Auth::User()->id;
-            $exist_cart = Cart::where([
-                'user_id'=> $user_id, 
-                'product_id' => $request->product_id, 
-                'detail_id' => $request->detail_id,
-            ])->first();
-            if(!empty($exist_cart)) {
-                $exist_cart->amount += $request->amount;
-                $exist_cart->save();
-            } else {
+        } 
+        $all_category = Category::get();
+        $all_cart = Auth::User()->carts()->get();
 
-                $cart = new Cart();
-                $cart->user_id = Auth::User()->id;
-                $cart->product_id = $request->product_id;
-                $cart->detail_id = $request->detail_id;
-                $cart->amount = $request->amount;
-                $cart->save();
-            }
-            return true;
+
+        return view('user.cart')
+        ->with('all_category', $all_category)
+        ->with('all_cart', $all_cart);
+    }
+    public function add_to_cart(Request $request) {
+        if(!Auth::check()) 
+        {
+            return Redirect::to('login');
         }
-        return false;
+        $user_id= Auth::User()->id;
+        $exist_cart = Cart::where([
+            'user_id'=> $user_id, 
+            'product_id' => $request->product_id, 
+            'detail_id' => $request->detail_id,
+        ])->first();
+        if(!empty($exist_cart)) {
+            $exist_cart->amount += $request->amount;
+            $exist_cart->save();
+        } else {
 
+            $cart = new Cart();
+            $cart->user_id = Auth::User()->id;
+            $cart->product_id = $request->product_id;
+            $cart->detail_id = $request->detail_id;
+            $cart->amount = $request->amount;
+            $cart->save();
+        }
+        return true;
+
+    }
+    public function update_cart(Request $request) {
+        $cart = Auth::User()->carts()->find($request->cart_id);
+        $cart->amount = $request->amount;
+        $cart->save();
+        return $cart->price_format($cart->get_total_price());
+    }
+    public function cart_delete($cart_id) {
+        $cart = Auth::User()->carts()->find($cart_id);
+        $cart->delete();
+        return Redirect::to('/cart/');
+    }
+    public function cart_delete_all() {
+        $all_cart = Auth::User()->carts();
+        $all_cart->delete();
+        return Redirect::to('/cart/');
     }
 
     public function product_detail($product_id) {

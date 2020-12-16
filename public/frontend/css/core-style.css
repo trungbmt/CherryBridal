@@ -1919,7 +1919,6 @@ img {
 
 .cart_area .update-checkout a,
 .cart_area .back-to-shop a {
-    background-color: transparent;
     border-radius: 0;
     display: inline-block;
     height: 55px;
@@ -1934,13 +1933,12 @@ img {
 }
 
 .cart_area .update-checkout a:first-child {
-    color: #7a7a7a;
+    color: white;
     border-color: #f4f2f8;
 }
 
 .cart_area .update-checkout a:last-child {
-    background-color: #f4f2f8;
-    color: #7a7a7a;
+    color: white;
     border-color: #f4f2f8;
 }
 
