@@ -39,4 +39,13 @@ class Product extends Model
         $price+= $price*0.3;
         return number_format($price, 0, ',', '.').'đ';
     }
+    public function scopePrice($query, $request) {
+
+        $min_price = 0*1000000;
+        $max_price= 20*1000000;
+        if($request->min) $min_price = $request->min*1000000;
+        if($request->max) $max_price = $request->max*1000000;
+        $query->join('tbl_product_detail', 'tbl_product_detail.product_id','=','tbl_product.product_id')->whereBetween('product_price', [$min_price, $max_price]);
+        return $query;
+    }
 }

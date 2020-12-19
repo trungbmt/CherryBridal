@@ -3,7 +3,6 @@
 
 <script src="{{asset('public/frontend/js/jquery/jquery.min.js')}}"></script>
 <script type="text/javascript">
-
     $( document ).ready(function() {
 
         $('.slider-range-price').each(function () {
@@ -12,8 +11,16 @@
             var unit = jQuery(this).data('unit');
             var value_min = jQuery(this).data('value-min');
             var value_max = jQuery(this).data('value-max');
+            @if(isset($_GET['min']))
+                var value_min = {{$_GET['min']}};
+            @endif
+            @if(isset($_GET['max']))
+                var value_max = {{$_GET['max']}};
+            @endif
             var label_result = jQuery(this).data('label-result');
+            var result2 = label_result + " " + unit + value_min + ' - ' + unit + value_max;
             var t = $(this);
+            t.closest('.slider-range').find('.range-price').html(result2);
             $(this).slider({
                 range: true,
                 min: min,
@@ -22,9 +29,11 @@
                 slide: function (event, ui) {
                     var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
                     t.closest('.slider-range').find('.range-price').html(result);
+                    $('#filter_by_price').data('min', ui.values[0]);
+                    $('#filter_by_price').data('max', ui.values[1]);
                 }
             });
-        });
+        })
     });
 
     function add_to_cart(product_id, detail_id, amount) {
@@ -43,6 +52,13 @@
             }
         });
     };
+    function insertDoubleParam(key, value, key2, value2) {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set(key, value);
+        urlParams.set(key2, value2);
+        return urlParams;
+    }
 </script>
 <!-- ****** Quick View Modal Area Start ****** -->
 @foreach($all_product as $product)
@@ -154,15 +170,16 @@
                         <h6 class="widget-title mb-30">Lọc theo giá</h6>
                         <div class="widget-desc">
                             <div class="slider-range">
-                                <div data-min="0" data-max="10" data-unit="" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="10" data-label-result="Giá:">
+                                <div data-min="0" data-max="20" data-unit="" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="0" data-value-max="20" data-label-result="Giá:">
                                     <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                     <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                                 </div>
                                 <div>
-                                    <span class="range-price">Giá: 0 - 10</span>
+                                    <span class="range-price">Giá: 0 - 20</span>
                                     <span class="widget-title">triệu</span>
                                 </div>
+                                <a id="filter_by_price" href="#" data-min='0' data-max='20' onclick="window.location.search= insertDoubleParam('min', $('#filter_by_price').data('min'), 'max', $('#filter_by_price').data('max'))" class="btn btn-info mt-3">LỌC</a>
                             </div>
                         </div>
                     </div>
@@ -203,15 +220,30 @@
                     </div>
 
                     <div class="widget size mb-50">
-                        <h6 class="widget-title mb-30">Filter by Size</h6>
+                        <h6 class="widget-title mb-30">lượng sản phẩm mỗi trang</h6>
                         <div class="widget-desc">
                             <ul class="d-flex justify-content-between">
-                                <li><a href="#">XS</a></li>
-                                <li><a href="#">S</a></li>
-                                <li><a href="#">M</a></li>
-                                <li><a href="#">L</a></li>
-                                <li><a href="#">XL</a></li>
-                                <li><a href="#">XXL</a></li>
+                                <li>
+                                    <a href="{{request()->fullUrlWithQuery(['view' => 'small'])}}" class="
+                                    @if(isset($_GET['view'])&&$_GET['view']=='small')
+                                        font-weight-bold
+                                    @endif 
+                                    ">ÍT</a>
+                                </li>
+                                <li>
+                                    <a href="{{request()->fullUrlWithQuery(['view' => 'normal'])}}" class="
+                                    @if(isset($_GET['view'])&&$_GET['view']=='normal')
+                                        font-weight-bold
+                                    @endif 
+                                    ">TRUNG BÌNH</a>
+                                </li>
+                                <li>
+                                    <a href="{{request()->fullUrlWithQuery(['view' => 'large'])}}" class="
+                                    @if(isset($_GET['view'])&&$_GET['view']=='large')
+                                        font-weight-bold
+                                    @endif 
+                                    ">NHIỀU</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

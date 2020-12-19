@@ -106,30 +106,43 @@ class HomeController extends Controller
     public function shop(Request $request) {
         $all_category = Category::get();
         $item_per_page = 12;
-        if($request->IPP) $item_per_page = $request->IPP;
 
-        $all_product = Product::where('product_status', 1);
+        if($request->view) {
+            $view = $request->view;
+            switch ($view) {
+                case 'small':
+                    $item_per_page = 6;
+                    break;
+                case 'normal':
+                    $item_per_page = 12;
+                    break;
+                case 'large':
+                    $item_per_page = 24;
+                    break;
+            }
+        }
+
+        $all_product = Product::query()->price($request)->where('product_status', 1);
         $recommend_products = Product::inRandomOrder()->limit(3)->get();
 
         if($request->orderby) {
             $orderby = $request->orderby;
             switch ($orderby) {
                 case 'newest':
-                    $all_product->orderBy('product_id', 'DESC');
+                    $all_product->orderBy('tbl_product.product_id', 'DESC');
                     break;
                 case 'oldest':
-                    $all_product->orderBy('product_id', 'ASC');
+                    $all_product->orderBy('tbl_product.product_id', 'ASC');
                     break;
                 case 'priceasc':
-                    $all_product->join('tbl_product_detail', 'tbl_product_detail.product_id','=','tbl_product.product_id')->orderBy('product_price', 'ASC');
+                    $all_product->orderBy('tbl_product_detail.product_price', 'ASC');
                     break;
                 case 'pricedesc':
-                    $all_product->join('tbl_product_detail', 'tbl_product_detail.product_id','=','tbl_product.product_id')->orderBy('product_price', 'DESC');
+                    $all_product->orderBy('tbl_product_detail.product_price', 'DESC');
                     break;
             }
         }
-
-        $all_product = $all_product->paginate($item_per_page);
+        $all_product = $all_product->groupBy('tbl_product.product_id')->paginate($item_per_page)->withQueryString();
         return view('user.shop')
         ->with('all_category', $all_category)
         ->with('all_product', $all_product)
@@ -138,9 +151,23 @@ class HomeController extends Controller
     public function shop_with_category(Request $request, $category) {
         $all_category = Category::get();
         $item_per_page = 12;
-        if($request->IPP) $item_per_page = $request->IPP;
+        
+        if($request->view) {
+            $view = $request->view;
+            switch ($view) {
+                case 'small':
+                    $item_per_page = 6;
+                    break;
+                case 'normal':
+                    $item_per_page = 12;
+                    break;
+                case 'large':
+                    $item_per_page = 24;
+                    break;
+            }
+        }
 
-        $all_product = Category::find($category)->products()->where('product_status', 1);
+        $all_product = Category::find($category)->products()->price($request)->where('product_status', 1);
         $recommend_products = Category::find($category)->products()->inRandomOrder()->limit(3)->get();
 
         
@@ -148,22 +175,22 @@ class HomeController extends Controller
             $orderby = $request->orderby;
             switch ($orderby) {
                 case 'newest':
-                    $all_product->orderBy('product_id', 'DESC');
+                    $all_product->orderBy('tbl_product.product_id', 'DESC');
                     break;
                 case 'oldest':
-                    $all_product->orderBy('product_id', 'ASC');
+                    $all_product->orderBy('tbl_product.product_id', 'ASC');
                     break;
                 case 'priceasc':
-                    $all_product->join('tbl_product_detail', 'tbl_product_detail.product_id','=','tbl_product.product_id')->orderBy('product_price', 'ASC');
+                    $all_product->orderBy('tbl_product_detail.product_price', 'ASC');
                     break;
                 case 'pricedesc':
-                    $all_product->join('tbl_product_detail', 'tbl_product_detail.product_id','=','tbl_product.product_id')->orderBy('product_price', 'DESC');
+                    $all_product->orderBy('tbl_product_detail.product_price', 'DESC');
                     break;
             }
         }
 
 
-        $all_product = $all_product->paginate($item_per_page);
+        $all_product = $all_product->paginate($item_per_page)->withQueryString();
         return view('user.shop')
         ->with('all_category', $all_category)
         ->with('all_product', $all_product)
