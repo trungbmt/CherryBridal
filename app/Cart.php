@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Libraries\Tools;
 
 class Cart extends Model
 {
@@ -27,5 +28,8 @@ class Cart extends Model
     }
     public static function price_format($arg) {
         return number_format($arg, 0, ',', '.').'đ';
+    }
+    public function get_total_price_formated() {
+        return Tools::price_format($this->get_total_price());
     }
 }

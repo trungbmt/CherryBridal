@@ -28,11 +28,14 @@ Route::get('/shop', 'HomeController@shop');
 Route::get('/shop/{category_id}', 'HomeController@shop_with_category');
 
 Route::get('/cart', 'HomeController@cart');
+Route::get('/cart-total-price', 'HomeController@cart_total_price');
 Route::get('/add-to-cart', 'HomeController@add_to_cart');
 Route::get('/update-cart', 'HomeController@update_cart');
 Route::get('/cart-delete/{cart_id}', 'HomeController@cart_delete');
 Route::get('/cart-delete-all', 'HomeController@cart_delete_all');
 
+
+Route::get('/checkout', 'HomeController@checkout');
 
 
 //BackEnd

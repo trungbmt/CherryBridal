@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Cart;
+use App\Libraries\Tools;
 
 class User extends Authenticatable
 {
@@ -47,5 +49,16 @@ class User extends Authenticatable
     public function carts()
     {
         return $this->hasMany('App\Cart', 'user_id', 'id');
+    }
+    public function total_cart_money() {
+        $cart_list = $this->carts()->get();
+        $total = 0;
+        foreach ($cart_list as $cart) {
+            $total+= $cart->get_total_price();
+        }
+        return $total;
+    }
+    public function total_cart_money_formated() {
+        return Tools::price_format($this->total_cart_money());
     }
 }

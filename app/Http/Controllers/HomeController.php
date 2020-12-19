@@ -16,7 +16,7 @@ class HomeController extends Controller
     	return view('user.index')->with('all_category', $all_category);
     }
 
-
+//======================================={cart}========================================
     public function cart() {
         if(!Auth::check()) 
         {
@@ -30,10 +30,16 @@ class HomeController extends Controller
         ->with('all_category', $all_category)
         ->with('all_cart', $all_cart);
     }
+    public function cart_total_price() {
+        if(Auth::check()) {
+            return Auth::User()->total_cart_money_formated();
+        }
+        return false;
+    }
     public function add_to_cart(Request $request) {
         if(!Auth::check()) 
         {
-            return Redirect::to('login');
+            return false;
         }
         $user_id= Auth::User()->id;
         $exist_cart = Cart::where([
@@ -72,6 +78,15 @@ class HomeController extends Controller
         $all_cart->delete();
         return Redirect::to('/cart/');
     }
+//======================================={checkout}========================================
+    public function checkout() {
+        $all_category = Category::get();
+        $all_cart = Auth::User()->carts()->get();
+        return view('user.checkout')
+        ->with('all_category', $all_category)
+        ->with('all_cart', $all_cart);
+    }
+//======================================={product}========================================
 
     public function product_detail($product_id) {
         $product = Product::find($product_id);
@@ -87,6 +102,7 @@ class HomeController extends Controller
         ->with('all_category', $all_category);
     }
 
+//======================================={category}========================================
     public function shop(Request $request) {
         $all_category = Category::get();
         $item_per_page = 12;

@@ -18,19 +18,41 @@
             var cart_id = this.id;
             update_cart_item(cart_id, amount);
         });
-        function update_cart_item(id, amount) {
-            $.ajax({
-                url:"{{ url('update-cart') }}",
-                method:"GET",
-                data:{cart_id:id, amount:amount},
-                success:function(data){ 
-                    if(data) {
-                        $('#total_price_'+id).text(data);
-                    }
-                }
-            });
-        }
     });
+    function update_cart_item(id, amount) {
+        $.ajax({
+            url:"{{ url('update-cart') }}",
+            method:"GET",
+            data:{cart_id:id, amount:amount},
+            success:function(data){ 
+                if(data) {
+                    $('#total_price_'+id).text(data);
+                    $.ajax({
+                        url:"{{ url('cart-total-price') }}",
+                        method:"GET",
+                        success:function(data2){ 
+                            if(data2) {
+                                $('#products_price').text(data2);
+                                $('#total_price').text(data2);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    };
+    function clear_cart() {
+        Swal.fire({
+          title: 'Bạn có chắc chắn?',
+          text: "Mọi sản phẩm trong giỏ hàng sẽ bị xoá!",
+          icon: 'warning',
+          showCancelButton: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.href = '{{URL::to('cart-delete-all')}}';
+          }
+        })
+    };
 </script>
 <!-- ****** Cart Area Start ****** -->
 <div class="cart_area section_padding_100 clearfix">
@@ -92,10 +114,10 @@
 
                 <div class="cart-footer d-flex mt-30">
                     <div class="back-to-shop w-50">
-                        <a href="{{URL::to('/shop/')}}">Continue shooping</a>
+                        <a href="{{URL::to('/shop/')}}">Tiếp tục mua hàng</a>
                     </div>
                     <div class="update-checkout w-50 text-right">
-                        <a href="{{URL::to('cart-delete-all')}}" class="btn btn-danger">clear cart</a>
+                        <a href="#" onclick="clear_cart()" class="btn btn-danger">XOÁ TẤT CẢ</a>
                     </div>
                 </div>
 
@@ -117,7 +139,7 @@
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="shipping-method-area mt-70">
-                    <div class="cart-page-heading">
+                   {{--  <div class="cart-page-heading">
                         <h5>Shipping method</h5>
                         <p>Select the one you want</p>
                     </div>
@@ -135,22 +157,22 @@
                     <div class="custom-control custom-radio">
                         <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
                         <label class="custom-control-label d-flex align-items-center justify-content-between" for="customRadio3"><span>Personal Pickup</span><span>Free</span></label>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="col-12 col-lg-4">
                 <div class="cart-total-area mt-70">
                     <div class="cart-page-heading">
-                        <h5>Cart total</h5>
+                        <h5>Tổng giỏ hàng</h5>
                         <p>Final info</p>
                     </div>
 
                     <ul class="cart-total-chart">
-                        <li><span>Subtotal</span> <span>$59.90</span></li>
-                        <li><span>Shipping</span> <span>Free</span></li>
-                        <li><span><strong>Total</strong></span> <span><strong>$59.90</strong></span></li>
+                        <li><span>Sản phẩm</span> <span id="products_price">{{Auth::User()->total_cart_money_formated()}}</span></li>
+                        <li><span>Phí vận chuyển</span> <span>Free</span></li>
+                        <li><span><strong>Tổng tiền</strong></span> <span><strong id="total_price">{{Auth::User()->total_cart_money_formated()}}</strong></span></li>
                     </ul>
-                    <a href="checkout.html" class="btn karl-checkout-btn">Proceed to checkout</a>
+                    <a href="{{URL::to('/checkout')}}" class="btn karl-checkout-btn">TIẾN HÀNH ĐẶT HÀNG</a>
                 </div>
             </div>
         </div>

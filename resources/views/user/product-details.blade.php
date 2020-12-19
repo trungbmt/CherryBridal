@@ -19,7 +19,8 @@
               icon: 'info',
               title: 'Vui lòng chọn size trước!',
             })
-        } else {
+        } else 
+        {
             let product_id = {{$product->product_id}};
             let detail_id = selected_detail;
             let amount = document.getElementById('qty').value;
