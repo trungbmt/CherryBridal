@@ -113,29 +113,43 @@
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
                                     <!-- Cart Area -->
                                     <div class="cart">
-                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">2</span> <i class="ti-bag"></i> Giỏ hàng: $20</a>
+                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">
+                                            {{Auth::User()?count(Auth::User()->carts()->get()):0}}</span> 
+                                            <i class="ti-bag"></i> 
+                                            Giỏ hàng: 
+                                            <span>
+                                                {{Auth::check()?Auth::User()->total_cart_money_formated():'0đ'}}
+                                            </span>
+                                        </a>
                                         <!-- Cart List Area Start -->
                                         <ul class="cart-list">
-                                            <li>
-                                                <a href="#" class="image"><img src="{{asset('public/frontend/images/product-img/product-10.jpg')}}" class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="image"><img src="{{asset('public/frontend/images/product-img/product-11.jpg')}}" class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
+                                            @if($all_cart)
+                                                @foreach($all_cart as $cart) 
+                                                <?php $product = $cart->product(); ?>
+                                                    <li>
+                                                        <a href="{{URL::to('item/'.$product->product_id)}}" class="image"><img src="{{asset('storage/app/'.$product->product_img)}}" class="cart-thumb" alt=""></a>
+                                                        <div class="cart-item-desc">
+                                                            <h6>
+                                                                <a href="#">{{$product->product_name}}</a>
+                                                            </h6>
+                                                            <p>{{$cart->amount}}x - 
+                                                                <span style="text-transform: none" class="price">
+                                                                    {{$cart->get_total_price_formated()}}
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
+                                                    </li>
+                                                @endforeach
+                                            @endif
                                             <li class="total">
-                                                <span class="pull-right">Total: $20.00</span>
-                                                <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
-                                                <a href="checkout-1.html" class="btn btn-sm btn-checkout">Checkout</a>
+                                                <span class="pull-right">Tổng: 
+                                                    <span style="text-transform: none;">
+                                                        {{Auth::check()?Auth::User()->total_cart_money_formated():'0đ'}}
+                                                    </span>
+                                            </span>
+                                                <a href="{{URL::to('/cart')}}" class="btn btn-sm btn-cart">Giỏ</a>
+                                                <a href="{{URL::to('/checkout')}}" class="btn btn-sm btn-checkout">Đặt hàng</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -170,9 +184,9 @@
 
                                     <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
                                         <ul class="navbar-nav animated" id="nav">
-                                            <li class="nav-item active"><a class="nav-link" href="{{URL::to('/')}}">Home</a></li>
+                                            <li class="nav-item active"><a class="nav-link" href="{{URL::to('/')}}">Trang Chủ</a></li>
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="{{URL::to('/shop')}}" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                                                <a class="nav-link dropdown-toggle" href="{{URL::to('/shop')}}" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="karl-level">hot</span>Shop</a>
                                                 <div class="dropdown-menu" aria-labelledby="karlDropdown">
                                                     <a class="dropdown-item" href="{{URL::to('/shop')}}">TẤT CẢ</a>
                                                     @foreach($all_category as $category)
@@ -180,9 +194,8 @@
                                                     @endforeach
                                                 </div>
                                             </li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Dresses</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#"><span class="karl-level">hot</span> Shoes</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#">Ảnh cưới</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
                                         </ul>
                                     </div>
                                 </nav>

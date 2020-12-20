@@ -19,6 +19,8 @@ class CreateTblOrder extends Migration
             $table->text('order_full_name');
             $table->text('order_phone');
             $table->text('order_status');
+            $table->text('order_city');
+            $table->text('order_province');
             $table->text('order_address');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

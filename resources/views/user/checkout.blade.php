@@ -9,75 +9,40 @@
                 <div class="checkout_details_area mt-50 clearfix">
 
                     <div class="cart-page-heading">
-                        <h5>Billing Address</h5>
-                        <p>Enter your cupone code</p>
+                        <h5>Địa chỉ nhận hàng</h5>
                     </div>
 
                     <form action="#" method="post">
                         <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="first_name">First Name <span>*</span></label>
-                                <input type="text" class="form-control" id="first_name" value="" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="last_name">Last Name <span>*</span></label>
-                                <input type="text" class="form-control" id="last_name" value="" required>
+                            <div class="col-md-12 mb-3">
+                                <label for="full_name">Họ và tên <span>*</span></label>
+                                <input type="text" class="form-control" id="full_name" value="" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="company">Company Name</label>
-                                <input type="text" class="form-control" id="company" value="">
+                                <label for="phone_number">Số điện thoại <span>*</span></label>
+                                <input type="text" class="form-control" id="phone_number" min="0" value="" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="country">Country <span>*</span></label>
-                                <select class="custom-select d-block w-100" id="country">
-                                <option value="usa">United States</option>
-                                <option value="uk">United Kingdom</option>
-                                <option value="ger">Germany</option>
-                                <option value="fra">France</option>
-                                <option value="ind">India</option>
-                                <option value="aus">Australia</option>
-                                <option value="bra">Brazil</option>
-                                <option value="cana">Canada</option>
-                            </select>
+                                <label for="city">Thành phố <span>*</span></label>
+                                <input type="text" class="form-control" id="city" value="" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="street_address">Address <span>*</span></label>
-                                <input type="text" class="form-control mb-3" id="street_address" value="">
-                                <input type="text" class="form-control" id="street_address2" value="">
+                                <label for="state">Tỉnh <span>*</span></label>
+                                <input type="text" class="form-control" id="state" value="" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="postcode">Postcode <span>*</span></label>
-                                <input type="text" class="form-control" id="postcode" value="">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="city">Town/City <span>*</span></label>
-                                <input type="text" class="form-control" id="city" value="">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="state">Province <span>*</span></label>
-                                <input type="text" class="form-control" id="state" value="">
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="phone_number">Phone No <span>*</span></label>
-                                <input type="number" class="form-control" id="phone_number" min="0" value="">
-                            </div>
-                            <div class="col-12 mb-4">
-                                <label for="email_address">Email Address <span>*</span></label>
-                                <input type="email" class="form-control" id="email_address" value="">
+                                <label for="street_address">Địa chỉ <span>*</span></label>
+                                <input type="text" class="form-control mb-3" id="street_address" value="" required>
                             </div>
 
                             <div class="col-12">
                                 <div class="custom-control custom-checkbox d-block mb-2">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label" for="customCheck1">Terms and conitions</label>
-                                </div>
-                                <div class="custom-control custom-checkbox d-block mb-2">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                    <label class="custom-control-label" for="customCheck2">Create an accout</label>
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1" required>
+                                    <label class="custom-control-label" for="customCheck1">Đồng ý các điều khoản sử dụng</label>
                                 </div>
                                 <div class="custom-control custom-checkbox d-block">
                                     <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                    <label class="custom-control-label" for="customCheck3">Subscribe to our newsletter</label>
+                                    <label class="custom-control-label" for="customCheck3">Nhận email tin tức của chúng tôi</label>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +114,7 @@
                         <div class="card">
                             <div class="card-header" role="tab" id="headingFour">
                                 <h6 class="mb-0">
-                                    <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><i class="fa fa-circle-o mr-3"></i>Thanh toán trực tiếp</a>
+                                    <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><i class="fa fa-circle-o mr-3"></i>Thanh toán tại quầy</a>
                                 </h6>
                             </div>
                             <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">

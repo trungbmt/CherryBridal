@@ -13,10 +13,16 @@ class HomeController extends Controller
 {
     public function index() {
     	$all_category = Category::get();
-    	return view('user.index')->with('all_category', $all_category);
+        $all_cart = null;
+        if(Auth::check()) 
+        {
+            $all_cart= Auth::User()->carts()->get();
+        }
+    	return view('user.index')->with('all_category', $all_category)->with('all_cart', $all_cart);
     }
 
 //======================================={cart}========================================
+
     public function cart() {
         if(!Auth::check()) 
         {
@@ -80,6 +86,10 @@ class HomeController extends Controller
     }
 //======================================={checkout}========================================
     public function checkout() {
+        if(!Auth::check()) 
+        {
+            return Redirect::to('login');
+        } 
         $all_category = Category::get();
         $all_cart = Auth::User()->carts()->get();
         return view('user.checkout')
@@ -94,17 +104,29 @@ class HomeController extends Controller
         $related_products = $category->products()->where('product_id', '!=', $product->product_id)->inRandomOrder()->take(4)->get();
 
         $all_category = Category::get();
+        $all_cart = null;
+        if(Auth::check()) 
+        {
+            $all_cart= Auth::User()->carts()->get();
+        }
         
         return view('user.product-details')
         ->with('product', $product)
         ->with('category', $category)
         ->with('related_products', $related_products)
-        ->with('all_category', $all_category);
+        ->with('all_category', $all_category)
+        ->with('all_cart', $all_cart);
     }
 
 //======================================={category}========================================
     public function shop(Request $request) {
         $all_category = Category::get();
+        $all_cart = null;
+        if(Auth::check()) 
+        {
+            $all_cart= Auth::User()->carts()->get();
+        }
+
         $item_per_page = 12;
 
         if($request->view) {
@@ -145,11 +167,18 @@ class HomeController extends Controller
         $all_product = $all_product->groupBy('tbl_product.product_id')->paginate($item_per_page)->withQueryString();
         return view('user.shop')
         ->with('all_category', $all_category)
+        ->with('all_cart', $all_cart)
         ->with('all_product', $all_product)
         ->with('recommend_products', $recommend_products);
     }
     public function shop_with_category(Request $request, $category) {
         $all_category = Category::get();
+        $all_cart = null;
+        if(Auth::check()) 
+        {
+            $all_cart= Auth::User()->carts()->get();
+        }
+
         $item_per_page = 12;
         
         if($request->view) {
@@ -193,6 +222,7 @@ class HomeController extends Controller
         $all_product = $all_product->paginate($item_per_page)->withQueryString();
         return view('user.shop')
         ->with('all_category', $all_category)
+        ->with('all_cart', $all_cart)
         ->with('all_product', $all_product)
         ->with('recommend_products', $recommend_products);
     }
