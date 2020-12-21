@@ -48,4 +48,12 @@ class Product extends Model
         $query->join('tbl_product_detail', 'tbl_product_detail.product_id','=','tbl_product.product_id')->whereBetween('product_price', [$min_price, $max_price]);
         return $query;
     }
+    public function scopeName($query, $request) {
+        if($request->search) 
+            {
+                $name = $request->search;
+                $query->where('product_name', 'like', '%'.$name.'%');
+            }
+        return $query;
+    }
 }

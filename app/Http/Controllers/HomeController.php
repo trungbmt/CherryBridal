@@ -144,7 +144,7 @@ class HomeController extends Controller
             }
         }
 
-        $all_product = Product::query()->price($request)->where('product_status', 1);
+        $all_product = Product::query()->price($request)->name($request)->where('product_status', 1);
         $recommend_products = Product::inRandomOrder()->limit(3)->get();
 
         if($request->orderby) {
@@ -196,7 +196,7 @@ class HomeController extends Controller
             }
         }
 
-        $all_product = Category::find($category)->products()->price($request)->where('product_status', 1);
+        $all_product = Category::find($category)->products()->price($request)->name($request)->where('product_status', 1);
         $recommend_products = Category::find($category)->products()->inRandomOrder()->limit(3)->get();
 
         
@@ -219,7 +219,7 @@ class HomeController extends Controller
         }
 
 
-        $all_product = $all_product->paginate($item_per_page)->withQueryString();
+        $all_product = $all_product->groupBy('tbl_product.product_id')->paginate($item_per_page)->withQueryString();
         return view('user.shop')
         ->with('all_category', $all_category)
         ->with('all_cart', $all_cart)

@@ -59,6 +59,12 @@
         urlParams.set(key2, value2);
         return urlParams;
     }
+    function addParam(key, value) {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        urlParams.set(key, value);
+        return urlParams;
+    }
 </script>
 <!-- ****** Quick View Modal Area Start ****** -->
 @foreach($all_product as $product)
@@ -166,6 +172,13 @@
                         </div>
                     </div>
 
+                    <div class="widget color mb-70">
+                        <h6 class="widget-title mb-30">Tìm theo tên</h6>
+                        <div class="row" style="margin: 0px">
+                            <input class="col-10" type="text" id="search_text" name="search">
+                            <a class="col-2 btn btn-info" onclick="window.location.search = addParam('search', $('#search_text').val())"><i class="fa-search fa"></i></a>
+                        </div>
+                    </div>
                     <div class="widget price mb-50">
                         <h6 class="widget-title mb-30">Lọc theo giá</h6>
                         <div class="widget-desc">
