@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Redirect;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -20,6 +21,14 @@ class AuthController extends Controller
 	}
 	public function register() {
 		return view('register');
+	}
+	public function register_account(Request $request) {
+		$username = $request['username'];
+		$email = $request['email'];
+		$password = $request['password'];
+		
+
+
 	}
     public function login_check(Request $request) {
     	$username = $request['username'];

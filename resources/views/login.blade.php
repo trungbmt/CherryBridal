@@ -23,7 +23,6 @@
               $failed_login_message = Session::get('failed_login_message');
               if($failed_login_message) {
                 echo "<div class='alert alert-danger'>".$failed_login_message."</div>";
-                Session::put('failed_login_message', null);
               }
           ?>
           <a href="#" class="btn-face m-b-20">
