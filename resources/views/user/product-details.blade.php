@@ -42,6 +42,67 @@
             });
         }
     }
+    function add_comment() {
+        if(!$('#comment_content').val()) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Vui lòng nhập bình luận!',
+            })
+        } else 
+        {
+            let content = $('#comment_content').val();
+            let product_id = {{$product->product_id}};
+            $.ajax({
+                url:"{{ url('add-comment') }}",
+                method:"GET",
+                data:{product_id:product_id, content:content},
+                success:function(data){ 
+                    if(data) {
+                        let string = '<div id="comment_'+data+'" class="mt-2">'+
+                                    '<img style="width: 48px; height: 48px; display: inline;" src="{{asset('public/frontend/images/avatar.png')}}">'+
+                                    '<h6 class="ml-2" style="display: inline;">{{Auth::check()?Auth::User()->username:'error'}}:</h6>'+
+                                    '<p class="ml-2" style="display: inline">'+content+'</p>'+
+                                    '</div>';
+                        $('#all_comment').prepend(string);
+                        $('#comment_content').val('');
+                    } else {
+                        location.href = "{{URL::to('/login')}}";
+                    }
+                }
+            });
+        }
+    }
+    function reply_append(element) {
+        var id = element.dataset.comment;
+        $('.reply-comment-input').remove();
+        let string = 
+                    '<div class="reply-comment-input row mb-5 col-lg-12" style="margin: 0">'+
+                        '<div class="col-lg-10">'+
+                            '<input class="form-control" type="text" id="reply_comment_content" name="">'+
+                        '</div>'+
+                        '<div class="col-lg-2">'+
+                            '<button onclick="add_reply_comment('+id+')" class="btn btn-info">GỬI</button>'+
+                        '</div>'+
+                    '</div>';
+        $('#comment_'+id).append(string);
+    }
+    function add_reply_comment(id){
+        let content = $('#reply_comment_content').val();
+        let product_id = {{$product->product_id}};
+        let reply_id = id;
+        $.ajax({
+            url:"{{ url('add-reply-comment') }}",
+            method:"GET",
+            data:{product_id:product_id, content:content, reply_id:reply_id},
+            success:function(data){ 
+                if(data) {
+                    $('#reply_comment_content').val('');
+                } else {
+                    location.href = "{{URL::to('/login')}}";
+                }
+            }
+        });
+    }
 </script>
 <!-- <<<<<<<<<<<<<<<<<<<< Breadcumb Area Start <<<<<<<<<<<<<<<<<<<< -->
 <div class="breadcumb_area">
@@ -187,6 +248,48 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+            {{-- Comments --}}
+            <div class="col-12 mt-5">
+                <h3>BÌNH LUẬN</h3>
+                <div class="row mb-5">
+                    <div class="col-lg-10">
+                        <input class="form-control" type="text" id="comment_content" name="">
+                    </div>
+                    <div class="col-lg-2">
+                        <button onclick="add_comment()" class="btn btn-info">GỬI</button>
+                    </div>
+                </div>
+                <div id="all_comment">
+                    @foreach($product->comments()->get() as $comment)
+                    <div id="comment_{{$comment->id}}" class="mt-2 row" style="margin: 0">
+                        <img style="width: 48px; height: 48px; display: inline;" src="{{asset('public/frontend/images/avatar.png')}}"> 
+                        <div class="col-lg-11 row">
+                            <div class="col-lg-2 col-5 mt-1">
+                                <h6 style="margin-bottom: 0px">{{$comment->user()->username}}:</h6>
+                                <span>{{$comment->content}}</span>
+                                @if($comment->replies()->count()>0)
+                                    <a class="text-primary" href="#" onclick="$('#reply_view_{{$comment->id}}').css('display','block'); this.remove()">Xem {{$comment->replies()->count()}} câu trả lời</a>
+                                @endif
+                                <div>
+                                    <a data-comment='{{$comment->id}}' id="reply_comment_{{$comment->id}}" class="text-info" href="#" onclick="reply_append(this)">Trả lời</a>
+                                </div>
+                            </div>
+
+                            <div style="display: none" id="reply_view_{{$comment->id}}" class="col-12">
+                                @foreach($comment->replies()->get() as $reply)
+                                    <div>
+                                        <img style="width: 32px; height: 32px; display: inline;" src="{{asset('public/frontend/images/avatar.png')}}"> 
+                                        <h7 style="margin-bottom: 0">{{$reply->user()->username}}:</h7>
+                                        <span>{{$reply->content}}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        </div>
+                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

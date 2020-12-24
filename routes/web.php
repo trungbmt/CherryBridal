@@ -28,6 +28,9 @@ Route::get('/item/{product_id}', 'HomeController@product_detail');
 Route::get('/shop', 'HomeController@shop');
 Route::get('/shop/{category_id}', 'HomeController@shop_with_category');
 
+Route::get('add-comment', 'CommentController@add_comment');
+Route::get('add-reply-comment', 'CommentController@add_reply_comment');
+
 Route::get('/cart', 'HomeController@cart');
 Route::get('/cart-total-price', 'HomeController@cart_total_price');
 Route::get('/add-to-cart', 'HomeController@add_to_cart');

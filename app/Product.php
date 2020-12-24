@@ -24,6 +24,10 @@ class Product extends Model
         return $this->hasMany('App\Product_Detail', 'product_id', 'product_id');
     }
 
+    public function comments(){
+        return $this->hasMany('App\Comment', 'product_id', 'product_id')->whereNull('reply_id')->orderBy('created_at', 'desc');
+    }
+
     public function get_lowest_price() {
         $price = $this->hasMany('App\Product_Detail', 'product_id', 'product_id')->orderBy('product_price', 'asc')->first()->product_price;
         return number_format($price, 0, ',', '.').'đ';
