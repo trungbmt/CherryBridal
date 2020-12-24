@@ -15,15 +15,23 @@ class CreateTblOrder extends Migration
     {
         Schema::create('tbl_order', function (Blueprint $table) {
             $table->Increments('order_id');
-            $table->integer('user_order');
+            $table->unsignedBigInteger('user_id');
             $table->text('order_full_name');
             $table->text('order_phone');
             $table->text('order_status');
             $table->text('order_city');
             $table->text('order_province');
             $table->text('order_address');
+            $table->text('payments');
+            $table->text('payment_status');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
+
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
         });
     }
 

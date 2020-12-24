@@ -18,6 +18,9 @@ class AuthController extends Controller
 		Auth::logout();
 		return Redirect::to('login');
 	}
+	public function register() {
+		return view('register');
+	}
     public function login_check(Request $request) {
     	$username = $request['username'];
     	$password = $request['password'];

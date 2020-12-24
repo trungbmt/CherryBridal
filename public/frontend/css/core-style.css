@@ -701,12 +701,14 @@ img {
     top: 15px;
     left: 0;
 }
-
+.selected:before  {
+    
+    background-color: #ff084e;
+}
 .menu-content > li > a:before {
     width: 10px;
     height: 10px;
     border: 1px solid #ff084e;
-    background-color: #ff084e;
     border-radius: 2px;
     display: inline-block;
     margin-left: 10px;

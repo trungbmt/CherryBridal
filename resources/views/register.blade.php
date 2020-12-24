@@ -17,7 +17,7 @@
         <form class="login100-form validate-form flex-sb flex-w" action="{{URL::to('/login-check')}}" method="post">
           {{ csrf_field() }}
           <span class="login100-form-title p-b-53">
-            Đăng nhập bằng
+            Đăng ký với
           </span>
           <?php 
               $failed_login_message = Session::get('failed_login_message');
@@ -35,17 +35,26 @@
             <img src="{{asset('public/frontend/images/icon-google.png')}}" alt="GOOGLE">
             Google
           </a>
-          <span class="login100-form-title p-b-30">
+          
+          <span class="login100-form-title p-b-20">
             hoặc
           </span>
-          
           <div class="p-b-9">
             <span class="txt1">
-              Tài khoản
+              Địa chỉ email
+            </span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate = "Email is required">
+            <input class="input100" required type="email" name="email" >
+            <span class="focus-input100"></span>
+          </div>
+          <div class="p-t-13 p-b-9">
+            <span class="txt1">
+              Tên tài khoản
             </span>
           </div>
           <div class="wrap-input100 validate-input" data-validate = "Username is required">
-            <input class="input100" type="text" name="username" >
+            <input class="input100" required type="text" name="username" >
             <span class="focus-input100"></span>
           </div>
           
@@ -53,29 +62,34 @@
             <span class="txt1">
               Mật khẩu
             </span>
-
-            <a href="#" class="txt2 bo1 m-l-5">
-              Quên?
-            </a>
           </div>
           <div class="wrap-input100 validate-input" data-validate = "Password is required">
-            <input class="input100" type="password" name="password" >
+            <input class="input100" required type="password" name="password" >
+            <span class="focus-input100"></span>
+          </div>
+          <div class="p-t-13 p-b-9">
+            <span class="txt1">
+              Nhập lại mật khẩu
+            </span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate = "Password is required">
+            <input class="input100" required type="password" name="repassword" >
             <span class="focus-input100"></span>
           </div>
 
           <div class="container-login100-form-btn m-t-17">
             <button class="login100-form-btn">
-              Đăng Nhập
+              Đăng Ký
             </button>
           </div>
 
           <div class="w-full text-center p-t-55">
             <span class="txt2">
-              Chưa có tài khoản?
+              Đã có tài khoản?
             </span>
 
-            <a href="{{URL::to('/register')}}" class="txt2 bo1">
-              Đăng ký ngay
+            <a href="{{URL::to('/login')}}" class="txt2 bo1">
+              Đăng nhập ngay
             </a>
           </div>
         </form>

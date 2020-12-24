@@ -160,11 +160,19 @@
                             <div class="menu-list">
                                 <ul id="menu-content2" class="menu-content collapse out">
                                     <li>
-                                        <a href="{{URL::to('shop')}}">Tất cả</a>
+                                        <a class="
+                                        @if($current_category_id==0)
+                                        selected
+                                        @endif
+                                        " href="{{URL::to('shop')}}">Tất cả</a>
                                     </li>
                                     @foreach($all_category as $category) 
                                     <li>
-                                        <a href="{{URL::to('shop/'.$category->category_id)}}">{{$category->category_name}}</a>
+                                        <a class="
+                                        @if($current_category_id==$category->category_id)
+                                        selected
+                                        @endif
+                                        " href="{{URL::to('shop/'.$category->category_id)}}">{{$category->category_name}}</a>
                                     </li>
                                     @endforeach
                                 </ul>

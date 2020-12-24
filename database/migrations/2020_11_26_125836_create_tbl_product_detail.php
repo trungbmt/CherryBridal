@@ -17,13 +17,15 @@ class CreateTblProductDetail extends Migration
             
             $table->Increments('detail_id');
             $table->integer('product_id')->unsigned();
+            $table->text('product_size');
+            $table->integer('product_amount');
+            $table->integer('product_price');
+
+            
             $table->foreign('product_id')
                   ->references('product_id')
                   ->on('tbl_product')
                   ->onDelete('cascade');
-            $table->text('product_size');
-            $table->integer('product_amount');
-            $table->integer('product_price');
         });
     }
 

@@ -169,7 +169,8 @@ class HomeController extends Controller
         ->with('all_category', $all_category)
         ->with('all_cart', $all_cart)
         ->with('all_product', $all_product)
-        ->with('recommend_products', $recommend_products);
+        ->with('recommend_products', $recommend_products)
+        ->with('current_category_id', 0);
     }
     public function shop_with_category(Request $request, $category) {
         $all_category = Category::get();
@@ -224,6 +225,7 @@ class HomeController extends Controller
         ->with('all_category', $all_category)
         ->with('all_cart', $all_cart)
         ->with('all_product', $all_product)
-        ->with('recommend_products', $recommend_products);
+        ->with('recommend_products', $recommend_products)
+        ->with('current_category_id', $category);
     }
 }

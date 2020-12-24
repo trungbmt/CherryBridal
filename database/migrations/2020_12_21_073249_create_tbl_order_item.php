@@ -15,9 +15,18 @@ class CreateTblOrderItem extends Migration
     {
         Schema::create('tbl_order_item', function (Blueprint $table) {
             $table->Increments('id');
-            $table->integer('product_id');
+            $table->integer('product_id')->unsigned();
             $table->integer('quantity');
             $table->integer('order_id')->unsigned();
+
+
+            $table->foreign('order_id')
+                  ->references('order_id')
+                  ->on('tbl_order')
+                  ->onDelete('cascade');
+            $table->foreign('product_id')
+                  ->references('product_id')
+                  ->on('tbl_product');
         });
     }
 

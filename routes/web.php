@@ -19,6 +19,7 @@ Route::get('/', 'HomeController@index');
 
 Route::get('/login', ['as'=>'login', 'uses'=>'AuthController@login']);
 Route::post('/login-check', 'AuthController@login_check');
+Route::get('/register', 'AuthController@register');
 Route::get('/logout', 'AuthController@logout');
 
 

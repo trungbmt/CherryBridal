@@ -16,17 +16,19 @@ class CreateTblProduct extends Migration
         Schema::create('tbl_product', function (Blueprint $table) {
             $table->Increments('product_id');
             $table->integer('product_category')->unsigned();
-            $table->foreign('product_category')
-                  ->references('category_id')
-                  ->on('tbl_category')
-                  ->onDelete('cascade');
             $table->string('product_name');
             $table->text('product_desc');
-            $table->integer('product_tag');
+            $table->integer('product_tag')->unsigned()->nulleable();
             $table->text('product_img');
             $table->integer('product_status');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
+            
+            $table->foreign('product_category')
+                  ->references('category_id')
+                  ->on('tbl_category')
+                  ->onDelete('cascade');
         });
     }
 
