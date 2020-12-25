@@ -18,7 +18,7 @@ class CreateTblOrder extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('order_full_name');
             $table->text('order_phone');
-            $table->text('order_status');
+            $table->integer('order_status');
             $table->text('order_city');
             $table->text('order_province');
             $table->text('order_address');

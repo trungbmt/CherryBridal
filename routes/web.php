@@ -43,6 +43,7 @@ Route::get('/checkout', 'HomeController@checkout');
 Route::post('/checkout-done', 'HomeController@checkout_done');
 
 Route::get('/purchase', 'HomeController@purchase');
+Route::get('/order-cancel/{order_id}', 'HomeController@order_cancel');
 
 
 //BackEnd
@@ -62,7 +63,10 @@ Route::post('/update-category/{category_id}', 'CategoryController@update_categor
 Route::get('/unactive-category/{category_id}', 'CategoryController@unactive_category');
 Route::get('/active-category/{category_id}', 'CategoryController@active_category');
 
-
+//order
+Route::get('/all-order', 'OrderController@all_order');
+Route::get('/delete-order', 'OrderController@delete_order');
+Route::get('/update-order-status', 'OrderController@update_order_status');
 
 
 //product

@@ -112,7 +112,7 @@ class HomeController extends Controller
         $order->order_city = $request->order_city;
         $order->order_province = $request->order_province;
         $order->order_address = $request->order_address;
-        $order->order_status = 'Đang xử lí';
+        $order->order_status = 0;
         $order->save();
 
         foreach ($all_cart as $cart) {
@@ -130,12 +130,25 @@ class HomeController extends Controller
         $all_category = Category::get();
         $all_cart = Auth::User()->carts()->get();
 
-        
+
         $all_order = Auth::User()->orders;
         return view('user.purchase')
         ->with('all_order', $all_order)
         ->with('all_category', $all_category)
         ->with('all_cart', $all_cart);
+    }
+    public function order_cancel($order_id) {
+        if(!Auth::check()) 
+        {
+            return Redirect::to('login');
+        } 
+        $order = Order::find($order_id);
+        if($order->user_id == Auth::User()->id) 
+        {
+            $order->order_status = -1;
+        }
+        $order->save();
+        return Redirect::to('/purchase');   
     }
 //======================================={product}========================================
 
