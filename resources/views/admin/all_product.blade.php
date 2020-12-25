@@ -40,22 +40,20 @@
       LIỆT KÊ SẢN PHẨM
     </div>
     <div class="row w3-res-tb">
-      <div class="col-sm-5 m-b-xs">
-        <select class="input-sm form-control w-sm inline v-middle">
-          <option value="0">Bulk action</option>
-          <option value="1">Delete selected</option>
-          <option value="2">Bulk edit</option>
-          <option value="3">Export</option>
+      <div class="form-group form-inline col-sm-2 m-b-xs inline">
+        <select class=" form-control w-sm inline v-middle">
+          <option value="0">Tất cả</option>
+          <option value="1">Váy cưới</option>
+          <option value="2">Vest nam</option>
+          <option value="3">Khác</option>
         </select>
-        <button class="btn btn-sm btn-default">Apply</button>                
-      </div>
-      <div class="col-sm-4">
+        <button class="btn btn-success">Duyệt</button>                
       </div>
       <div class="col-sm-3">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control" placeholder="Search">
+        <div class="form-group form-inline">
+          <input type="text" class="input-sm form-control" placeholder="Tìm kiếm">
           <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
+            <button class="btn btn-success" type="button">Tìm</button>
           </span>
         </div>
       </div>
@@ -81,7 +79,7 @@
             @foreach($all_product as $key => $product)
           <tr id="product_{{$product->product_id}}">
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td>{{ $product->product_name }}</td>
+            <td><a href="">{{ $product->product_name }}</a></td>
             <td><a class="text-ellipsis" href="storage/app/<?php echo $product->product_img; ?>">{{ $product->product_img }}</a></td>
             <td><span class="text-ellipsis">
                 <?php

@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--logo start-->
 <div class="brand">
     <a href="index.html" class="logo">
-        VISITORS
+        Admin
     </a>
     <div class="sidebar-toggle-box">
         <div class="fa fa-bars"></div>
@@ -267,7 +267,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li class="sub-menu">
                     <a href="#">
                         <i class="fa fa-book"></i>
-                        <span>DANH MỤC SẢN PHẨM</span>
+                        <span>Danh mục</span>
                     </a>
                     <ul class="sub">
 						<li><a href="{{URL::to('add-category')}}">Thêm danh mục</a></li>
@@ -277,7 +277,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li class="sub-menu">
                     <a href="#">
                         <i class="fa fa-shopping-bag"></i>
-                        <span>SẢN PHẨM</span>
+                        <span>Sản phẩm</span>
                     </a>
                     <ul class="sub">
                         <li><a href="{{URL::to('add-product')}}">Thêm sản phẩm</a></li>
@@ -287,7 +287,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li class="sub-menu">
                     <a href="#">
                         <i class="fa fa-th"></i>
-                        <span>TAG</span>
+                        <span>Tag</span>
                     </a>
                     <ul class="sub">
                         <li><a href="{{URL::to('add-tag')}}">Thêm tag</a></li>
@@ -297,7 +297,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-tasks"></i>
-                        <span>Form Components</span>
+                        <span>Đơn hàng</span>
                     </a>
                     <ul class="sub">
                         <li><a href="form_component.html">Form Elements</a></li>
@@ -318,14 +318,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class=" fa fa-bar-chart-o"></i>
-                        <span>Charts</span>
+                        <span>Biểu đồ</span>
                     </a>
                     <ul class="sub">
                         <li><a href="chartjs.html">Chart js</a></li>
                         <li><a href="flot_chart.html">Flot Charts</a></li>
                     </ul>
                 </li>
-                <li class="sub-menu">
+                {{-- <li class="sub-menu">
                     <a href="javascript:;">
                         <i class=" fa fa-bar-chart-o"></i>
                         <span>Maps</span>
@@ -334,11 +334,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li><a href="google_map.html">Google Map</a></li>
                         <li><a href="vector_map.html">Vector Map</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-glass"></i>
-                        <span>Extra</span>
+                        <span>Khác</span>
                     </a>
                     <ul class="sub">
                         <li><a href="gallery.html">Gallery</a></li>

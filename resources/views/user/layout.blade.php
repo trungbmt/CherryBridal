@@ -9,7 +9,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Cherry Bridal - Wedding Store | Home</title>
+    <title>Cherry Bridal - Wedding Store | Trang chủ</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="{{asset('public/frontend/images/icon.png')}}">
@@ -212,7 +212,7 @@
                                         <ul class="navbar-nav animated" id="nav">
                                             <li class="nav-item active"><a class="nav-link" href="{{URL::to('/')}}">Trang Chủ</a></li>
                                             <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="{{URL::to('/shop')}}" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="karl-level">hot</span>Shop</a>
+                                                <a class="nav-link dropdown-toggle" href="{{URL::to('/shop')}}" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="karl-level">hot</span>Cửa hàng</a>
                                                 <div class="dropdown-menu" aria-labelledby="karlDropdown">
                                                     <a class="dropdown-item" href="{{URL::to('/shop')}}">TẤT CẢ</a>
                                                     @foreach($all_category as $category)
@@ -228,7 +228,7 @@
                             </div>
                             <!-- Help Line -->
                             <div class="help-line">
-                                <a href="tel:+84946416465"><i class="ti-headphone-alt"></i> +84 94641645</a>
+                                <a href="tel:+84921415415><i class="ti-headphone-alt"></i> +84 921415415</a>
                             </div>
                         </div>
                     </div>
@@ -241,18 +241,18 @@
         <section class="top-discount-area d-md-flex align-items-center">
             <!-- Single Discount Area -->
             <div class="single-discount-area">
-                <h5>Free Shipping &amp; Returns</h5>
-                <h6><a href="#">BUY NOW</a></h6>
+                <h5>Miễn phí vận chuyển trong hôm nay</h5>
+                <h6><a href="#">MUA NGAY</a></h6>
             </div>
             <!-- Single Discount Area -->
             <div class="single-discount-area">
-                <h5>20% Discount for all dresses</h5>
-                <h6>USE CODE: Colorlib</h6>
+                <h5>Giảm giá 5% cho tất cả váy cưới</h5>
+                <h6>Sử dụng mã: CHERRY5</h6>
             </div>
             <!-- Single Discount Area -->
             <div class="single-discount-area">
-                <h5>20% Discount for students</h5>
-                <h6>USE CODE: Colorlib</h6>
+                <h5>Giảm giá 10% cho khách hàng có sinh nhật tháng 12</h5>
+                <h6>Sử dụng mã: CHERRY10</h6>
             </div>
         </section>
         <!-- ****** Top Discount Area End ****** -->

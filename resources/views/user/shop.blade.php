@@ -183,7 +183,7 @@
                     <div class="widget color mb-70">
                         <h6 class="widget-title mb-30">Tìm theo tên</h6>
                         <div class="row" style="margin: 0px">
-                            <input class="col-10" type="text" id="search_text" name="search">
+                            <input class="col-10 border border-radius" type="text" id="search_text" name="search">
                             <a class="col-2 btn btn-info" onclick="window.location.search = addParam('search', $('#search_text').val())"><i class="fa-search fa"></i></a>
                         </div>
                     </div>

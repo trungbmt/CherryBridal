@@ -10,8 +10,8 @@
                     <div class="col-12">
                         <div class="welcome_slide_text">
                             <h6 data-animation="bounceInDown" data-delay="0" data-duration="500ms">* Miễn phí vận chuyển trong hôm nay</h6>
-                            <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">wedding dress</h2>
-                            <a href="#" class="btn karl-btn" data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Shop Now</a>
+                            <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">Váy cưới</h2>
+                            <a href="#" class="btn karl-btn" data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Mua ngay</a>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="welcome_slide_text">
                             <h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Miễn phí vận chuyển trong hôm nay</h6>
                             <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">Vest Nam</h2>
-                            <a href="#" class="btn karl-btn" data-animation="fadeInLeftBig" data-delay="1s" data-duration="500ms">Shop Now</a>
+                            <a href="#" class="btn karl-btn" data-animation="fadeInLeftBig" data-delay="1s" data-duration="500ms">Mua ngay</a>
                         </div>
                     </div>
                 </div>
@@ -40,8 +40,8 @@
                     <div class="col-12">
                         <div class="welcome_slide_text">
                             <h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Miễn phí vận chuyển trong hôm nay</h6>
-                            <h2 data-animation="bounceInDown" data-delay="500ms" data-duration="500ms">Photo Gallery</h2>
-                            <a href="#" class="btn karl-btn" data-animation="fadeInRightBig" data-delay="1s" data-duration="500ms">Check Collection</a>
+                            <h2 data-animation="bounceInDown" data-delay="500ms" data-duration="500ms">Bộ sư tập ảnh</h2>
+                            <a href="#" class="btn karl-btn" data-animation="fadeInRightBig" data-delay="1s" data-duration="500ms">Xem ngay</a>
                         </div>
                     </div>
                 </div>
