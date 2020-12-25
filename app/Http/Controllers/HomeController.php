@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use App\Category;
 use App\Product;
 use App\Cart;
+use App\Order;
+use App\Order_Item;
 use Illuminate\Support\Facades\Auth; 
 
 class HomeController extends Controller
@@ -93,6 +95,45 @@ class HomeController extends Controller
         $all_category = Category::get();
         $all_cart = Auth::User()->carts()->get();
         return view('user.checkout')
+        ->with('all_category', $all_category)
+        ->with('all_cart', $all_cart);
+    }
+    public function checkout_done(Request $request) {
+        if(!Auth::check()) 
+        {
+            return Redirect::to('login');
+        } 
+        $all_cart = Auth::User()->carts()->get();
+
+        $order = new Order();
+        $order->user_id = Auth::User()->id;
+        $order->order_full_name =  $request->order_full_name;
+        $order->order_phone = $request->order_phone;
+        $order->order_city = $request->order_city;
+        $order->order_province = $request->order_province;
+        $order->order_address = $request->order_address;
+        $order->order_status = 'Đang xử lí';
+        $order->save();
+
+        foreach ($all_cart as $cart) {
+            $cart->cart_to_order($order->order_id);
+        }
+
+        return Redirect::to('/purchase/');
+    }
+//======================================={purchase}========================================
+    public function purchase() {
+        if(!Auth::check()) 
+        {
+            return Redirect::to('login');
+        } 
+        $all_category = Category::get();
+        $all_cart = Auth::User()->carts()->get();
+
+        
+        $all_order = Auth::User()->orders;
+        return view('user.purchase')
+        ->with('all_order', $all_order)
         ->with('all_category', $all_category)
         ->with('all_cart', $all_cart);
     }

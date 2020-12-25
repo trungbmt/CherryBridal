@@ -25,6 +25,7 @@
     <!-- Responsive CSS -->
     <link href="{{asset('public/frontend/css/responsive.css')}}" rel="stylesheet">
 
+
 </head>
 
 <body>

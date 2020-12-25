@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="product_tag">Tag</label>
                             <select name="product_tag" id="product_tag" class="form-control">
-                                <option value="0">Không</option>
+                                <option value="">Không</option>
                                 @foreach($all_tag as $tag)
                                     <option 
                                         @if($tag->tag_id==$product->product_tag)

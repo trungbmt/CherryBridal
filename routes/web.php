@@ -40,6 +40,9 @@ Route::get('/cart-delete-all', 'HomeController@cart_delete_all');
 
 
 Route::get('/checkout', 'HomeController@checkout');
+Route::post('/checkout-done', 'HomeController@checkout_done');
+
+Route::get('/purchase', 'HomeController@purchase');
 
 
 //BackEnd

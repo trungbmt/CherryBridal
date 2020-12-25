@@ -479,12 +479,15 @@ class ComposerStaticInit4a90e4119f63a4538e87ee66990e1d15
     );
 
     public static $classMap = array (
+        'App\\Cart' => __DIR__ . '/../..' . '/app/Cart.php',
         'App\\Category' => __DIR__ . '/../..' . '/app/Category.php',
+        'App\\Comment' => __DIR__ . '/../..' . '/app/Comment.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
-        'App\\Http\\Controllers\\CategoryProduct' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryProduct.php',
+        'App\\Http\\Controllers\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoryController.php',
+        'App\\Http\\Controllers\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
@@ -499,6 +502,7 @@ class ComposerStaticInit4a90e4119f63a4538e87ee66990e1d15
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Libraries\\Tools' => __DIR__ . '/../..' . '/app/Libraries/Tools.php',
         'App\\Product' => __DIR__ . '/../..' . '/app/Product.php',
         'App\\Product_Detail' => __DIR__ . '/../..' . '/app/Product_Detail.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

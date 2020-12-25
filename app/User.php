@@ -50,6 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Cart', 'user_id', 'id');
     }
+    public function orders()
+    {
+        return $this->hasMany('App\Order', 'user_id', 'id');
+    }
     public function total_cart_money() {
         $cart_list = $this->carts()->get();
         $total = 0;
