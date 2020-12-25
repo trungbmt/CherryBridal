@@ -8,8 +8,14 @@ use App\Order;
 
 class OrderController extends Controller
 {
-    public function all_order(){
-    	$all_order = Order::paginate(15);
+    public function all_order(Request $request){
+    	if($request->status&&$request->status!=2) 
+    	{
+    		$all_order = Order::where('order_status', $request->status)->paginate(15);
+    	} else {
+
+    		$all_order = Order::paginate(15);
+    	}
     	return view('admin.all_order')->with('all_order', $all_order);
     }
     public function update_order_status(Request $request){

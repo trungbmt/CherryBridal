@@ -51,11 +51,15 @@
     <div class="panel-heading">
       LIỆT KÊ ĐƠN HÀNG
     </div>
-    <div class="row w3-res-tb">
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-3">
-      </div>
+    <div class="row w3-res-tb ml-2">
+      <h6>LỌC</h6>
+      <label class="ml-5">Trạng thái</label>
+      <select onchange="location= this.value;" id="status_filter" class="ml-2">
+        <option @if(isset($_GET['status'])) selected @endif value="{{request()->fullUrlWithQuery(['status' => 2])}}">Tất cả</option>
+        <option @if(isset($_GET['status'])&&$_GET['status']==0) selected @endif value="{{request()->fullUrlWithQuery(['status' => 0])}}">Đang xử lí</option>
+        <option @if(isset($_GET['status'])&&$_GET['status']==-1) selected @endif value="{{request()->fullUrlWithQuery(['status' => -1])}}">Đã huỷ đơn</option>
+        <option @if(isset($_GET['status'])&&$_GET['status']==1) selected @endif value="{{request()->fullUrlWithQuery(['status' => 1])}}">Đã giao hàng</option>
+      </select>
     </div>
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
