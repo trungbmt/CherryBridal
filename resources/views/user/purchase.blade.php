@@ -22,7 +22,23 @@
                             <tr class="border">
                                 <td class="border"><span>{{$order->order_id}}</span></td>
                                 <td class="border"><span>{{$order->created_at}}</span></td>
-                                <td class="border"><span>{{$order->order_status}}</span></td>
+                                <td class="border">
+                                    <span>
+                                        @switch($order->order_status)
+                                            @case(-1)
+                                                Đã huỷ đơn
+                                                @break
+                                            @case(0)
+                                                Đang xử lí
+                                                @break
+                                            @case(1)
+                                                Đã giao hàng
+                                                @break
+                                            @default
+                                                Không xác định
+                                        @endswitch
+                                    </span>
+                                </td>
                                 <td class="border">
                                     @foreach($order->items()->get() as $item)
                                         <p>
@@ -38,7 +54,11 @@
                                     <p>Địa chỉ: {{$order->order_city}}, {{$order->order_province}}, {{$order->order_address}}</p>
                                 </td>
                                 <td class="border">{{$order->price_formated()}}</td>
-                                <td class="border"><a href="{{URL::to('order-delete/'.$order->order_id)}}" class="btn btn-danger">HUỶ ĐƠN</a></td>
+                                <td class="border">
+                                    @if($order->order_status==0)
+                                        <a href="{{URL::to('order-cancel/'.$order->order_id)}}" class="btn btn-danger">HUỶ ĐƠN</a>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

@@ -41,6 +41,11 @@
                     <h6>Người dùng: <span>{{Auth::User()->username}}</span></h6>
                     
                     <div class="w-full text-center p-t-55">
+                        <a href="{{URL::to('/purchase')}}" style="font-size: 1.2rem" class="txt2 bo1">
+                            Đơn mua
+                        </a>
+                    </div>
+                    <div class="w-full text-center p-t-55">
                         <a href="{{URL::to('/logout')}}" style="font-size: 1.2rem" class="txt2 bo1">
                             Đổi mật khẩu
                         </a>
