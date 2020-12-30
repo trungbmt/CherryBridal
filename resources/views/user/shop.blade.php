@@ -48,10 +48,39 @@
                       title: 'Thêm thành công!',
                       timer: 1000
                     })
+                } else {
+                    location.href = "{{URL::to('/login')}}";
                 }
             }
         });
     };
+    function click_size(source, amount, product_id, detail_id) {
+        $(source).parent().parent().find('*').css("background-color","white");
+        $(source).parent().parent().find('*').css("color","black");
+        $(source).css("background-color","#ff084e");
+        $(source).css("color","#fff");
+        $('#available_number_'+product_id).text(amount);
+
+        $('#fast_cart_'+product_id).data('detail', detail_id);
+
+        
+    }
+    function fast_add_to_cart(source, product_id) 
+    {
+        let detail_id = $(source).data('detail');
+        if(detail_id==0) 
+        {
+            Swal.fire({
+              icon: 'info',
+              title: 'Vui lòng chọn size trước!',
+            })
+        } else 
+        {
+
+            let amount = $('#qty_'+product_id).val();
+            add_to_cart(product_id, detail_id, amount);
+        }
+    }
     function insertDoubleParam(key, value, key2, value2) {
         const urlParams = new URLSearchParams(window.location.search);
 
@@ -95,12 +124,17 @@
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
                                         <h5 class="price">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
+                                        <p class="available">Có sẵn: <span id="available_number_{{$product->product_id}}" class="text-muted"></span><span class="text-muted"> In Stock</span></p>
                                         <div class="widget size mt-5">
                                             <h6 class="widget-title">Size</h6>
                                             <div class="widget-desc">
                                                 <ul>
                                                     @foreach($product->details as $detail)
-                                                        <li><a class="border border-dark" href="#">{{$detail->product_size}}</a></li>
+                                                        <li>
+                                                            <a onclick="
+                                                            click_size(this, {{$detail->product_amount}}, {{$product->product_id}}, {{$detail->detail_id}})
+                                                            " class="border border-dark" href="#">{{$detail->product_size}}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -108,15 +142,15 @@
                                         <a href="{{URL::to('/item/'.$product->product_id)}}">Xem chi tiết sản phẩm</a>
                                     </div>
                                     <!-- Add to Cart Form -->
-                                    <form class="cart" method="post">
+                                    <div class="cart">
                                         <div class="quantity">
-                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty_{{$product->product_id}}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
 
-                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
+                                            <input type="number" class="qty-text" id="qty_{{$product->product_id}}" step="1" min="1" max="12" name="quantity" value="1">
 
-                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty_{{$product->product_id}}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                         </div>
-                                        <button type="submit" name="addtocart" value="5" class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                        <button id="fast_cart_{{$product->product_id}}" onclick="fast_add_to_cart(this, {{$product->product_id}})" data-detail='0' class="btn btn-danger">Thêm vào giỏ hàng</button>
                                         <!-- Wishlist -->
                                         <div class="modal_pro_wishlist">
                                             <a href="wishlist.html" target="_blank"><i class="ti-heart"></i></a>
@@ -125,7 +159,7 @@
                                         <div class="modal_pro_compare">
                                             <a href="compare.html" target="_blank"><i class="ti-stats-up"></i></a>
                                         </div>
-                                    </form>
+                                    </div>
 
                                     <div class="share_wf mt-30">
                                         <p>Share</p>
@@ -275,15 +309,18 @@
                         <div class="widget-desc">
                             @foreach($recommend_products as $product)
                                 <!-- Single Recommended Product -->
-                                <div class="single-recommended-product d-flex mb-30">
-                                    <div class="single-recommended-thumb mr-3">
-                                        <img src="{{asset('storage/app/'.$product->product_img)}}" alt="">
+                                <a href="{{URL::to('item/'.$product->product_id)}}">
+                                        
+                                    <div class="single-recommended-product d-flex mb-30">
+                                        <div class="single-recommended-thumb mr-3">
+                                            <img src="{{asset('storage/app/'.$product->product_img)}}" alt="">
+                                        </div>
+                                        <div class="single-recommended-desc">
+                                            <h6>{{$product->product_name}}</h6>
+                                            <p>{{$product->get_lowest_price()}}</p>
+                                        </div>
                                     </div>
-                                    <div class="single-recommended-desc">
-                                        <h6>{{$product->product_name}}</h6>
-                                        <p>{{$product->get_lowest_price()}}</p>
-                                    </div>
-                                </div>
+                                </a>
                             @endforeach
                         </div>
                     </div>

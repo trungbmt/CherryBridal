@@ -94,15 +94,17 @@
                                                 return false;">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
                                             </span>
-                                            <input data-cart_id='{{$cart->cart_id}}' type="number" class="qty-text" id="amount_{{$cart->cart_id}}" step="1" min="1" max="99" name="quantity" value="{{$cart->amount}}">
+                                            <input data-cart_id='{{$cart->cart_id}}' type="number" class="qty-text" id="amount_{{$cart->cart_id}}" step="1" min="1" max="{{$cart->get_product_detail()->product_amount}}" name="quantity" value="{{$cart->amount}}">
                                             <span id="{{$cart->cart_id}}" class="qty-plus" onclick="
                                                 var effect = document.getElementById('amount_{{$cart->cart_id}}'); 
-                                                var qty = effect.value; 
-                                                if( !isNaN( qty )) effect.value++;
+                                                var qty = effect.value;
+                                                var max = effect.getAttribute('max'); 
+                                                if( !isNaN( qty ) && qty< max-1) effect.value++;
                                                 return false;">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </span>
                                         </div>
+                                        <span class="d-flex justify-content-center">Có sẵn: {{$cart->get_product_detail()->product_amount}}</span>
                                     </td>
                                     <td class="total_price"><span id="total_price_{{$cart->cart_id}}">{{$cart->price_format($cart->get_total_price())}}</span></td>
                                     <td><a href="{{URL::to('cart-delete/'.$cart->cart_id)}}" class="btn btn-danger">XOÁ</a></td>

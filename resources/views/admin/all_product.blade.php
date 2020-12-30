@@ -42,10 +42,10 @@
     <div class="row w3-res-tb">
       <div class="form-group form-inline col-sm-2 m-b-xs inline">
         <select class=" form-control w-sm inline v-middle">
-          <option value="0">Tất cả</option>
-          <option value="1">Váy cưới</option>
-          <option value="2">Vest nam</option>
-          <option value="3">Khác</option>
+          <option value="">Tất cả</option>
+          @foreach($all_category as $category)
+          <option value="{{$category->category_id}}">{{$category->category_name}}</option>
+          @endforeach
         </select>
         <button class="btn btn-success">Duyệt</button>                
       </div>
@@ -67,7 +67,7 @@
                 <input type="checkbox"><i></i>
               </label>
             </th>
-            <th>Tên danh mục</th>
+            <th>Tên sản phẩm</th>
             <th>Ảnh</th>
             <th>Hiển thị</th>
             <th>Ngày tạo</th>

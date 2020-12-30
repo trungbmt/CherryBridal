@@ -105,6 +105,12 @@ class HomeController extends Controller
         } 
         $all_cart = Auth::User()->carts()->get();
 
+        foreach ($all_cart as $cart) {
+            if($cart->amount > $cart->get_product_detail()->product_amount) {
+                return abort(404);;
+            }
+        }
+
         $order = new Order();
         $order->user_id = Auth::User()->id;
         $order->order_full_name =  $request->order_full_name;

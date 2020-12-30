@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
         	[
 	            'username' => 'phamductrungbmt',
-	            'email' => Str::random(10).'@gmail.com',
+	            'email' => 'phamductrungbmt@gmail.com',
 	            'password' => Hash::make('123123'),
 	            'role' => 'MEMBER',
         	],
         	[
 	            'username' => 'trungbmt',
-	            'email' => Str::random(10).'@gmail.com',
+                'email' => 'trungbmt@gmail.com',
 	            'password' => Hash::make('123123'),
 	            'role' => 'ADMIN',
         	],

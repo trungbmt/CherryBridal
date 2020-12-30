@@ -34,12 +34,17 @@ class Cart extends Model
         return Tools::price_format($this->get_total_price());
     }
     public function cart_to_order($order_id) {
+        
         $order_item = new Order_Item();
         $order_item->product_id = $this->product_id;
         $order_item->detail_id = $this->detail_id;
         $order_item->quantity = $this->amount;
         $order_item->order_id = $order_id;
         $order_item->save();
+
+        $detail = $this->get_product_detail();
+        $detail->product_amount -= $this->amount;
+        $detail->save();
         
         $this->delete();
     }

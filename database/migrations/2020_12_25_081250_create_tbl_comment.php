@@ -17,7 +17,7 @@ class CreateTblComment extends Migration
             $table->Increments('id');
             $table->text('content');
             $table->integer('reply_id')->unsigned()->nullable();
-            $table->integer('product_id')->unsigned();
+            $table->integer('product_id')->unsigned()->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

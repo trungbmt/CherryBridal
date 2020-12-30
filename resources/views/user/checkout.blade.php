@@ -1,5 +1,15 @@
 @extends('user.layout')
 @section('content')
+<script type="text/javascript">
+    function checkCart() {
+        if($('#cant_buy').length > 0) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Có sản phẩm vượt quá số lượng!',
+            })
+        }
+    }
+</script>
 <!-- ****** Checkout Area Start ****** -->
 <div class="checkout_area section_padding_100">
     <div class="container">
@@ -59,6 +69,10 @@
                                 <span>
                                     <strong>{{$cart->product()->product_name}}</strong>
                                     <span>(Size: {{$cart->get_product_detail()->product_size}} , x{{$cart->amount}})</span>
+                                    @if($cart->amount>$cart->get_product_detail()->product_amount)
+                                        <span class="text-danger">*chỉ còn {{$cart->get_product_detail()->product_amount}} sản phẩm</span>
+                                        <input id="cant_buy" style="width: 0px" type="text" required name="">
+                                    @endif
                                 </span> 
                                 <span>{{$cart->get_total_price_formated()}}</span>
                             </li>
@@ -78,7 +92,7 @@
                         </li>
                     </ul>
 
-                    <button type="submit" class="btn karl-checkout-btn">Tiến hành đặt hàng</button>
+                    <button onclick="checkCart()" type="submit" class="btn karl-checkout-btn">Tiến hành đặt hàng</button>
                 </div>
             </div>
 

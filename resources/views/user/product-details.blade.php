@@ -42,6 +42,49 @@
             });
         }
     }
+
+    function click_size(source, amount, product_id, detail_id) 
+    {
+        $(source).parent().parent().find('*').css("background-color","white");
+        $(source).parent().parent().find('*').css("color","black");
+        $(source).css("background-color","#ff084e");
+        $(source).css("color","#fff");
+        $('#available_number_'+product_id).text(amount);
+
+        $('#fast_cart_'+product_id).data('detail', detail_id);
+
+        
+    }
+    function fast_add_to_cart(source, product_id) 
+    {
+        let detail_id = $(source).data('detail');
+        if(detail_id==0) 
+        {
+            Swal.fire({
+              icon: 'info',
+              title: 'Vui lòng chọn size trước!',
+            })
+        } else 
+        {
+            let amount = $('#qty_'+product_id).val();;
+            $.ajax({
+                url:"{{ url('add-to-cart') }}",
+                method:"GET",
+                data:{product_id:product_id, detail_id:detail_id, amount:amount},
+                success:function(data){ 
+                    if(data) {
+                        Swal.fire({
+                          icon: 'success',
+                          title: 'Thêm thành công!',
+                          timer: 1000
+                        })
+                    } else {
+                        location.href = "{{URL::to('/login')}}";
+                    }
+                }
+            });
+        }
+    }
     function add_comment() {
         if(!$('#comment_content').val()) {
             Swal.fire({
@@ -267,13 +310,27 @@
                         <img style="width: 48px; height: 48px; display: inline;" src="{{asset('public/frontend/images/avatar.png')}}"> 
                         <div class="col-lg-11 row">
                             <div class="col-lg-2 col-5 mt-1">
-                                <h6 style="margin-bottom: 0px">{{$comment->user()->username}}:</h6>
-                                <span>{{$comment->content}}</span>
+                                <h6 class="
+                                @if($comment->user()->hasRole('ADMIN'))
+                                    text-danger
+                                @endif
+                                " style="margin-bottom: 0px">
+                                    {{$comment->user()->username}}:
+                                </h6>
+                                <span>
+                                    {{$comment->content}}
+                                </span>
                                 @if($comment->replies()->count()>0)
-                                    <a class="text-primary" href="#" onclick="$('#reply_view_{{$comment->id}}').css('display','block'); this.remove()">Xem {{$comment->replies()->count()}} câu trả lời</a>
+                                    <a class="text-primary" href="#" onclick="
+                                    $('#reply_view_{{$comment->id}}').css('display','block'); this.remove()
+                                    ">
+                                    Xem {{$comment->replies()->count()}} câu trả lời
+                                    </a>
                                 @endif
                                 <div>
-                                    <a data-comment='{{$comment->id}}' id="reply_comment_{{$comment->id}}" class="text-info" href="#" onclick="reply_append(this)">Trả lời</a>
+                                    <a data-comment='{{$comment->id}}' id="reply_comment_{{$comment->id}}" class="text-info" href="#" onclick="reply_append(this)">
+                                    Trả lời
+                                    </a>
                                 </div>
                             </div>
 
@@ -281,7 +338,13 @@
                                 @foreach($comment->replies()->get() as $reply)
                                     <div>
                                         <img style="width: 32px; height: 32px; display: inline;" src="{{asset('public/frontend/images/avatar.png')}}"> 
-                                        <h7 style="margin-bottom: 0">{{$reply->user()->username}}:</h7>
+                                        <h7 class="
+                                        @if($reply->user()->hasRole('ADMIN'))
+                                            text-danger
+                                        @endif  
+                                        " style="margin-bottom: 0">
+                                            {{$reply->user()->username}}:
+                                        </h7>
                                         <span>{{$reply->content}}</span>
                                     </div>
                                 @endforeach
@@ -326,28 +389,33 @@
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </div>
                                         <h5 class="price">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
+                                        <p class="available">Có sẵn: <span id="available_number_{{$product->product_id}}" class="text-muted"></span><span class="text-muted"> In Stock</span></p>
                                         <div class="widget size mt-5">
                                             <h6 class="widget-title">Size</h6>
                                             <div class="widget-desc">
                                                 <ul>
                                                     @foreach($product->details as $detail)
-                                                        <li><a class="border border-dark" href="#">{{$detail->product_size}}</a></li>
+                                                        <li>
+                                                            <a onclick="
+                                                            click_size(this, {{$detail->product_amount}}, {{$product->product_id}}, {{$detail->detail_id}})
+                                                            " class="border border-dark" href="#">{{$detail->product_size}}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
                                         </div>
-                                        <a href="#">Xem chi tiết sản phẩm</a>
+                                        <a href="{{URL::to('/item/'.$product->product_id)}}">Xem chi tiết sản phẩm</a>
                                     </div>
                                     <!-- Add to Cart Form -->
-                                    <form class="cart" method="post">
+                                    <div class="cart">
                                         <div class="quantity">
-                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty_{{$product->product_id}}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
 
-                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
+                                            <input type="number" class="qty-text" id="qty_{{$product->product_id}}" step="1" min="1" max="12" name="quantity" value="1">
 
-                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty_{{$product->product_id}}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                         </div>
-                                        <button type="submit" name="addtocart" value="5" class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                        <button id="fast_cart_{{$product->product_id}}" onclick="fast_add_to_cart(this, {{$product->product_id}})" data-detail='0' class="btn btn-danger">Thêm vào giỏ hàng</button>
                                         <!-- Wishlist -->
                                         <div class="modal_pro_wishlist">
                                             <a href="wishlist.html" target="_blank"><i class="ti-heart"></i></a>
@@ -356,7 +424,7 @@
                                         <div class="modal_pro_compare">
                                             <a href="compare.html" target="_blank"><i class="ti-stats-up"></i></a>
                                         </div>
-                                    </form>
+                                    </div>
 
                                     <div class="share_wf mt-30">
                                         <p>Share</p>
@@ -404,8 +472,6 @@
                             <div class="product-description">
                                 <h4 class="product-price">{{$product->get_lowest_price()}}</h4>
                                 <p>{{$product->product_name}}</p>
-                                <!-- Add to Cart -->
-                                <a href="#" class="add-to-cart-btn">ADD TO CART</a>
                             </div>
                         </div>
                     @endforeach

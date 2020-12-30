@@ -34,4 +34,15 @@ class CommentController extends Controller
     	$comment->save();
     	return $comment->id;
     }
+    public function all_comment() {
+        $all_comment = Comment::whereNull('reply_id')->paginate(15);
+        return view('admin.all_comment')
+        ->with('all_comment', $all_comment);
+    }
+    public function delete_comment(Request $request) {
+
+        $comment = Comment::find($request->comment_id);
+        $comment->delete();
+        return true;
+    }
 }

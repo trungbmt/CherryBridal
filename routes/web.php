@@ -20,6 +20,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/login', ['as'=>'login', 'uses'=>'AuthController@login']);
 Route::post('/login-check', 'AuthController@login_check');
 Route::get('/register', 'AuthController@register');
+Route::post('/register-account', 'AuthController@register_account');
 Route::get('/logout', 'AuthController@logout');
 
 
@@ -68,7 +69,9 @@ Route::get('/all-order', 'OrderController@all_order');
 Route::get('/delete-order', 'OrderController@delete_order');
 Route::get('/update-order-status', 'OrderController@update_order_status');
 
-
+//comment
+Route::get('/all-comment', 'CommentController@all_comment');
+Route::get('/delete-comment', 'CommentController@delete_comment');
 //product
 
 Route::get('/add-product', 'ProductController@add_product');

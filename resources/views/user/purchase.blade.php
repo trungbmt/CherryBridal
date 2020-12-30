@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="cart-table clearfix">
+                    @if(count($all_order))
                     <table class="text-justify table table-responsive">
                     <thead style="background-color: #ff99bb">
                         <tr class="border">
@@ -63,6 +64,14 @@
                         @endforeach
                     </tbody>
                 </table>
+                @else
+                <div class="container d-flex justify-content-center">
+                    <h2>KHÔNG CÓ ĐƠN HÀNG NÀO</h2>
+                </div>
+                <div class="container d-flex justify-content-center">
+                    <img class="img-fluid" src="https://i1.wp.com/www.huratips.com/wp-content/uploads/2019/04/empty-cart.png?fit=603%2C288&ssl=1">
+                </div>
+                @endif
             </div>
         </div>
     </div>

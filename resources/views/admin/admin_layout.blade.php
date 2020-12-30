@@ -296,30 +296,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
                 <li class="sub-menu">
                     <a href="{{URL::to('all-order')}}">
-                        <i class="fa fa-th"></i>
-                        <span>ĐƠN HÀNG</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
                         <i class="fa fa-tasks"></i>
                         <span>Đơn hàng</span>
                     </a>
-                    <ul class="sub">
-                        <li><a href="form_component.html">Form Elements</a></li>
-                        <li><a href="form_validation.html">Form Validation</a></li>
-						<li><a href="dropzone.html">Dropzone</a></li>
-                    </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-envelope"></i>
-                        <span>Mail </span>
+                    <a href="{{URL::to('all-comment')}}">
+                        <i class="fa fa-comments-o"></i>
+                        <span>Bình luận</span>
                     </a>
-                    <ul class="sub">
-                        <li><a href="mail.html">Inbox</a></li>
-                        <li><a href="mail_compose.html">Compose Mail</a></li>
-                    </ul>
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
