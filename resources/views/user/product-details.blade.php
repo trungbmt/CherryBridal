@@ -2,7 +2,7 @@
 @section('content')
 <script type="text/javascript">
     var selected_detail;
-    function click_size(price, amount, source, detail_id) {
+    function click_size_main(price, amount, source, detail_id) {
         $('.price').text(price);
         $('.available_number').text(amount);
         $('#'+source.id).parent().parent().find('*').css("background-color","white");
@@ -233,7 +233,7 @@
                         <div id="size_list" class="widget-desc">
                             <ul>
                                 @foreach($product->details as $detail)
-                                    <li><a id="detail_{{$detail->detail_id}}" href="#" onclick="click_size('{{$detail->get_price_formated()}}', {{$detail->product_amount}}, this, {{$detail->detail_id}})">{{$detail->product_size}}</a></li>
+                                    <li><a id="detail_{{$detail->detail_id}}" href="#" onclick="click_size_main('{{$detail->get_price_formated()}}', {{$detail->product_amount}}, this, {{$detail->detail_id}})">{{$detail->product_size}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
