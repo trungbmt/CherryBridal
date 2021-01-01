@@ -51,6 +51,16 @@ Route::get('/order-cancel/{order_id}', 'HomeController@order_cancel');
 Route::get('/admin', 'AdminController@index');
 Route::get('/dashboard', 'AdminController@show_dashBoard');
 
+//chart
+Route::get('/chart', 'ChartController@show');
+Route::get('/product-chart', 'ChartController@product_chart');
+
+//account
+
+Route::get('/all-user', 'AccountController@all_user');
+Route::get('/delete-user', 'AccountController@delete_user');
+Route::post('/update-password', 'AccountController@update_password');
+Route::post('/update-role', 'AccountController@update_role');
 
 //category product
 Route::get('/all-category', 'CategoryController@all_category');
