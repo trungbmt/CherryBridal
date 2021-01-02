@@ -20,8 +20,8 @@ class ProductController extends Controller
     }
 
 
-    public function all_product(Request $request) {
-    	$all_product = Product::name($request)->category($request)->paginate(15);
+    public function all_product() {
+    	$all_product = Product::paginate(15);
         $all_category = Category::all();
     	return view('admin.all_product')
         ->with('all_product', $all_product)

@@ -43,7 +43,7 @@ class AuthController extends Controller
     		'username'=>$request['username'],
     		'password'=>$request['password']
     	]); 
-    	return Redirect::to(url()->previous());
+    	return Redirect::to('/');
 
 
 	}
@@ -53,7 +53,7 @@ class AuthController extends Controller
     	if(Auth::attempt([
     		'username'=>$username,
     		'password'=>$password
-    	])) return Redirect::to(url()->previous());
+    	])) return Redirect::to('/');
     	return Redirect::to('login')->with('failed_login_message', 'Tài khoản hoặc mật khẩu không chính xác!');
     }
 }

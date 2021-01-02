@@ -65,12 +65,4 @@ class User extends Authenticatable
     public function total_cart_money_formated() {
         return Tools::price_format($this->total_cart_money());
     }
-    public function scopeSearch($query, $request) {
-        if($request->search) 
-            {
-                $search = $request->search;
-                $query->where('username', 'like', '%'.$search.'%')->orWhere('email', 'like', '%'.$search.'%')->orWhere('id', 'like', '%'.$search.'%');
-            }
-        return $query;
-    }
 }

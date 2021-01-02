@@ -60,12 +60,4 @@ class Product extends Model
             }
         return $query;
     }
-    public function scopeCategory($query, $request) {
-        if($request->category) 
-            {
-                $category = $request->category;
-                $query->where('product_category', $category);
-            }
-        return $query;
-    }
 }
