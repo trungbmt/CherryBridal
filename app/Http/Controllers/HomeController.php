@@ -9,6 +9,9 @@ use App\Product;
 use App\Cart;
 use App\Order;
 use App\Order_Item;
+use Mail;
+use App\Mail\MailOrdered;
+
 use Illuminate\Support\Facades\Auth; 
 
 class HomeController extends Controller
@@ -124,6 +127,8 @@ class HomeController extends Controller
         foreach ($all_cart as $cart) {
             $cart->cart_to_order($order->order_id);
         }
+        Mail::to(Auth::User())->send(new MailOrdered($order));
+
 
         return Redirect::to('/purchase/');
     }

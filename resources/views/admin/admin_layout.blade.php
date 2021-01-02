@@ -307,41 +307,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a href="{{URL::to('all-user')}}">
+                        <i class="fa fa-user"></i>
+                        <span>Người dùng</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="{{URL::to('chart')}}">
                         <i class=" fa fa-bar-chart-o"></i>
                         <span>Biểu đồ</span>
                     </a>
-                    <ul class="sub">
-                        <li><a href="chartjs.html">Chart js</a></li>
-                        <li><a href="flot_chart.html">Flot Charts</a></li>
-                    </ul>
                 </li>
-                {{-- <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class=" fa fa-bar-chart-o"></i>
-                        <span>Maps</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="google_map.html">Google Map</a></li>
-                        <li><a href="vector_map.html">Vector Map</a></li>
-                    </ul>
-                </li> --}}
                 <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-glass"></i>
                         <span>Khác</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="gallery.html">Gallery</a></li>
 						<li><a href="404.html">404 Error</a></li>
-                        <li><a href="registration.html">Registration</a></li>
                     </ul>
-                </li>
-                <li>
-                    <a href="login.html">
-                        <i class="fa fa-user"></i>
-                        <span>Login Page</span>
-                    </a>
                 </li>
             </ul>            </div>
         <!-- sidebar menu end-->
