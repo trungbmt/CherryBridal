@@ -35,7 +35,11 @@
                           title: 'Thêm vào giỏ thành công!',
                           timer: 1500
                         })
-                    } else {
+                    } 
+                },
+                error: function (jqXHR, exception) {
+                    if(jqXHR.status==401) 
+                    {
                         location.href = "{{URL::to('/login')}}";
                     }
                 }
@@ -78,7 +82,11 @@
                           title: 'Thêm thành công!',
                           timer: 1000
                         })
-                    } else {
+                    }
+                },
+                error: function (jqXHR, exception) {
+                    if(jqXHR.status==401) 
+                    {
                         location.href = "{{URL::to('/login')}}";
                     }
                 }
@@ -145,6 +153,92 @@
                 }
             }
         });
+    }
+    function get_rating(product_id) {
+        $.ajax({
+            url:"{{ url('get-rating') }}",
+            method:"GET",
+            data:{product_id:product_id},
+            success:function(data){ 
+                if(data) {
+                    display_rating(data);
+                }
+            }
+        });
+    }
+    async function display_rating(data) {
+        const { value: value } = await Swal.fire({
+            html: '<h3 class="mb-5">Các đánh giá trước đó: </h3>'+ convert_rating(data)+
+            '<label class="mt-5" for="swal-input1">Nội dung đánh giá</label>'+
+            '<textarea style="height: auto;" rows="5" name="swal-input1" id="swal-input1" class="swal2-input"></textarea>'+
+            '<label class="mt-2" for="swal-input2">Số sao đánh giá</label>'+
+            '<select id="swal-input2" name="swal-input2" class="swal2-input">'+
+                '<option value="1">1 Sao</option>'+
+                '<option value="2">2 Sao</option>'+
+                '<option value="3">3 Sao</option>'+
+                '<option value="4">4 Sao</option>'+
+                '<option selected value="5">5 Sao</option>'+
+            '</select>',
+            showCancelButton: true,
+            preConfirm: function () {
+                return new Promise(function (resolve) {
+                  resolve([
+                    $('#swal-input1').val(),
+                    $('#swal-input2').val()
+                  ])
+                })
+            }
+        })
+
+        if (value) {
+            var content = value[0];
+            var star = value[1];
+            var product_id = {{$product->product_id}}
+            $.ajax({
+                url:"{{ url('post-rating') }}",
+                method:"post",
+                data:{content:content, value:star, product_id: product_id, _token: '{{csrf_token()}}'},
+                success:function(data){ 
+                  Swal.fire(
+                    'Done!',
+                    '',
+                    'success')
+                },
+                error: function (jqXHR, exception) {
+                    if(jqXHR.status==401) 
+                    {
+                        Swal.fire({
+                          icon: 'info',
+                          title: jqXHR.responseText,
+                        })
+                    }
+                }
+            });
+        }
+    }
+    function convert_rating(data) {
+        var html = "";
+        data.forEach( 
+            element => {
+                html +=
+                "<div style='text-align: left'>"+
+                    "<strong>"+element['username']+"&nbsp;</strong>"+
+                    "<span style='color: #ff9800;'>"+value_to_start(element['value'])+"</span>"+
+                    "<br>"+element['content']+"</br>"+
+                "</div>"
+            }
+        );
+        return html;
+    }
+    function value_to_start(value) {
+        var result = '';
+        for (var i = 1; i <= value; i++) {
+            result+= '<i class="fa fa-star" aria-hidden="true"></i>';
+        }
+        for (var i = 5; i > value; i--) {
+            result+= '<i class="fa fa-star-o" aria-hidden="true"></i>';
+        } 
+        return result;
     }
 </script>
 <!-- <<<<<<<<<<<<<<<<<<<< Breadcumb Area Start <<<<<<<<<<<<<<<<<<<< -->
@@ -220,13 +314,22 @@
 
                     <p class="available">Có sẵn: <span class="text-muted available_number"></span><span class="text-muted"> In Stock</span></p>
 
-                    <div class="single_product_ratings mb-15">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                    </div>
+                    <a href="#" onclick="get_rating({{$product->product_id}});" class="single_product_ratings mb-15">
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($product->rating_value()-$i>=0)
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                @if(($product->rating_value() - (float)$i < 1) && ($product->rating_value() - (float)$i > 0))
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    <?php $i++; ?>
+                                @endif
+                            @else
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            @endif
+                        @endfor
+                        @if(count($product->rates()->get())==0)
+                            <span class="text-muted">(chưa có đánh giá)</span>
+                        @endif
+                    </a>
 
                     <div class="widget size mb-50">
                         <h6 class="widget-title">Size</h6>
@@ -382,11 +485,20 @@
                                     <div class="quickview_pro_des">
                                         <h4 class="title">{{$product->product_name}}</h4>
                                         <div class="top_seller_product_rating mb-15">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            @for($i = 1; $i <= 5; $i++)
+                                                @if($product->rating_value()-$i>=0)
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    @if(($product->rating_value() - (float)$i < 1) && ($product->rating_value() - (float)$i > 0))
+                                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                        <?php $i++; ?>
+                                                    @endif
+                                                @else
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                @endif
+                                            @endfor
+                                            @if(count($product->rates()->get())==0)
+                                                <span class="text-muted">(chưa có đánh giá)</span>
+                                            @endif
                                         </div>
                                         <h5 class="price">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
                                         <p class="available">Có sẵn: <span id="available_number_{{$product->product_id}}" class="text-muted"></span><span class="text-muted"> In Stock</span></p>
@@ -397,8 +509,12 @@
                                                     @foreach($product->details as $detail)
                                                         <li>
                                                             <a onclick="
-                                                            click_size(this, {{$detail->product_amount}}, {{$product->product_id}}, {{$detail->detail_id}})
-                                                            " class="border border-dark" href="#">{{$detail->product_size}}</a>
+                                                            click_size(this, 
+                                                                {{$detail->product_amount}}, 
+                                                                {{$product->product_id}}, 
+                                                                {{$detail->detail_id}})
+                                                            " class="border border-dark" href="#">{{$detail->product_size}}
+                                                            </a>
                                                         </li>
                                                     @endforeach
                                                 </ul>

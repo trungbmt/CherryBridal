@@ -27,6 +27,12 @@ class Product extends Model
     public function comments(){
         return $this->hasMany('App\Comment', 'product_id', 'product_id')->whereNull('reply_id')->orderBy('created_at', 'desc');
     }
+    public function rates(){
+        return $this->hasMany('App\Rating', 'product_id', 'product_id');
+    }
+    public function rating_value() {
+        return $this->rates()->groupBy('product_id')->average('value');
+    }
 
     public function get_lowest_price() {
         $price = $this->hasMany('App\Product_Detail', 'product_id', 'product_id')->orderBy('product_price', 'asc')->first()->product_price;

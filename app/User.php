@@ -54,6 +54,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Order', 'user_id', 'id');
     }
+    public function rates()
+    {
+        return $this->hasMany('App\Rating', 'user_id', 'id');
+    }
+
     public function total_cart_money() {
         $cart_list = $this->carts()->get();
         $total = 0;
@@ -72,5 +77,13 @@ class User extends Authenticatable
                 $query->where('username', 'like', '%'.$search.'%')->orWhere('email', 'like', '%'.$search.'%')->orWhere('id', 'like', '%'.$search.'%');
             }
         return $query;
+    }
+    public function isBought($product_id) {
+        $result = $this->orders()->join('tbl_order_item', 'tbl_order.order_id','=','tbl_order_item.order_id')->where('product_id', $product_id)->count();
+        if($result>0) return true;
+        return false;
+    }
+    public function get_rating($product_id) {
+        return $this->rates()->where('product_id', $product_id);
     }
 }

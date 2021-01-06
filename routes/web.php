@@ -82,6 +82,10 @@ Route::get('/update-order-status', 'OrderController@update_order_status');
 //comment
 Route::get('/all-comment', 'CommentController@all_comment');
 Route::get('/delete-comment', 'CommentController@delete_comment');
+
+//rating
+Route::get('/get-rating', 'RatingController@get_rating');
+Route::post('/post-rating', 'RatingController@add_rating');
 //product
 
 Route::get('/add-product', 'ProductController@add_product');

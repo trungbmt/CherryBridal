@@ -48,7 +48,11 @@
                       title: 'Thêm thành công!',
                       timer: 1000
                     })
-                } else {
+                }
+            },
+            error: function (jqXHR, exception) {
+                if(jqXHR.status==401) 
+                {
                     location.href = "{{URL::to('/login')}}";
                 }
             }
@@ -117,11 +121,20 @@
                                     <div class="quickview_pro_des">
                                         <h4 class="title">{{$product->product_name}}</h4>
                                         <div class="top_seller_product_rating mb-15">
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            @for($i = 1; $i <= 5; $i++)
+                                                @if($product->rating_value()-$i>=0)
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    @if(($product->rating_value() - (float)$i < 1) && ($product->rating_value() - (float)$i > 0))
+                                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                        <?php $i++; ?>
+                                                    @endif
+                                                @else
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                @endif
+                                            @endfor
+                                            @if(count($product->rates()->get())==0)
+                                                <span class="text-muted">(chưa có đánh giá)</span>
+                                            @endif
                                         </div>
                                         <h5 class="price">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
                                         <p class="available">Có sẵn: <span id="available_number_{{$product->product_id}}" class="text-muted"></span><span class="text-muted"> In Stock</span></p>

@@ -50,7 +50,7 @@ class HomeController extends Controller
     public function add_to_cart(Request $request) {
         if(!Auth::check()) 
         {
-            return false;
+            return response('Bạn chưa đăng nhập!', 401);
         }
         $user_id= Auth::User()->id;
         $exist_cart = Cart::where([
@@ -70,7 +70,7 @@ class HomeController extends Controller
             $cart->amount = $request->amount;
             $cart->save();
         }
-        return true;
+        return response('Thêm vào giỏ thành công!', 200);
 
     }
     public function update_cart(Request $request) {
