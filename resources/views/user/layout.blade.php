@@ -41,17 +41,17 @@
                     <h6>Người dùng: <span>{{Auth::User()->username}}</span></h6>
                     
                     <div class="w-full text-center p-t-55">
-                        <a href="{{URL::to('/purchase')}}" style="font-size: 1.2rem" class="txt2 bo1">
+                        <a href="{{URL::to('/purchase')}}" style="font-size: 1.2rem; font-family: arial" class="txt2 bo1">
                             Đơn mua
                         </a>
                     </div>
                     <div class="w-full text-center p-t-55">
-                        <a href="{{URL::to('/logout')}}" style="font-size: 1.2rem" class="txt2 bo1">
+                        <a href="{{URL::to('/logout')}}" style="font-size: 1.2rem; font-family: arial" class="txt2 bo1">
                             Đổi mật khẩu
                         </a>
                     </div>
                     <div class="w-full text-center p-t-55">
-                        <a href="{{URL::to('/logout')}}" style="font-size: 1.2rem" class="txt2 bo1">
+                        <a href="{{URL::to('/logout')}}" style="font-size: 1.2rem; font-family: arial" class="txt2 bo1">
                             Đăng xuất
                         </a>
                     </div>
@@ -274,8 +274,7 @@
                             </div>
                             <div class="copywrite_text d-flex align-items-center">
                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="" target="_blank">CherryBridal</a> </p>
                             </div>
                         </div>
                     </div>
@@ -283,11 +282,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     <div class="col-12 col-sm-6 col-md-3 col-lg-2">
                         <div class="single_footer_area">
                             <ul class="footer_widget_menu">
-                                <li><a href="#">About</a></li>
+                                <li><a href="#">Về chúng tôi</a></li>
                                 <li><a href="#">Blog</a></li>
                                 <li><a href="#">Faq</a></li>
-                                <li><a href="#">Returns</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Liên hệ</a></li>
                             </ul>
                         </div>
                     </div>
@@ -295,10 +293,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     <div class="col-12 col-sm-6 col-md-3 col-lg-2">
                         <div class="single_footer_area">
                             <ul class="footer_widget_menu">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Shipping</a></li>
-                                <li><a href="#">Our Policies</a></li>
-                                <li><a href="#">Afiliates</a></li>
+                                <li><a href="#">Tài khoản của tôi</a></li>
+                                <li><a href="#">Vận chuyển</a></li>
+                                <li><a href="#">Các chính sách</a></li>
+                                <li><a href="#">Cửa hàng</a></li>
                             </ul>
                         </div>
                     </div>
@@ -306,12 +304,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     <div class="col-12 col-lg-5">
                         <div class="single_footer_area">
                             <div class="footer_heading mb-30">
-                                <h6>Subscribe to our newsletter</h6>
+                                <h6>Nhận những thông báo mới nhất</h6>
                             </div>
                             <div class="subscribtion_form">
                                 <form action="#" method="post">
-                                    <input type="email" name="mail" class="mail" placeholder="Your email here">
-                                    <button type="submit" class="submit">Subscribe</button>
+                                    <input type="email" name="mail" class="mail" placeholder="Nhập địa chỉa e-mail của bạn">
+                                    <button type="submit" class="submit">Đăng ký ngay</button>
                                 </form>
                             </div>
                         </div>
