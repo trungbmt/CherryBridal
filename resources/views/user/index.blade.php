@@ -80,8 +80,8 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <button type="button" class="close btn" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
                     <div class="modal-body">
                         <div class="quickview_body">
@@ -96,19 +96,33 @@
                                         <div class="quickview_pro_des">
                                             <h4 class="title">{{$product->product_name}}</h4>
                                             <div class="top_seller_product_rating mb-15">
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
-                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    @if($product->rating_value()-$i>=0)
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        @if(($product->rating_value() - (float)$i < 1) && ($product->rating_value() - (float)$i > 0))
+                                                            <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                                            <?php $i++; ?>
+                                                        @endif
+                                                    @else
+                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    @endif
+                                                @endfor
+                                                @if(count($product->rates()->get())==0)
+                                                    <span class="text-muted">(chưa có đánh giá)</span>
+                                                @endif
                                             </div>
-                                            <h5 class="price">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
+                                            <h5 class="price" id="price_{{$product->product_id}}">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
+                                            <p class="available">Có sẵn: <span id="available_number_{{$product->product_id}}" class="text-muted"></span><span class="text-muted"> In Stock</span></p>
                                             <div class="widget size mt-5">
                                                 <h6 class="widget-title">Size</h6>
                                                 <div class="widget-desc">
                                                     <ul>
                                                         @foreach($product->details as $detail)
-                                                            <li><a class="border border-dark" href="#">{{$detail->product_size}}</a></li>
+                                                            <li>
+                                                                <a onclick="
+                                                                click_size(this, {{$detail->product_amount}}, {{$product->product_id}}, {{$detail->detail_id}}, '{{$detail->get_price_formated()}}')
+                                                                " class="border border-dark" href="#">{{$detail->product_size}}</a>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -116,15 +130,15 @@
                                             <a href="{{URL::to('/item/'.$product->product_id)}}">Xem chi tiết sản phẩm</a>
                                         </div>
                                         <!-- Add to Cart Form -->
-                                        <form class="cart" method="post">
+                                        <div class="cart">
                                             <div class="quantity">
-                                                <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                <span class="qty-minus" onclick="var effect = document.getElementById('qty_{{$product->product_id}}'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
 
-                                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="12" name="quantity" value="1">
+                                                <input type="number" class="qty-text" id="qty_{{$product->product_id}}" step="1" min="1" max="12" name="quantity" value="1">
 
-                                                <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                <span class="qty-plus" onclick="var effect = document.getElementById('qty_{{$product->product_id}}'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                             </div>
-                                            <button type="submit" name="addtocart" value="5" class="btn btn-danger">Thêm vào giỏ hàng</button>
+                                            <button id="fast_cart_{{$product->product_id}}" onclick="fast_add_to_cart(this, {{$product->product_id}})" data-detail='0' class="btn btn-danger">Thêm vào giỏ hàng</button>
                                             <!-- Wishlist -->
                                             <div class="modal_pro_wishlist">
                                                 <a href="wishlist.html" target="_blank"><i class="ti-heart"></i></a>
@@ -133,7 +147,7 @@
                                             <div class="modal_pro_compare">
                                                 <a href="compare.html" target="_blank"><i class="ti-stats-up"></i></a>
                                             </div>
-                                        </form>
+                                        </div>
 
                                         <div class="share_wf mt-30">
                                             <p>Share</p>
@@ -194,7 +208,7 @@
                             <h4 class="product-price">{{$product->get_lowest_price()}}</h4>
                             <p>{{$product->product_name}}</p>
                             <!-- Add to Cart -->
-                            <a href="#" class="add-to-cart-btn">ADD TO CART</a>
+                            <a href="#" class="add-to-cart-btn" data-toggle="modal" data-target="#quickview_{{$product->product_id}}">ADD TO CART</a>
                         </div>
                     </div>
                 @endforeach
@@ -210,12 +224,11 @@
         <div class="row h-100 align-items-end justify-content-end">
             <div class="col-12 col-md-8 col-lg-6">
                 <div class="offer-content-area wow fadeInUp" data-wow-delay="1s">
-                    <h2>White t-shirt <span class="karl-level">Hot</span></h2>
-                    <p>* Free shipping until 25 Dec 2017</p>
+                    <h2>ĐẾN VÀ TƯ VẤN <span class="karl-level">Hot</span></h2>
                     <div class="offer-product-price">
-                        <h3><span class="regular-price">$25.90</span> $15.90</h3>
+                        <h3>MIỄN PHÍ</h3>
                     </div>
-                    <a href="#" class="btn karl-btn mt-30">Shop Now</a>
+                    <a href="https://www.facebook.com/phamductrungbmt/" target="_blank" class="btn karl-btn mt-30">ĐẶT LỊCH NGAY</a>
                 </div>
             </div>
         </div>
@@ -229,7 +242,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section_heading text-center">
-                    <h2>Testimonials</h2>
+                    <h2>Phản hồi của khách</h2>
                 </div>
             </div>
         </div>
@@ -241,7 +254,8 @@
                     <!-- Single Testimonial Area -->
                     <div class="single-testimonial-area text-center">
                         <span class="quote">"</span>
-                        <h6>Nunc pulvinar molestie sem id blandit. Nunc venenatis interdum mollis. Aliquam finibus nulla quam, a iaculis justo finibus non. Suspendisse in fermentum nunc.Nunc pulvinar molestie sem id blandit. Nunc venenatis interdum mollis. </h6>
+                        <h6>The product quality here is very good, the fabric of the wedding dress is very smooth, the shop's customer service is perfect
+                        </h6>
                         <div class="testimonial-info d-flex align-items-center justify-content-center">
                             <div class="tes-thumbnail">
                                 <img src="{{asset('public/frontend/images/bg-img/tes-1.jpg')}}" alt="">
@@ -256,14 +270,14 @@
                     <!-- Single Testimonial Area -->
                     <div class="single-testimonial-area text-center">
                         <span class="quote">"</span>
-                        <h6>Nunc pulvinar molestie sem id blandit. Nunc venenatis interdum mollis. Aliquam finibus nulla quam, a iaculis justo finibus non. Suspendisse in fermentum nunc.Nunc pulvinar molestie sem id blandit. Nunc venenatis interdum mollis. </h6>
+                        <h6>여기의 제품 품질이 매우 좋고 웨딩 드레스 원단이 매우 부드럽고 가게 고객 서비스가 완벽합니다.</h6>
                         <div class="testimonial-info d-flex align-items-center justify-content-center">
                             <div class="tes-thumbnail">
-                                <img src="{{asset('public/frontend/images/bg-img/tes-1.jpg')}}" alt="">
+                                <img src="{{asset('public/frontend/images/bg-img/tes-2.jpg')}}" alt="">
                             </div>
                             <div class="testi-data">
-                                <p>Michelle Williams</p>
-                                <span>Client, Los Angeles</span>
+                                <p>Chuwŏn</p>
+                                <span>Client, Korean</span>
                             </div>
                         </div>
                     </div>
@@ -271,14 +285,14 @@
                     <!-- Single Testimonial Area -->
                     <div class="single-testimonial-area text-center">
                         <span class="quote">"</span>
-                        <h6>Nunc pulvinar molestie sem id blandit. Nunc venenatis interdum mollis. Aliquam finibus nulla quam, a iaculis justo finibus non. Suspendisse in fermentum nunc.Nunc pulvinar molestie sem id blandit. Nunc venenatis interdum mollis. </h6>
+                        <h6>Váy cưới ở đây rất là xịn, mình cưới 3 lần rồi và lần nào cũng mua váy cưới và áo vest ở đây, mình còn được giảm giá vì là học sinh nữa, không còn gì tuyệt hơn.</h6>
                         <div class="testimonial-info d-flex align-items-center justify-content-center">
                             <div class="tes-thumbnail">
-                                <img src="{{asset('public/frontend/images/bg-img/tes-1.jpg')}}" alt="">
+                                <img src="{{asset('public/frontend/images/bg-img/tes-3.jpg')}}" alt="">
                             </div>
                             <div class="testi-data">
-                                <p>Michelle Williams</p>
-                                <span>Client, Los Angeles</span>
+                                <p>Nguyễn Linh Chi</p>
+                                <span>Client, Vietnam</span>
                             </div>
                         </div>
                     </div>
@@ -289,5 +303,57 @@
 
     </div>
 </section>
+<script type="text/javascript">
+    function add_to_cart(product_id, detail_id, amount) {
+        $.ajax({
+            url:"{{ url('add-to-cart') }}",
+            method:"GET",
+            data:{product_id:product_id, detail_id:detail_id, amount:amount},
+            success:function(data){ 
+                if(data) {
+                    Swal.fire({
+                      icon: 'success',
+                      title: 'Thêm thành công!',
+                      timer: 1000
+                    })
+                }
+            },
+            error: function (jqXHR, exception) {
+                if(jqXHR.status==401) 
+                {
+                    location.href = "{{URL::to('/login')}}";
+                }
+            }
+        });
+    };
+    function click_size(source, amount, product_id, detail_id, price) {
+        $(source).parent().parent().find('*').css("background-color","white");
+        $(source).parent().parent().find('*').css("color","black");
+        $(source).css("background-color","#ff084e");
+        $(source).css("color","#fff");
+        $('#available_number_'+product_id).text(amount);
+        $('#price_'+product_id).text(price);
+
+        $('#fast_cart_'+product_id).data('detail', detail_id);
+
+        
+    }
+    function fast_add_to_cart(source, product_id) 
+    {
+        let detail_id = $(source).data('detail');
+        if(detail_id==0) 
+        {
+            Swal.fire({
+              icon: 'info',
+              title: 'Vui lòng chọn size trước!',
+            })
+        } else 
+        {
+
+            let amount = $('#qty_'+product_id).val();
+            add_to_cart(product_id, detail_id, amount);
+        }
+    }
+</script>
 <!-- ****** Popular Brands Area End ****** -->
 @endsection

@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="limiter">
-      <div class="container-login100" style="background-image: url('https://i.pinimg.com/originals/c3/2e/1d/c32e1d90990d799eb1037f29db3c0e7f.jpg');">
+      <div class="container-login100" style="background-image: url({{url('public/frontend/images/bg-img/login.jpg')}});">
         <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33 flex-sb flex-w">
           <span class="login100-form-title p-b-53">
             Đăng ký với

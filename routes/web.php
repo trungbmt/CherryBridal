@@ -48,63 +48,61 @@ Route::get('/order-cancel/{order_id}', 'HomeController@order_cancel');
 
 
 //BackEnd
-Route::get('/admin', 'AdminController@index');
-Route::get('/dashboard', 'AdminController@show_dashBoard');
+Route::middleware(['auth', 'role:ADMIN'])->group(function () {
+	Route::get('/admin', 'ChartController@show');
+	Route::get('/chart', 'ChartController@show');
+		
+	//account
 
-//chart
-Route::get('/chart', 'ChartController@show');
-Route::get('/product-chart', 'ChartController@product_chart');
+	Route::get('/all-user', 'AccountController@all_user');
+	Route::get('/delete-user', 'AccountController@delete_user');
+	Route::post('/update-password', 'AccountController@update_password');
+	Route::post('/update-role', 'AccountController@update_role');
 
-//account
-
-Route::get('/all-user', 'AccountController@all_user');
-Route::get('/delete-user', 'AccountController@delete_user');
-Route::post('/update-password', 'AccountController@update_password');
-Route::post('/update-role', 'AccountController@update_role');
-
-//category product
-Route::get('/all-category', 'CategoryController@all_category');
-Route::get('/add-category', 'CategoryController@add_category');
-Route::get('/edit-category/{category_id}', 'CategoryController@edit_category');
-Route::get('/delete-category', 'CategoryController@delete_category');
+	//category product
+	Route::get('/all-category', 'CategoryController@all_category');
+	Route::get('/add-category', 'CategoryController@add_category');
+	Route::get('/edit-category/{category_id}', 'CategoryController@edit_category');
+	Route::get('/delete-category', 'CategoryController@delete_category');
 
 
-Route::post('/save-category', 'CategoryController@save_category');
-Route::post('/update-category/{category_id}', 'CategoryController@update_category');
-Route::get('/unactive-category/{category_id}', 'CategoryController@unactive_category');
-Route::get('/active-category/{category_id}', 'CategoryController@active_category');
+	Route::post('/save-category', 'CategoryController@save_category');
+	Route::post('/update-category/{category_id}', 'CategoryController@update_category');
+	Route::get('/unactive-category/{category_id}', 'CategoryController@unactive_category');
+	Route::get('/active-category/{category_id}', 'CategoryController@active_category');
 
-//order
-Route::get('/all-order', 'OrderController@all_order');
-Route::get('/delete-order', 'OrderController@delete_order');
-Route::get('/update-order-status', 'OrderController@update_order_status');
+	//order
+	Route::get('/all-order', 'OrderController@all_order');
+	Route::get('/delete-order', 'OrderController@delete_order');
+	Route::get('/update-order-status', 'OrderController@update_order_status');
 
-//comment
-Route::get('/all-comment', 'CommentController@all_comment');
-Route::get('/delete-comment', 'CommentController@delete_comment');
+	//comment
+	Route::get('/all-comment', 'CommentController@all_comment');
+	Route::get('/delete-comment', 'CommentController@delete_comment');
 
-//rating
-Route::get('/get-rating', 'RatingController@get_rating');
-Route::post('/post-rating', 'RatingController@add_rating');
-//product
+	//rating
+	Route::get('/get-rating', 'RatingController@get_rating');
+	Route::post('/post-rating', 'RatingController@add_rating');
+	//product
 
-Route::get('/add-product', 'ProductController@add_product');
-Route::get('/all-product', 'ProductController@all_product');
-Route::get('/edit-product/{product_id}', 'ProductController@edit_product');
+	Route::get('/add-product', 'ProductController@add_product');
+	Route::get('/all-product', 'ProductController@all_product');
+	Route::get('/edit-product/{product_id}', 'ProductController@edit_product');
 
 
-Route::post('/save-product', 'ProductController@save_product');
-Route::post('/update-product/{product_id}', 'ProductController@update_product');
-Route::get('/unactive-product/{product_id}', 'ProductController@unactive_product');
-Route::get('/active-product/{product_id}', 'ProductController@active_product');
-Route::get('/delete-product', 'ProductController@delete_product');
+	Route::post('/save-product', 'ProductController@save_product');
+	Route::post('/update-product/{product_id}', 'ProductController@update_product');
+	Route::get('/unactive-product/{product_id}', 'ProductController@unactive_product');
+	Route::get('/active-product/{product_id}', 'ProductController@active_product');
+	Route::get('/delete-product', 'ProductController@delete_product');
 
-//tag
-Route::get('/add-tag', 'TagController@add_tag');
-Route::post('/save-tag', 'TagController@save_tag');
-Route::get('/all-tag', 'TagController@all_tag');
-Route::get('/edit-tag/{tag_id}', 'TagController@edit_tag');
-Route::post('/update-tag/{tag_id}', 'TagController@update_tag');
-Route::get('/unactive-tag/{tag_id}', 'TagController@unactive_tag');
-Route::get('/active-tag/{tag_id}', 'TagController@active_tag');
-Route::get('/delete-tag', 'TagController@delete_tag');
+	//tag
+	Route::get('/add-tag', 'TagController@add_tag');
+	Route::post('/save-tag', 'TagController@save_tag');
+	Route::get('/all-tag', 'TagController@all_tag');
+	Route::get('/edit-tag/{tag_id}', 'TagController@edit_tag');
+	Route::post('/update-tag/{tag_id}', 'TagController@update_tag');
+	Route::get('/unactive-tag/{tag_id}', 'TagController@unactive_tag');
+	Route::get('/active-tag/{tag_id}', 'TagController@active_tag');
+	Route::get('/delete-tag', 'TagController@delete_tag');
+});

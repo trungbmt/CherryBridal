@@ -47,13 +47,13 @@
         }
     }
 
-    function click_size(source, amount, product_id, detail_id) 
-    {
+    function click_size(source, amount, product_id, detail_id, price) {
         $(source).parent().parent().find('*').css("background-color","white");
         $(source).parent().parent().find('*').css("color","black");
         $(source).css("background-color","#ff084e");
         $(source).css("color","#fff");
         $('#available_number_'+product_id).text(amount);
+        $('#price_'+product_id).text(price);
 
         $('#fast_cart_'+product_id).data('detail', detail_id);
 
@@ -500,7 +500,7 @@
                                                 <span class="text-muted">(chưa có đánh giá)</span>
                                             @endif
                                         </div>
-                                        <h5 class="price">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
+                                        <h5 class="price" id="price_{{$product->product_id}}">{{$product->get_lowest_price()}}<span>{{$product->get_fake_price()}}</span></h5>
                                         <p class="available">Có sẵn: <span id="available_number_{{$product->product_id}}" class="text-muted"></span><span class="text-muted"> In Stock</span></p>
                                         <div class="widget size mt-5">
                                             <h6 class="widget-title">Size</h6>
@@ -509,12 +509,8 @@
                                                     @foreach($product->details as $detail)
                                                         <li>
                                                             <a onclick="
-                                                            click_size(this, 
-                                                                {{$detail->product_amount}}, 
-                                                                {{$product->product_id}}, 
-                                                                {{$detail->detail_id}})
-                                                            " class="border border-dark" href="#">{{$detail->product_size}}
-                                                            </a>
+                                                            click_size(this, {{$detail->product_amount}}, {{$product->product_id}}, {{$detail->detail_id}}, '{{$detail->get_price_formated()}}')
+                                                            " class="border border-dark" href="#">{{$detail->product_size}}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>

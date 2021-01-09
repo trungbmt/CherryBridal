@@ -39,4 +39,10 @@
 
     </div>
 </div>
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+        CKEDITOR.replace('tag_text');
+    });
+</script>
 @endsection

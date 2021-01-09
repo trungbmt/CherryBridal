@@ -62,13 +62,6 @@
                           <span class="login100-form-title p-b-53">
                             Sign In With
                           </span>
-                          <?php 
-                              $failed_login_message = Session::get('failed_login_message');
-                              if($failed_login_message) {
-                                echo "<div class='alert alert-danger'>".$failed_login_message."</div>";
-                                Session::put('failed_login_message', null);
-                              }
-                          ?>
                           <a href="#" class="btn-face m-b-20" style="font-size: 15px">
                             <i class="fa fa-facebook-official"></i>
                             Facebook
@@ -225,8 +218,8 @@
                                                     @endforeach
                                                 </div>
                                             </li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Ảnh cưới</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Liên hệ</a></li>
+                                            <li class="nav-item"><a target="_blank" class="nav-link" href="https://www.pinterest.com/search/pins/?q=marry&rs=rs&eq=&etslf=2573&term_meta[]=marry%7Crecentsearch%7C0">Ảnh cưới</a></li>
+                                            <li class="nav-item"><a target="_blank" class="nav-link" href="https://www.facebook.com/phamductrungbmt/">Liên hệ</a></li>
                                         </ul>
                                     </div>
                                 </nav>
