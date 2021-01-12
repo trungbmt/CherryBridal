@@ -228,6 +228,8 @@ class HomeController extends Controller
                     $all_product->orderBy('tbl_product_detail.product_price', 'DESC');
                     break;
             }
+        } else {
+            $all_product->orderBy('tbl_product.product_id', 'DESC');
         }
         $all_product = $all_product->groupBy('tbl_product.product_id')->paginate($item_per_page)->withQueryString();
         return view('user.shop')
@@ -282,6 +284,8 @@ class HomeController extends Controller
                     $all_product->orderBy('tbl_product_detail.product_price', 'DESC');
                     break;
             }
+        } else {
+            $all_product->orderBy('tbl_product.product_id', 'DESC');
         }
 
 

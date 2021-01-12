@@ -17,12 +17,12 @@
           <span class="login100-form-title p-b-53">
             Đăng ký với
           </span>
-          <a href="#" class="btn-face m-b-20">
+          <a href="{{ route('redirect', 'facebook') }}" class="btn-face m-b-20">
             <i class="fa fa-facebook-official"></i>
             Facebook
           </a>
 
-          <a href="#" class="btn-google m-b-20">
+          <a href="{{ route('redirect', 'google') }}" class="btn-google m-b-20">
             <img src="{{asset('public/frontend/images/icon-google.png')}}" alt="GOOGLE">
             Google
           </a>

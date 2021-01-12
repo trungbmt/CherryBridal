@@ -22,6 +22,8 @@ Route::post('/login-check', 'AuthController@login_check');
 Route::get('/register', 'AuthController@register');
 Route::post('/register-account', 'AuthController@register_account');
 Route::get('/logout', 'AuthController@logout');
+Route::get('/auth/redirect/{provider}', 'AuthController@redirect')->name('redirect');
+Route::get('/callback/{provider}', 'AuthController@callback')->name('callback');
 
 
 
@@ -46,6 +48,9 @@ Route::post('/checkout-done', 'HomeController@checkout_done');
 Route::get('/purchase', 'HomeController@purchase');
 Route::get('/order-cancel/{order_id}', 'HomeController@order_cancel');
 
+//rating
+Route::get('/get-rating', 'RatingController@get_rating');
+Route::post('/post-rating', 'RatingController@add_rating');
 
 //BackEnd
 Route::middleware(['auth', 'role:ADMIN'])->group(function () {
@@ -80,16 +85,11 @@ Route::middleware(['auth', 'role:ADMIN'])->group(function () {
 	Route::get('/all-comment', 'CommentController@all_comment');
 	Route::get('/delete-comment', 'CommentController@delete_comment');
 
-	//rating
-	Route::get('/get-rating', 'RatingController@get_rating');
-	Route::post('/post-rating', 'RatingController@add_rating');
 	//product
 
 	Route::get('/add-product', 'ProductController@add_product');
 	Route::get('/all-product', 'ProductController@all_product');
 	Route::get('/edit-product/{product_id}', 'ProductController@edit_product');
-
-
 	Route::post('/save-product', 'ProductController@save_product');
 	Route::post('/update-product/{product_id}', 'ProductController@update_product');
 	Route::get('/unactive-product/{product_id}', 'ProductController@unactive_product');

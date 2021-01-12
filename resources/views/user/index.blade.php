@@ -11,7 +11,7 @@
                         <div class="welcome_slide_text">
                             <h6 data-animation="bounceInDown" data-delay="0" data-duration="500ms">* Miễn phí vận chuyển trong hôm nay</h6>
                             <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">Váy cưới</h2>
-                            <a href="#" class="btn karl-btn" data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Mua ngay</a>
+                            <a href="{{URL::to('/shop/2')}}" class="btn karl-btn" data-animation="fadeInUp" data-delay="1s" data-duration="500ms">Mua ngay</a>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         <div class="welcome_slide_text">
                             <h6 data-animation="fadeInDown" data-delay="0" data-duration="500ms">* Miễn phí vận chuyển trong hôm nay</h6>
                             <h2 data-animation="fadeInUp" data-delay="500ms" data-duration="500ms">Vest Nam</h2>
-                            <a href="#" class="btn karl-btn" data-animation="fadeInLeftBig" data-delay="1s" data-duration="500ms">Mua ngay</a>
+                            <a href="{{URL::to('/shop/1')}}" class="btn karl-btn" data-animation="fadeInLeftBig" data-delay="1s" data-duration="500ms">Mua ngay</a>
                         </div>
                     </div>
                 </div>
@@ -56,17 +56,17 @@
     <!-- Single Catagory -->
     <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url({{asset('public/frontend/images/bg-img/bg-2.jpg')}});">
         <div class="catagory-content">
-            <h6>On Accesories</h6>
-            <h2>Sale 30%</h2>
-            <a href="#" class="btn karl-btn">SHOP NOW</a>
+            <h6>TRANG SỨC</h6>
+            <h2>GIẢM 30%</h2>
+            <a href="{{URL::to('/shop/3')}}" class="btn karl-btn">MUA NGAY</a>
         </div>
     </div>
     <!-- Single Catagory -->
     <div class="single_catagory_area d-flex align-items-center bg-img" style="background-image: url({{asset('public/frontend/images/bg-img/bg-3.jpg')}});">
         <div class="catagory-content">
-            <h6>in Bags excepting the new collection</h6>
-            <h2>Designer bags</h2>
-            <a href="#" class="btn karl-btn">SHOP NOW</a>
+            <h6>Bộ sưu tập những phụ kiện bắt mắt</h6>
+            <h2>PHỤ KIỆN</h2>
+            <a href="{{URL::to('/shop/3')}}" class="btn karl-btn">MUA NGAY</a>
         </div>
     </div>
 </section>
@@ -75,7 +75,7 @@
 <!-- ****** Quick View Modal Area Start ****** -->
 
 @foreach($all_category as $category)
-    @foreach($category->get_newest_products(5) as $product)
+    @foreach($category->get_newest_products(6) as $product)
         <div class="modal fade" id="quickview_{{$product->product_id}}" tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">

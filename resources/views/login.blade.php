@@ -25,12 +25,12 @@
                 echo "<div class='alert alert-danger'>".$failed_login_message."</div>";
               }
           ?>
-          <a href="#" class="btn-face m-b-20">
+          <a href="{{ route('redirect', 'facebook') }}" class="btn-face m-b-20">
             <i class="fa fa-facebook-official"></i>
             Facebook
           </a>
 
-          <a href="#" class="btn-google m-b-20">
+          <a href="{{ route('redirect', 'google') }}" class="btn-google m-b-20">
             <img src="{{asset('public/frontend/images/icon-google.png')}}" alt="GOOGLE">
             Google
           </a>
@@ -85,6 +85,12 @@
 
   <div id="dropDownSelect1"></div>
   
-
+<script type="text/javascript">
+    if (window.location.hash === "#_=_"){
+      history.replaceState 
+          ? history.replaceState(null, null, window.location.href.split("#")[0])
+          : window.location.hash = "";
+    }
+</script>
 </body>
 </html>

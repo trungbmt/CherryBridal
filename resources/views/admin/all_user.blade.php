@@ -119,6 +119,7 @@
             <th>Ngày khởi tạo</th>
             <th>Tên đăng nhập</th>
             <th>Email</th>
+            <th>Loại người dùng</th>
             <th>Quyền</th>
             <th style="width:30px;"></th>
             <th style="width:30px;"></th>
@@ -129,8 +130,15 @@
           <tr id="user_{{$user->id}}">
             <td><a href="">{{ $user->id }}</a></td>
             <td><a href="">{{ $user->created_at }}</a></td>
-            <td><a href="">{{ $user->username }}</a></td>
-            <td><a href="">{{ $user->email }}</a></td>
+            <td>{{ $user->username }}</td>
+            <td>{{ $user->email }}</td>
+            <td>
+              @if(!$user->provider)
+                Trong hệ thống
+              @else
+                {{$user->provider}}
+              @endif
+            </td>
             <td>
               <select onchange="change_role({{$user->id}}, this.value)">
                 <option value="0">Người dùng</option>

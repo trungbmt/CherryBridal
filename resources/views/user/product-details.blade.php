@@ -1,5 +1,13 @@
 @extends('user.layout')
 @section('content')
+<style type="text/css">
+    table, th, td{
+        border: 1px solid black;
+        text-align: left;
+        padding: 5px 5px;
+        font-weight: 600;
+    }
+</style>
 <script type="text/javascript">
     var selected_detail;
     function click_size_main(price, amount, source, detail_id) {
@@ -375,7 +383,7 @@
 
                             <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                                 <div class="card-body">
-                                    {{$product->product_desc}}
+                                    <?php echo $product->product_desc; ?>
                                 </div>
                             </div>
                         </div>

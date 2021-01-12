@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use Socialite;
+
 
 class AuthController extends Controller
 {
@@ -56,4 +58,40 @@ class AuthController extends Controller
     	])) return Redirect::to(url()->previous());
     	return Redirect::to('login')->with('failed_login_message', 'Tài khoản hoặc mật khẩu không chính xác!');
     }
+    public function redirect($provider)
+	{
+	    return Socialite::driver($provider)->redirect();
+	}
+	public function callback($provider)
+	{
+	  	$getInfo = Socialite::driver($provider)->user(); 
+	  	$user = User::where('provider_id', $getInfo->id)->first();
+	  	if (!$user) 
+	  	{
+			if(!User::where('email', $getInfo->email)->count()!=0) {
+
+				$user = $this->createUser($getInfo,$provider); 
+			} 
+			else {
+				
+				return Redirect::to('login')->with('failed_login_message', 'Địa chỉ email đã được đăng ký!'); 
+			}
+	  	}
+
+		auth()->login($user);
+		return Redirect::to('/');
+	 	
+    	
+    }
+	function createUser($getInfo,$provider){
+
+    	$user = User::create([
+	        'username'     => $getInfo->name,
+	        'email'    => $getInfo->email,
+	        'provider' => $provider,
+	        'provider_id' => $getInfo->id,
+	        'role' => 'MEMBER'
+    	]);
+	 	return $user;
+	}
 }
