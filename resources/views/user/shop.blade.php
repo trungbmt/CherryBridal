@@ -5,6 +5,63 @@
 <script type="text/javascript">
     $( document ).ready(function() {
 
+        const searchForm = document.querySelector("#search-box");
+        const searchFormInput = document.querySelector("#search_text");
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; // if none exists -> undefined
+
+        if(SpeechRecognition) {
+            console.log("Your Browser supports speech Recognition");
+
+            const recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.lang = "vi-VN";
+
+            searchForm.insertAdjacentHTML("beforeend", '<button id="mic-btn" type="button"><i class="mt-1 fa fa-2x fa-microphone"></i></button>');
+
+            const micBtn = searchForm.querySelector("#mic-btn");
+            const micIcon = micBtn.firstElementChild;
+
+            micBtn.addEventListener("click", micBtnClick);
+            function micBtnClick() {
+                if(micIcon.classList.contains("fa-microphone")) { // Start Voice Recognition
+                    recognition.start(); // First time you have to allow access to mic!
+                }
+                else {
+                    recognition.abort();
+                }
+            }
+
+            recognition.addEventListener("start", startSpeechRecognition); // <=> recognition.onstart = function() {...}
+            function startSpeechRecognition() {
+                micIcon.classList.remove("fa-microphone");
+                micIcon.classList.add("fa-microphone-slash");
+                searchFormInput.focus();
+                console.log("Voice activated, SPEAK");
+            }
+
+            recognition.addEventListener("end", endSpeechRecognition); // <=> recognition.onend = function() {...}
+            function endSpeechRecognition() {
+                micIcon.classList.remove("fa-microphone-slash");
+                micIcon.classList.add("fa-microphone");
+                searchFormInput.focus();
+                console.log("Speech recognition service disconnected");
+            }
+
+            recognition.addEventListener("result", resultOfSpeechRecognition); // <=> recognition.onresult = function(event) {...} - Fires when you stop talking
+            function resultOfSpeechRecognition(event) {
+                const current = event.resultIndex;
+                const transcript = event.results[current][0].transcript;
+
+                searchFormInput.value = transcript;
+                window.location.search = addParam('search', $('#search_text').val());
+            }
+          
+        }
+        else {
+            console.log("Your Browser does not support speech Recognition");
+        }
+
         $('.slider-range-price').each(function () {
             var min = jQuery(this).data('min');
             var max = jQuery(this).data('max');
@@ -230,7 +287,7 @@
 
                     <div class="widget color mb-70">
                         <h6 class="widget-title mb-30">Tìm theo tên</h6>
-                        <div class="row" style="margin: 0px">
+                        <div id="search-box" class="row" style="margin: 0px">
                             <input class="col-10 border border-radius" type="text" id="search_text" name="search">
                             <a class="col-2 btn btn-info" onclick="window.location.search = addParam('search', $('#search_text').val())"><i class="fa-search fa"></i></a>
                         </div>
