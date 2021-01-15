@@ -29,6 +29,7 @@
 </head>
 
 <body>
+    <div id="full-screen" style="height: 100vh; width: 100%; position: fixed; z-index: 10000; pointer-events: none;"></div>
     <div class="catagories-side-menu">
         <!-- Close Icon -->
         <div id="sideMenuClose">
@@ -332,6 +333,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     <script src="{{asset('public/frontend/js/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('public/frontend/js/jquery.flurry.min.js')}}"></script>
     <!-- Popper js -->
     <script src="{{asset('public/frontend/js/popper.min.js')}}"></script>
     <!-- Bootstrap js -->
@@ -341,6 +343,29 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Active js -->
     <script src="{{asset('public/frontend/js/active.js')}}"></script>
     <script src="{{asset('public/backend/js/sweetalert2.all.min.js')}}"></script>
+    <script>
+        $( document ).ready(function() {
+           $('#full-screen').flurry({
+              character: "❤❤⛄❤❤",
+              color: "red",
+              frequency: 250,
+              speed: 3000,
+              small: 8,
+              large: 28,
+              wind: 40,
+              height: 800,
+              windVariance: 20,
+              rotation: 90,
+              rotationVariance: 180,
+              startOpacity: 1,
+              endOpacity: 0,
+              opacityEasing: "cubic-bezier(1,.3,.6,.74)",
+              blur: true,
+              overflow: "hidden",
+              zIndex: 999
+            });
+        });
+    </script>
     <!-- Load Facebook SDK for JavaScript -->
       <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
