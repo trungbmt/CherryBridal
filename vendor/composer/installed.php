@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '75905b48b4d8c1f3da92c0df0201b4ad272932ae',
+    'reference' => '772e9213c6945a0e4df2e5dd8961b3973a0386da',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -422,7 +422,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '75905b48b4d8c1f3da92c0df0201b4ad272932ae',
+      'reference' => '772e9213c6945a0e4df2e5dd8961b3973a0386da',
     ),
     'laravel/socialite' => 
     array (
@@ -441,6 +441,15 @@
       array (
       ),
       'reference' => '45884b526e10a88a1b179fa1a1a24d5468c668c2',
+    ),
+    'lcobucci/jwt' => 
+    array (
+      'pretty_version' => '3.2.5',
+      'version' => '3.2.5.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '82be04b4753f8b7693b62852b7eab30f97524f9b',
     ),
     'league/commonmark' => 
     array (
@@ -508,6 +517,15 @@
       array (
         0 => '1.10.2',
       ),
+    ),
+    'namshi/jose' => 
+    array (
+      'pretty_version' => '7.2.3',
+      'version' => '7.2.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '89a24d7eb3040e285dd5925fcad992378b82bcff',
     ),
     'nesbot/carbon' => 
     array (
@@ -1108,6 +1126,15 @@
       ),
       'reference' => '39d483bdf39be819deabf04ec872eb0b2410b531',
     ),
+    'symfony/polyfill-php56' => 
+    array (
+      'pretty_version' => 'v1.20.0',
+      'version' => '1.20.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '54b8cd7e6c1643d78d011f3be89f3ef1f9f4c675',
+    ),
     'symfony/polyfill-php72' => 
     array (
       'pretty_version' => 'v1.20.0',
@@ -1222,6 +1249,16 @@
       array (
       ),
       'reference' => 'b43b05cf43c1b6d849478965062b6ef73e223bb5',
+    ),
+    'tymon/jwt-auth' => 
+    array (
+      'pretty_version' => 'dev-develop',
+      'version' => 'dev-develop',
+      'aliases' => 
+      array (
+        0 => '1.0.x-dev',
+      ),
+      'reference' => 'ab00f2d7cce5f043067aef7849cdc792de2df635',
     ),
     'vlucas/phpdotenv' => 
     array (
