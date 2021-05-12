@@ -21,10 +21,10 @@ class AuthController extends Controller
         $provider = $request->provider;
         $token = $request->access_token;
         if($provider=='google') {
-            $response = Http::get('https://oauth2.googleapis.com/tokeninfo', [
+            $getInfo = Http::get('https://oauth2.googleapis.com/tokeninfo', [
                 'id_token' => $token
             ]);
-            $user_id = $response['sub'];
+            $user_id = $getInfo['sub'];
         } else {
 
             $getInfo = Socialite::driver($provider)->userFromToken($token);
@@ -32,15 +32,19 @@ class AuthController extends Controller
         }
         $user = User::where('provider_id', $user_id)->first();
         if(!$user) {
-            if(!User::where('email', $getInfo->email)->count()!=0) {
+            if(!User::where('email', $getInfo['email'])->count()!=0) {
 
                 $user = $this->createUser($getInfo,$provider); 
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Địa chỉ email của bạn đã có trong hệ thống, vui lòng đăng nhập!'
+                    'message' => 'Email đã đăng ký với phương thức đăng nhập khác!'
                 ]);
             }
+        } else if($provider=='google') {
+            $user['image'] = $getInfo['picture'];
+        } else {
+            $user['image'] = $getInfo->avatar."&access_token=".$token;
         }       
         $token = Auth::guard('api')->login($user);
         return response()->json([
