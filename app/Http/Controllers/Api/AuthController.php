@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Socialite;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -15,28 +17,71 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function logout(Request $request) {
+    public function socialite_login(Request $request) {
+        $provider = $request->provider;
+        $token = $request->access_token;
+        if($provider=='google') {
+            $response = Http::get('https://oauth2.googleapis.com/tokeninfo', [
+                'id_token' => $token
+            ]);
+            $user_id = $response['sub'];
+        } else {
+
+            $getInfo = Socialite::driver($provider)->userFromToken($token);
+            $user_id = $getInfo->id;
+        }
+        $user = User::where('provider_id', $user_id)->first();
+        if(!$user) {
+            if(!User::where('email', $getInfo->email)->count()!=0) {
+
+                $user = $this->createUser($getInfo,$provider); 
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Địa chỉ email của bạn đã có trong hệ thống, vui lòng đăng nhập!'
+                ]);
+            }
+        }       
+        $token = Auth::guard('api')->login($user);
         return response()->json([
             'success' => true,
-            'user' => User::find(Auth::user()->id)
+            'token' => $token,
+            'user' => $user
         ]);
-        // try{
 
-        //     JWTAuth::invalidate(JWTAuth::parseToken($request->token));
-        //     return response()->json([
-        //         'success' => true,
-        //         'message' => 'Đăng xuất thành công!'
-        //     ]);
-        // } catch(Excepsion $e) {
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => ''.$e
-        //     ]);
-        // }
+    }
+    function createUser($getInfo,$provider){
+
+        $user = User::create([
+            'username'     => $getInfo->name,
+            'email'    => $getInfo->email,
+            'provider' => $provider,
+            'provider_id' => $getInfo->id,
+            'role' => 'MEMBER'
+        ]);
+        return $user;
+    }
+
+    public function logout(Request $request) {
+        try{
+
+            $user = User::find(Auth::guard('api')->user());
+            JWTAuth::invalidate(JWTAuth::parseToken($request->token));
+            return response()->json([
+                'success' => true,
+                'user' => $user,
+                'message' => 'Đăng xuất thành công!'
+            ]);
+        } catch(Excepsion $e) {
+            return response()->json([
+                'success' => false,
+                'message' => ''.$e
+            ]);
+        }
     }
     public function login(Request $request) {
         $creds = $request->only(['username', 'password']);
-        $token=Auth::attempt($creds);
+        $token=Auth::guard('api')->attempt($creds);
         if(!$token){
             return response()->json([
                 'success' => false,
@@ -46,7 +91,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'token' => $token,
-            'user' => Auth::User()
+            'user' => Auth::guard('api')->user()
         ]);
 
     }
@@ -67,7 +112,7 @@ class AuthController extends Controller
                 'role' => 'MEMBER'
             ]);
 
-            $token=Auth::attempt([
+            $token=Auth::guard('api')->attempt([
                 "username" => $user->username,
                 "password" => $request->password
             ]);

@@ -30,3 +30,5 @@ Route::apiResource('categories', 'Api\CategoryController');
 Route::post('register', 'Api\AuthController@register');
 Route::post('login', 'Api\AuthController@login');
 Route::get('logout', 'Api\AuthController@logout')->middleware('jwtAuth');
+
+Route::post('socialite-login', 'Api\AuthController@socialite_login');
