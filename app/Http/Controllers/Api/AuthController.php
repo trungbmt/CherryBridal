@@ -25,15 +25,17 @@ class AuthController extends Controller
                 'id_token' => $token
             ]);
             $user_id = $getInfo['sub'];
+            $user_email = $getInfo['email'];
         } else {
 
             $getInfo = Socialite::driver($provider)->userFromToken($token);
             $user_id = $getInfo->id;
+            $user_email = $getInfo->email;
+            if(!$user_email) $getInfo->email = "";
         }
         $user = User::where('provider_id', $user_id)->first();
         if(!$user) {
-            if(!User::where('email', $getInfo['email'])->count()!=0) {
-
+            if(!User::where('email', $user_email)->count()!=0) {
                 $user = $this->createUser($getInfo,$provider); 
             } else {
                 return response()->json([

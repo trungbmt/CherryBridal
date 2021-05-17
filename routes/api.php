@@ -24,6 +24,10 @@ Route::put('products/{product}', 'Api\ProductController@update')->name('products
 Route::patch('products/{product}', 'Api\ProductController@update')->name('products.update');
 Route::delete('products/{product}', 'Api\ProductController@destroy')->name('products.destroy');
 
+Route::get('posts', 'Api\PostController@index')->name('posts.index');
+Route::post('posts', 'Api\PostController@store')->name('posts.store');
+
+
 
 Route::apiResource('categories', 'Api\CategoryController');
 
