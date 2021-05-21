@@ -14,9 +14,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::paginate(15);
+        $products = Product::name($request)->category($request)->paginate(15);
+        foreach ($products as &$product) {
+            $product->lowest_price = $product->get_lowest_price2();
+        }
         return response()->json($products, Response::HTTP_OK);
     }
 
@@ -39,6 +42,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->product_details = $product->details()->get();
+        $product->rating_value = $product->rating_value();
         return response()->json($product, Response::HTTP_OK);
     }
 

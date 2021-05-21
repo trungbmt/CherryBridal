@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('jwtAuth')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('products', 'Api\ProductController@index')->name('products.index');
@@ -26,6 +26,9 @@ Route::delete('products/{product}', 'Api\ProductController@destroy')->name('prod
 
 Route::get('posts', 'Api\PostController@index')->name('posts.index');
 Route::post('posts', 'Api\PostController@store')->name('posts.store');
+
+Route::post('carts', 'Api\CartController@store')->name('carts.store')->middleware('jwtAuth');
+Route::get('carts', 'Api\CartController@index')->name('carts.index')->middleware('jwtAuth');
 
 
 

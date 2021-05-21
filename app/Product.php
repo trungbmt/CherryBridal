@@ -38,11 +38,15 @@ class Product extends Model
         $price = $this->hasMany('App\Product_Detail', 'product_id', 'product_id')->orderBy('product_price', 'asc')->first()->product_price;
         return number_format($price, 0, ',', '.').'đ';
     }
+    public function get_lowest_price2() {
+        $price = $this->hasMany('App\Product_Detail', 'product_id', 'product_id')->orderBy('product_price', 'asc')->first()->product_price;
+        return $price;
+    }
     public function get_aver_price() {
         return $this::avg('price');
     }
     public function get_total_amount() {
-        
+        return $this->details()->sum('product_amount');
     }
     public function get_fake_price() {
         $price = $this->hasMany('App\Product_Detail', 'product_id', 'product_id')->orderBy('product_price', 'asc')->first()->product_price;
