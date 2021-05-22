@@ -26,6 +26,7 @@ Route::delete('products/{product}', 'Api\ProductController@destroy')->name('prod
 
 Route::get('posts', 'Api\PostController@index')->name('posts.index');
 Route::post('posts', 'Api\PostController@store')->name('posts.store');
+Route::post('posts/like', 'Api\PostController@like_post')->name('posts.like_post')->middleware('jwtAuth');
 
 Route::post('carts', 'Api\CartController@store')->name('carts.store')->middleware('jwtAuth');
 Route::get('carts', 'Api\CartController@index')->name('carts.index')->middleware('jwtAuth');

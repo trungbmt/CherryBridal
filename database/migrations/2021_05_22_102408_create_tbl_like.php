@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblPost extends Migration
+class CreateTblLike extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateTblPost extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_post', function (Blueprint $table) {
+        Schema::create('tbl_like', function (Blueprint $table) {
             $table->Increments('id');
             $table->unsignedBigInteger('user_id')->unsigned();
-            $table->text('media');
-            $table->string('description');
+            $table->unsignedInteger('post_id')->unsigned();
             $table->timestamps();
-            
+
+            $table->foreign('post_id')
+                  ->references('id')
+                  ->on('tbl_post')
+                  ->onDelete('cascade');
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
@@ -34,6 +37,6 @@ class CreateTblPost extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_post');
+        Schema::dropIfExists('tbl_like');
     }
 }

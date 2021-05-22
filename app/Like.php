@@ -4,19 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Like extends Model
 {
     protected $fillable = [
     	'user_id',
-    	'media',
-    	'description'
+    	'post_id'
     ];
-    protected $primaryKey = 'id';
-    protected $table = 'tbl_post';
+    protected $table = 'tbl_like';
     public function user(){
         return $this->belongsTo('App\User', 'user_id')->first();
     }
-    public function likes(){
-        return $this->hasMany('App\Like', 'post_id')->count();
+    public function post(){
+        return $this->belongsTo('App\Post', 'post_id')->first();
     }
 }

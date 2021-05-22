@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use App\User;
 use App\Post;
+use App\Like;
 
 class PostController extends Controller
 {
@@ -21,6 +22,12 @@ class PostController extends Controller
         $posts = Post::orderBy('id', 'desc')->paginate(15);
         foreach ($posts as &$post) {
             $post->poster = $post->user();
+            $post->self_like = $post->likes();
+            $user = Auth::guard('api')->user();
+            if($user) {
+                $liked = $user->likedPost($post->id);
+                $post->liked = $liked;
+            }
         }
         return response()->json($posts, Response::HTTP_OK);
     }
@@ -63,6 +70,34 @@ class PostController extends Controller
                 'message' => 'Vui lòng đăng nhập!'
             ]);
         }
+    }
+    public function like_post(Request $request) {
+        $user = Auth::guard('api')->user();
+        $post = Post::find($request->post_id);
+
+        $like = Like::where([
+            'user_id' => $user->id, 
+            'post_id' => $request->post_id
+        ])->first();
+
+        if($like) {
+            $like->delete();
+            return response()->json([
+                'success' => true,
+                'post_like' => $post->likes(),
+                'like' => false
+            ], Response::HTTP_OK);
+        }
+
+        $like = new Like();
+        $like->user_id = $user->id;
+        $like->post_id = $post->id;
+        $like->save();
+        return response()->json([
+            'success' => true,
+            'post_like' => $post->likes(),
+            'like' => true
+        ], Response::HTTP_OK);
     }
 
     /**
