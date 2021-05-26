@@ -19,9 +19,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(15);
+        $posts = Post::orderBy('id', 'desc')->with(['poster'])->paginate(15);
         foreach ($posts as &$post) {
-            $post->poster = $post->user();
             $post->self_like = $post->likes();
             $user = Auth::guard('api')->user();
             if($user) {

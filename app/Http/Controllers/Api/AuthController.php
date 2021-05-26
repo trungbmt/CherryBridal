@@ -85,6 +85,20 @@ class AuthController extends Controller
             ]);
         }
     }
+    public function tokenCheck(Request $request) {
+        $user = User::find(Auth::guard('api')->user());
+        if($user) {
+            return response()->json([
+                'success' => true,
+                'user' => $user,
+                'message' => 'Token hợp lệ!'
+            ], 202);
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Token không hợp lệ!'
+        ], 401);
+    }
     public function login(Request $request) {
         $creds = $request->only(['username', 'password']);
         $token=Auth::guard('api')->attempt($creds);

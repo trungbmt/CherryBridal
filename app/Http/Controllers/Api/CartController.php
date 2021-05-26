@@ -20,11 +20,15 @@ class CartController extends Controller
     {
         $user = Auth::guard('api')->user();
         $carts = $user->carts()->get();
+        $cost = $user->total_cart_money();
         foreach ($carts as &$cart) {
             $cart->product = $cart->product();
             $cart->product_detail = $cart->get_product_detail();
         }
-        return response()->json($carts, Response::HTTP_OK);
+        return response()->json([
+            'carts' => $carts,
+            'cost' => $cost
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -47,7 +51,7 @@ class CartController extends Controller
         } else {
 
             $cart = new Cart();
-            $cart->user_id = Auth::User()->id;
+            $cart->user_id = $user->id;
             $cart->product_id = $request->product_id;
             $cart->detail_id = $request->detail_id;
             $cart->amount = $request->amount;
@@ -89,7 +93,22 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+        $user = Auth::guard('api')->user();
+        $cart = Cart::find($id);
+        if($user->id==$cart->user_id) {
+            if($cart->delete()) {
+                $newCost = $user->total_cart_money();
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Xoá khỏi giỏ hàng thành công!',
+                    'cost' => $newCost
+                ], Response::HTTP_OK);
+            }
+        }
+        return response()->json([
+            'success' => false,
+            'message' => 'Không hợp lệ: '+$id
+        ], Response::HTTP_OK);
     }
 }

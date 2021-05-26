@@ -30,6 +30,7 @@ Route::post('posts/like', 'Api\PostController@like_post')->name('posts.like_post
 
 Route::post('carts', 'Api\CartController@store')->name('carts.store')->middleware('jwtAuth');
 Route::get('carts', 'Api\CartController@index')->name('carts.index')->middleware('jwtAuth');
+Route::post('carts/{id}', 'Api\CartController@destroy')->name('carts.destroy')->middleware('jwtAuth');
 
 
 
@@ -38,5 +39,6 @@ Route::apiResource('categories', 'Api\CategoryController');
 Route::post('register', 'Api\AuthController@register');
 Route::post('login', 'Api\AuthController@login');
 Route::get('logout', 'Api\AuthController@logout')->middleware('jwtAuth');
+Route::post('check-token', 'Api\AuthController@tokenCheck');
 
 Route::post('socialite-login', 'Api\AuthController@socialite_login');
