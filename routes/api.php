@@ -32,6 +32,10 @@ Route::post('carts', 'Api\CartController@store')->name('carts.store')->middlewar
 Route::get('carts', 'Api\CartController@index')->name('carts.index')->middleware('jwtAuth');
 Route::post('carts/{id}', 'Api\CartController@destroy')->name('carts.destroy')->middleware('jwtAuth');
 
+Route::get('orders', 'Api\OrderController@index')->name('orders.index')->middleware('jwtAuth');
+Route::post('order', 'Api\CartController@order')->name('carts.order')->middleware('jwtAuth');
+Route::post('orders/abort/{id}', 'Api\OrderController@abort')->name('orders.abort')->middleware('jwtAuth');
+
 
 
 Route::apiResource('categories', 'Api\CategoryController');

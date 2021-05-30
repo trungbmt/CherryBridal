@@ -8,6 +8,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth; 
 use App\Cart;
 use App\User;
+use App\Order;
+use Mail;
+use App\Mail\MailOrdered;
 
 class CartController extends Controller
 {
@@ -109,6 +112,38 @@ class CartController extends Controller
         return response()->json([
             'success' => false,
             'message' => 'Không hợp lệ: '+$id
+        ], Response::HTTP_OK);
+    }
+    public function order(Request $request){
+        $all_cart = Auth::guard('api')->user()->carts()->get();
+        foreach ($all_cart as $cart) {
+            if($cart->amount > $cart->get_product_detail()->product_amount) {
+                $detail = $cart->get_product_detail();
+                $message = 'Sản phẩm '.$cart->product()->product_name.'('.$detail->product_size.') chỉ còn x'.$detail->product_amount;
+                return response()->json([
+                    'success' => false,
+                    'message' => $message,
+                ], 400);
+            }
+        }
+
+        $order = new Order();
+        $order->user_id = Auth::guard('api')->user()->id;
+        $order->order_full_name =  $request->order_full_name;
+        $order->order_phone = $request->order_phone;
+        $order->order_city = $request->order_city;
+        $order->order_province = $request->order_province;
+        $order->order_address = $request->order_address;
+        $order->order_status = 0;
+        $order->save();
+
+        foreach ($all_cart as $cart) {
+            $cart->cart_to_order($order->order_id);
+        }
+        Mail::to(Auth::guard('api')->user())->send(new MailOrdered($order));
+        return response()->json([
+            'success' => true,
+            'message' => 'Đặt hàng thành công!'
         ], Response::HTTP_OK);
     }
 }

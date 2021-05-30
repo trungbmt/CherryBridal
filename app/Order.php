@@ -26,6 +26,10 @@ class Order extends Model
     public function items() {
         return $this->hasMany('App\Order_Item', 'order_id', 'order_id');
     }
+    public function items_api() {
+        $items = $this->hasMany('App\Order_Item', 'order_id', 'order_id')->with(['product_api', 'detail_api']);
+        return $items;
+    }
     public function price(){
     	$price = 0;
     	$all_item = $this->items()->get();

@@ -29,4 +29,10 @@ class Order_Item extends Model
         $price = $this->get_product_detail()->product_price;
         return $price*$this->quantity;
     }
+    public function product_api() {
+        return $this->belongsTo('App\Product', 'product_id');
+    }
+    public function detail_api() {
+        return $this->belongsTo('App\Product_Detail', 'detail_id');
+    }
 }
