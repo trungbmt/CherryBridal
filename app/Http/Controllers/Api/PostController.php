@@ -22,6 +22,7 @@ class PostController extends Controller
         $posts = Post::orderBy('id', 'desc')->with(['poster'])->paginate(15);
         foreach ($posts as &$post) {
             $post->self_like = $post->likes();
+            $post->commentCount = $post->comments()->count();
             $user = Auth::guard('api')->user();
             if($user) {
                 $liked = $user->likedPost($post->id);

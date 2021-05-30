@@ -22,4 +22,7 @@ class Post extends Model
     public function likes(){
         return $this->hasMany('App\Like', 'post_id')->count();
     }
+    public function comments(){
+        return $this->hasMany('App\Post_Comment', 'post_id')->whereNull('reply_id');
+    }
 }

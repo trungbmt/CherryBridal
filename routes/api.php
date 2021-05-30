@@ -36,7 +36,10 @@ Route::get('orders', 'Api\OrderController@index')->name('orders.index')->middlew
 Route::post('order', 'Api\CartController@order')->name('carts.order')->middleware('jwtAuth');
 Route::post('orders/abort/{id}', 'Api\OrderController@abort')->name('orders.abort')->middleware('jwtAuth');
 
+Route::post('rating', 'Api\ProductController@add_rating')->name('products.rating')->middleware('jwtAuth');
 
+Route::get('comments/post/{id}', 'Api\PostCommentController@withPost')->name('comments.post');
+Route::post('comments/post/{id}', 'Api\PostCommentController@store')->name('comments.post.store')->middleware('jwtAuth');
 
 Route::apiResource('categories', 'Api\CategoryController');
 

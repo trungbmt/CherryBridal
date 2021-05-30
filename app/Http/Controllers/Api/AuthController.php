@@ -36,7 +36,7 @@ class AuthController extends Controller
         $user = User::where('provider_id', $user_id)->first();
         if(!$user) {
             if(!User::where('email', $user_email)->count()!=0) {
-                $user = $this->createUser($getInfo,$provider); 
+                $user = $this->createUser($getInfo,$provider,$token); 
             } else {
                 return response()->json([
                     'success' => false,
@@ -44,9 +44,11 @@ class AuthController extends Controller
                 ]);
             }
         } else if($provider=='google') {
-            $user['image'] = $getInfo['picture'];
+            $user->avatar = $getInfo['picture'];
+            $user->save();
         } else {
-            $user['image'] = $getInfo->avatar."&access_token=".$token;
+            $user->avatar = $getInfo->avatar."&access_token=".$token;
+            $user->save();
         }       
         $token = Auth::guard('api')->login($user);
         return response()->json([
@@ -56,11 +58,16 @@ class AuthController extends Controller
         ]);
 
     }
-    function createUser($getInfo,$provider){
-
+    function createUser($getInfo,$provider,$token){
+        if($provider=='google') {
+            $avatar = $getInfo['picture'];
+        } else {
+            $avatar = $getInfo->avatar."&access_token=".$token;
+        }
         $user = User::create([
             'username'     => $getInfo->name,
             'email'    => $getInfo->email,
+            'avatar' => $avatar,
             'provider' => $provider,
             'provider_id' => $getInfo->id,
             'role' => 'MEMBER'
