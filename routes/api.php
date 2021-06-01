@@ -49,3 +49,5 @@ Route::get('logout', 'Api\AuthController@logout')->middleware('jwtAuth');
 Route::post('check-token', 'Api\AuthController@tokenCheck');
 
 Route::post('socialite-login', 'Api\AuthController@socialite_login');
+
+Route::post('profile/avatar', 'Api\AccountController@avatar_change')->middleware('jwtAuth');
