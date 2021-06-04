@@ -74,6 +74,11 @@ class User extends Authenticatable implements JWTSubject
         if($liked) return true;
         return false;
     }
+    public function likedPostComment($comment_id) {
+        $liked = $this->hasMany('App\Like_Comment', 'user_id')->where('comment_id', $comment_id)->first();
+        if($liked) return true;
+        return false;
+    }
     public function total_cart_money() {
         $cart_list = $this->carts()->get();
         $total = 0;

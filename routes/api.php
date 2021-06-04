@@ -40,6 +40,9 @@ Route::post('rating', 'Api\ProductController@add_rating')->name('products.rating
 
 Route::get('comments/post/{id}', 'Api\PostCommentController@withPost')->name('comments.post');
 Route::post('comments/post/{id}', 'Api\PostCommentController@store')->name('comments.post.store')->middleware('jwtAuth');
+Route::post('comments/like', 'Api\PostCommentController@like_comment')->middleware('jwtAuth');
+Route::post('comments/post/{id}/reply', 'Api\PostCommentController@reply')->middleware('jwtAuth');
+Route::get('comments/post/{id}/replies', 'Api\PostCommentController@replies')->middleware('jwtAuth');
 
 Route::apiResource('categories', 'Api\CategoryController');
 

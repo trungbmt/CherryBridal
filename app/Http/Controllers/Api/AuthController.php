@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Socialite;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -124,39 +125,39 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
-
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
-        try {
-
-            $user = User::create([
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ]);
+        }
+        $user = new User([
                 'username' => $request['username'],
                 'password' => bcrypt($request['password']),
                 'email' => $request['email'],
                 'role' => 'MEMBER'
             ]);
-
+        if($user->save()) {
             $token=Auth::guard('api')->attempt([
                 "username" => $user->username,
                 "password" => $request->password
             ]);
-
             return response()->json([
                 'success' => true,
                 'token' => $token,
                 'user' => $user
             ]);
 
-        } catch(Excepsion $e) {
-            return response()->json([
-                'success' => false,
-                'message' => ''.$e
-            ]);
-
         }
+        return response()->json([
+            'success' => false,
+            'message' => 'Đăng ký tài khoản thất bại!'
+        ]);
 
     }
     public function index()

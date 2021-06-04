@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::name($request)->category($request)->paginate(15);
+        $products = Product::name($request)->category($request)->orderBy('created_at', 'desc')->paginate(15);
         foreach ($products as $product) {
             $product->lowest_price = $product->get_lowest_price2();
         }

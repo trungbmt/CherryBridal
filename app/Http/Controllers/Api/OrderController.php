@@ -19,7 +19,7 @@ class OrderController extends Controller
     public function index()
     {
         $user = Auth::guard('api')->user();
-        $orders = $user->orders()->with('items_api')->get();
+        $orders = $user->orders()->with('items_api')->orderBy('created_at', 'desc')->get();
         $result = $orders;
         return response()->json([
             'orders' => $result
